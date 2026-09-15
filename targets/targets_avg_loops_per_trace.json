@@ -1,0 +1,82 @@
+[
+    {
+        "pipeline_step": "event_logs_generation",
+        "output_path": "data",
+        "targets": [
+            {
+                "avg_loops_per_trace": 0.0
+            },
+            {
+                "avg_loops_per_trace": 0.5555555555555556
+            },
+            {
+                "avg_loops_per_trace": 1.1111111111111112
+            },
+            {
+                "avg_loops_per_trace": 1.6666666666666667
+            },
+            {
+                "avg_loops_per_trace": 2.2222222222222223
+            },
+            {
+                "avg_loops_per_trace": 2.7777777777777777
+            },
+            {
+                "avg_loops_per_trace": 3.3333333333333335
+            },
+            {
+                "avg_loops_per_trace": 3.8888888888888893
+            },
+            {
+                "avg_loops_per_trace": 4.444444444444445
+            },
+            {
+                "avg_loops_per_trace": 5.0
+            }
+        ],
+        "config_space": {
+            "mode": [
+                5,
+                20
+            ],
+            "sequence": [
+                0.01,
+                1
+            ],
+            "choice": [
+                0.01,
+                1
+            ],
+            "parallel": [
+                0.01,
+                1
+            ],
+            "loop": [
+                0.01,
+                1
+            ],
+            "silent": [
+                0.01,
+                1
+            ],
+            "lt_dependency": [
+                0.01,
+                1
+            ],
+            "num_traces": [
+                10,
+                10001
+            ],
+            "duplicate": [
+                0
+            ],
+            "or": [
+                0
+            ]
+        },
+        "system_params": {
+            "output_path": "data",
+            "n_trials": 50
+        }
+    }
+]

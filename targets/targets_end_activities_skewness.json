@@ -1,0 +1,82 @@
+[
+    {
+        "pipeline_step": "event_logs_generation",
+        "output_path": "data",
+        "targets": [
+            {
+                "end_activities_skewness": -1.0
+            },
+            {
+                "end_activities_skewness": -0.33333333333333337
+            },
+            {
+                "end_activities_skewness": 0.33333333333333326
+            },
+            {
+                "end_activities_skewness": 1.0
+            },
+            {
+                "end_activities_skewness": 1.6666666666666665
+            },
+            {
+                "end_activities_skewness": 2.333333333333333
+            },
+            {
+                "end_activities_skewness": 3.0
+            },
+            {
+                "end_activities_skewness": 3.666666666666666
+            },
+            {
+                "end_activities_skewness": 4.333333333333333
+            },
+            {
+                "end_activities_skewness": 5.0
+            }
+        ],
+        "config_space": {
+            "mode": [
+                5,
+                20
+            ],
+            "sequence": [
+                0.01,
+                1
+            ],
+            "choice": [
+                0.01,
+                1
+            ],
+            "parallel": [
+                0.01,
+                1
+            ],
+            "loop": [
+                0.01,
+                1
+            ],
+            "silent": [
+                0.01,
+                1
+            ],
+            "lt_dependency": [
+                0.01,
+                1
+            ],
+            "num_traces": [
+                10,
+                10001
+            ],
+            "duplicate": [
+                0
+            ],
+            "or": [
+                0
+            ]
+        },
+        "system_params": {
+            "output_path": "data",
+            "n_trials": 50
+        }
+    }
+]

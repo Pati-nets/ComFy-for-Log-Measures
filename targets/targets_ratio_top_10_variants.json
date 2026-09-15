@@ -1,0 +1,82 @@
+[
+    {
+        "pipeline_step": "event_logs_generation",
+        "output_path": "data",
+        "targets": [
+            {
+                "ratio_top_10_variants": 0.1
+            },
+            {
+                "ratio_top_10_variants": 0.2
+            },
+            {
+                "ratio_top_10_variants": 0.30000000000000004
+            },
+            {
+                "ratio_top_10_variants": 0.4
+            },
+            {
+                "ratio_top_10_variants": 0.5
+            },
+            {
+                "ratio_top_10_variants": 0.6
+            },
+            {
+                "ratio_top_10_variants": 0.7000000000000001
+            },
+            {
+                "ratio_top_10_variants": 0.8
+            },
+            {
+                "ratio_top_10_variants": 0.9
+            },
+            {
+                "ratio_top_10_variants": 1.0
+            }
+        ],
+        "config_space": {
+            "mode": [
+                5,
+                20
+            ],
+            "sequence": [
+                0.01,
+                1
+            ],
+            "choice": [
+                0.01,
+                1
+            ],
+            "parallel": [
+                0.01,
+                1
+            ],
+            "loop": [
+                0.01,
+                1
+            ],
+            "silent": [
+                0.01,
+                1
+            ],
+            "lt_dependency": [
+                0.01,
+                1
+            ],
+            "num_traces": [
+                10,
+                10001
+            ],
+            "duplicate": [
+                0
+            ],
+            "or": [
+                0
+            ]
+        },
+        "system_params": {
+            "output_path": "data",
+            "n_trials": 50
+        }
+    }
+]

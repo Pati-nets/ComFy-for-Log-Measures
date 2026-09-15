@@ -1,0 +1,82 @@
+[
+    {
+        "pipeline_step": "event_logs_generation",
+        "output_path": "data",
+        "targets": [
+            {
+                "epa_sequence_entropy_linear_forgetting": 0.0
+            },
+            {
+                "epa_sequence_entropy_linear_forgetting": 111111.11111111111
+            },
+            {
+                "epa_sequence_entropy_linear_forgetting": 222222.22222222222
+            },
+            {
+                "epa_sequence_entropy_linear_forgetting": 333333.3333333333
+            },
+            {
+                "epa_sequence_entropy_linear_forgetting": 444444.44444444444
+            },
+            {
+                "epa_sequence_entropy_linear_forgetting": 555555.5555555555
+            },
+            {
+                "epa_sequence_entropy_linear_forgetting": 666666.6666666666
+            },
+            {
+                "epa_sequence_entropy_linear_forgetting": 777777.7777777778
+            },
+            {
+                "epa_sequence_entropy_linear_forgetting": 888888.8888888889
+            },
+            {
+                "epa_sequence_entropy_linear_forgetting": 1000000.0
+            }
+        ],
+        "config_space": {
+            "mode": [
+                5,
+                20
+            ],
+            "sequence": [
+                0.01,
+                1
+            ],
+            "choice": [
+                0.01,
+                1
+            ],
+            "parallel": [
+                0.01,
+                1
+            ],
+            "loop": [
+                0.01,
+                1
+            ],
+            "silent": [
+                0.01,
+                1
+            ],
+            "lt_dependency": [
+                0.01,
+                1
+            ],
+            "num_traces": [
+                10,
+                10001
+            ],
+            "duplicate": [
+                0
+            ],
+            "or": [
+                0
+            ]
+        },
+        "system_params": {
+            "output_path": "data",
+            "n_trials": 50
+        }
+    }
+]
