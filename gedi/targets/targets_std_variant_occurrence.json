@@ -1,0 +1,82 @@
+[
+    {
+        "pipeline_step": "event_logs_generation",
+        "output_path": "data",
+        "targets": [
+            {
+                "std_variant_occurrence": 0.0
+            },
+            {
+                "std_variant_occurrence": 55.55555555555556
+            },
+            {
+                "std_variant_occurrence": 111.11111111111111
+            },
+            {
+                "std_variant_occurrence": 166.66666666666669
+            },
+            {
+                "std_variant_occurrence": 222.22222222222223
+            },
+            {
+                "std_variant_occurrence": 277.77777777777777
+            },
+            {
+                "std_variant_occurrence": 333.33333333333337
+            },
+            {
+                "std_variant_occurrence": 388.8888888888889
+            },
+            {
+                "std_variant_occurrence": 444.44444444444446
+            },
+            {
+                "std_variant_occurrence": 500.0
+            }
+        ],
+        "config_space": {
+            "mode": [
+                5,
+                20
+            ],
+            "sequence": [
+                0.01,
+                1
+            ],
+            "choice": [
+                0.01,
+                1
+            ],
+            "parallel": [
+                0.01,
+                1
+            ],
+            "loop": [
+                0.01,
+                1
+            ],
+            "silent": [
+                0.01,
+                1
+            ],
+            "lt_dependency": [
+                0.01,
+                1
+            ],
+            "num_traces": [
+                10,
+                10001
+            ],
+            "duplicate": [
+                0
+            ],
+            "or": [
+                0
+            ]
+        },
+        "system_params": {
+            "output_path": "data",
+            "n_trials": 50
+        }
+    }
+]

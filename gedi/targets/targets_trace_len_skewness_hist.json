@@ -1,0 +1,82 @@
+[
+    {
+        "pipeline_step": "event_logs_generation",
+        "output_path": "data",
+        "targets": [
+            {
+                "trace_len_skewness_hist": -1.0
+            },
+            {
+                "trace_len_skewness_hist": -0.6666666666666667
+            },
+            {
+                "trace_len_skewness_hist": -0.33333333333333337
+            },
+            {
+                "trace_len_skewness_hist": 0.0
+            },
+            {
+                "trace_len_skewness_hist": 0.33333333333333326
+            },
+            {
+                "trace_len_skewness_hist": 0.6666666666666665
+            },
+            {
+                "trace_len_skewness_hist": 1.0
+            },
+            {
+                "trace_len_skewness_hist": 1.333333333333333
+            },
+            {
+                "trace_len_skewness_hist": 1.6666666666666665
+            },
+            {
+                "trace_len_skewness_hist": 2.0
+            }
+        ],
+        "config_space": {
+            "mode": [
+                5,
+                20
+            ],
+            "sequence": [
+                0.01,
+                1
+            ],
+            "choice": [
+                0.01,
+                1
+            ],
+            "parallel": [
+                0.01,
+                1
+            ],
+            "loop": [
+                0.01,
+                1
+            ],
+            "silent": [
+                0.01,
+                1
+            ],
+            "lt_dependency": [
+                0.01,
+                1
+            ],
+            "num_traces": [
+                10,
+                10001
+            ],
+            "duplicate": [
+                0
+            ],
+            "or": [
+                0
+            ]
+        },
+        "system_params": {
+            "output_path": "data",
+            "n_trials": 50
+        }
+    }
+]
