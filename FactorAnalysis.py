@@ -1,14 +1,30 @@
 import pandas # for collecting data
+import inspect
+import factor_analyzer.factor_analyzer as factor_analyzer_module
 from factor_analyzer.factor_analyzer import calculate_kmo, FactorAnalyzer
 from factor_analyzer.utils import corr as compute_correlation_matrix
 from scipy.stats import chi2
 from sklearn.decomposition import FactorAnalysis, PCA
 from sklearn.preprocessing import StandardScaler
+from sklearn.utils import check_array as sklearn_check_array
 import matplotlib.pyplot as plt
 import math
 import numpy as np
 import numbers
 import Constants
+
+def _check_array_compat(x, force_all_finite=None, **kwargs):
+    # Patch force_all_finite kwarg to recent name in scikit learn after 1.8.
+    if force_all_finite is not None:
+        accepted_parameters = inspect.signature(sklearn_check_array).parameters
+        if "ensure_all_finite" in accepted_parameters:
+            kwargs["ensure_all_finite"] = force_all_finite
+        elif "force_all_finite" in accepted_parameters:
+            kwargs["force_all_finite"] = force_all_finite
+    return sklearn_check_array(x, **kwargs)
+
+# FactorAnalyzer.fit()/transform() call check_array through this module-level name.
+factor_analyzer_module.check_array = _check_array_compat
 
 def find_non_numeric_variables(data: pandas.DataFrame):
     to_remove = []
