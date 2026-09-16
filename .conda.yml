@@ -1,0 +1,12 @@
+name: comfy
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+   - python=3.12
+   - pip:
+      - pandas
+      - questionary
+      - factor-analyzer
+      - feeed
+      - scikit-learn<1.6.0

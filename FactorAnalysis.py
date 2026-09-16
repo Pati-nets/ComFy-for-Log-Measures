@@ -1,5 +1,7 @@
 import pandas # for collecting data
-from factor_analyzer.factor_analyzer import calculate_bartlett_sphericity, calculate_kmo, FactorAnalyzer
+from factor_analyzer.factor_analyzer import calculate_kmo, FactorAnalyzer
+from factor_analyzer.utils import corr as compute_correlation_matrix
+from scipy.stats import chi2
 from sklearn.decomposition import FactorAnalysis, PCA
 from sklearn.preprocessing import StandardScaler
 import matplotlib.pyplot as plt
@@ -83,8 +85,34 @@ class ComplexityFactorAnalysis:
         print("\nNext, I will perform Bartlett's test of sphericity to check whether there are interdependencies between the variables.")
         # initialize a variable to store whether Bartlett's test of spericity succeeded.
         bartlett_ok = True
-        # execute the test with the python library factor_analyzer.
-        self.bartlett_chi_squared, self.bartlett_p_value = calculate_bartlett_sphericity(self.complexity_data)
+        # Bartlett's test needs log(det(correlation matrix)). We execute the test with the python library factor_analyzer, but avoiding log(det)--> NaN
+        
+        correlation_matrix = compute_correlation_matrix(self.complexity_data)
+        eigenvalues, eigenvectors = np.linalg.eigh(correlation_matrix)
+        near_singular = eigenvalues < Constants.eigenvalue_floor
+        if np.any(near_singular):
+            print(Constants.FAILURE_COLOR, end="")
+            print("Warning: the correlation matrix is numerically (near-)singular (" + str(near_singular.sum()) + " eigenvalue(s) below " + str(Constants.eigenvalue_floor) + ").")
+            print("Each near-zero eigenvalue corresponds to a near-perfect linear dependency between a handful of variables.")
+            print("The variables with the largest weight in that dependency, per eigenvalue, are:")
+            columns = list(self.complexity_data.columns)
+            for index in np.where(near_singular)[0]:
+                loadings = eigenvectors[:, index]
+                # keep the top variables by |loading| until their squared loadings cover the configured fraction of the eigenvector's total.
+                order = np.argsort(-np.abs(loadings))
+                cumulative_squared_loadings = np.cumsum(loadings[order] ** 2)
+                cutoff = np.searchsorted(cumulative_squared_loadings, Constants.eigenvector_loading_coverage_threshold) + 1
+                top_variables = ", ".join(str(columns[i]) for i in order[:cutoff])
+                print("  - eigenvalue " + str(eigenvalues[index]) + ": " + top_variables)
+            print("Clamping the offending eigenvalue(s) to " + str(Constants.eigenvalue_floor) + " to keep the test result well-defined and reproducible.")
+            print(Constants.RESET_COLOR, end="")
+            eigenvalues = np.clip(eigenvalues, Constants.eigenvalue_floor, None)
+        # Bartlett formula using the new eigenvalues.
+        n, p = self.complexity_data.shape
+        log_determinant = np.sum(np.log(eigenvalues))
+        self.bartlett_chi_squared = -log_determinant * (n - 1 - (2 * p + 5) / 6)
+        degrees_of_freedom = p * (p - 1) / 2
+        self.bartlett_p_value = chi2.sf(self.bartlett_chi_squared, degrees_of_freedom)
         # inform the user about the resulting values.
         print("chi squared value:", self.bartlett_chi_squared)
         print("p-value:", self.bartlett_p_value)

@@ -384,6 +384,7 @@ You chose to analyze the following complexity measures:
 \item $\lastactivities$ (n unique end activities)
 \item $\lastmin$ (end activities min)
 \item $\lastmax$ (end activities max)
+\item $\lastmean$ (end activities mean)
 \item $\lastmedian$ (end activities median)
 \item $\lastdev$ (end activities std)
 \item $\lastvar$ (end activities variance)
@@ -395,6 +396,8 @@ You chose to analyze the following complexity measures:
 \item $\lastactivitiesrel$ (rel unique end activities)
 \item $\enttrace$ (eventropy trace)
 \item $\entprefix$ (eventropy prefix)
+\item $\entprefixflat$ (eventropy prefix flattened)
+\item $\entgblock$ (eventropy global block)
 \item $\entgblockflat$ (eventropy global block flattened)
 \item $\entlempelziv$ (eventropy lempel ziv)
 \item $\entlempelzivflat$ (eventropy lempel ziv flattened)
@@ -492,150 +495,153 @@ Additionally, the following measures were excluded because they are correlated w
 
 \bigskip
 \noindent
-This leaves us with a total of $124$ log measures to analyze.
+This leaves us with a total of $127$ log measures to analyze.
 
 \subsection*{Validity of the Factor Analysis}
 Your sample size in this analysis was $2112$.
-It is recommended to have a sample size of at least $5 \cdot 143 = 715$.
+It is recommended to have a sample size of at least $5 \cdot 146 = 730$.
 
 \noindent 
-Bartlett's test of sphericity returned a $\chi^2$ value of $1410266.0281746301$ and a $p$-value of $0.0$.
+Bartlett's test of sphericity returned a $\chi^2$ value of $1309381.50589656$ and a $p$-value of $0.0$.
 This means, the variables are probably correlated and we can perform a factor analysis.
 
 \noindent
 The measure of sampling adequacy (MSA) returned the following results:
 \begin{compactitem}
-\item $\numberuniquetraces$: $0.9333$
-\item $\magnitude$: $0.926$
-\item $\tlmin$: $0.9666$
-\item $\tlmax$: $0.9695$
-\item $\tlmed$: $0.9893$
-\item $\tlmode$: $0.9919$
-\item $\tldev$: $0.8885$
-\item $\tlvar$: $0.8965$
-\item $\tlqone$: $0.9693$
-\item $\tlqthree$: $0.9664$
-\item $\tliqr$: $0.9484$
-\item $\tlgmean$: $0.9294$
-\item $\tlgdev$: $0.8836$
-\item $\tlhmean$: $0.9331$
-\item $\tlcvariation$: $0.7502$
-\item $\tlentropy$: $0.7306$
-\item $\tlhistone$: $0.6935$
-\item $\tlhisttwo$: $0.8879$
-\item $\tlhistthree$: $0.8812$
-\item $\tlhistfour$: $0.6445$
-\item $\tlhistfive$: $0.7286$
-\item $\tlhistsix$: $0.6258$
-\item $\tlhistseven$: $0.6882$
-\item $\tlhisteight$: $0.6804$
-\item $\tlhistnine$: $0.8515$
-\item $\tlhistten$: $0.624$
-\item $\tlskewhist$: $0.8791$
-\item $\tlkurthist$: $0.8878$
-\item $\freqmaxr$: $0.8166$
-\item $\freqmaxone$: $0.9713$
-\item $\freqmaxfive$: $0.9039$
-\item $\freqmaxten$: $0.886$
-\item $\freqmaxtwenty$: $0.8368$
-\item $\freqmaxfifty$: $0.8282$
-\item $\freqmaxseventyfive$: $0.9642$
-\item $\freqmean$: $0.8764$
-\item $\freqdev$: $0.9228$
-\item $\dthet$: $0.7039$
-\item $\dtsim$: $0.777$
-\item $\variety$: $0.7052$
-\item $\actfreqmin$: $0.8847$
-\item $\actfreqmax$: $0.9682$
-\item $\actfreqmean$: $0.9288$
-\item $\actfreqmedian$: $0.9702$
-\item $\actfreqdev$: $0.8808$
-\item $\actfreqvar$: $0.8996$
-\item $\actfreqqone$: $0.9265$
-\item $\actfreqqthree$: $0.9471$
-\item $\actfreqiqr$: $0.9391$
-\item $\actfreqskew$: $0.8603$
-\item $\actfreqkurt$: $0.7929$
-\item $\startactivities$: $0.7909$
-\item $\startmin$: $0.7599$
-\item $\startmax$: $0.697$
-\item $\startmean$: $0.793$
-\item $\startmedian$: $0.8075$
-\item $\startdev$: $0.7744$
-\item $\startvar$: $0.8725$
-\item $\startqone$: $0.8801$
-\item $\startqthree$: $0.8565$
-\item $\startactivitiesrel$: $0.6728$
-\item $\lastactivities$: $0.8823$
-\item $\lastmin$: $0.8324$
-\item $\lastmax$: $0.9095$
-\item $\lastmedian$: $0.8913$
-\item $\lastdev$: $0.7594$
-\item $\lastvar$: $0.8768$
-\item $\lastqone$: $0.8736$
-\item $\lastqthree$: $0.9247$
-\item $\lastactivitiesrel$: $0.7269$
-\item $\enttrace$: $0.9515$
-\item $\entprefix$: $0.9482$
-\item $\entgblockflat$: $0.9521$
-\item $\entlempelziv$: $0.9276$
-\item $\entlempelzivflat$: $0.9342$
-\item $\entkblockdone$: $0.6763$
-\item $\entkblockdthree$: $0.8212$
-\item $\entkblockdfive$: $0.9648$
-\item $\entkblockrthree$: $0.8177$
-\item $\entkblockrfive$: $0.8113$
-\item $\entknnthree$: $0.9086$
-\item $\entknnfive$: $0.9076$
-\item $\entknnseven$: $0.8981$
-\item $\epavariant$: $0.9605$
-\item $\epanormvariant$: $0.7418$
-\item $\epasequence$: $0.9467$
-\item $\epanormsequence$: $0.8186$
-\item $\epasequencel$: $0.9456$
-\item $\epanormsequencel$: $0.807$
-\item $\epasequencee$: $0.9452$
-\item $\epanormsequencee$: $0.8181$
-\item $\simpletracediv$: $0.8672$
-\item $\advtracediv$: $0.9081$
-\item $\damax$: $0.9376$
-\item $\daavg$: $0.9181$
-\item $\dadev$: $0.9311$
-\item $\dadens$: $0.8057$
-\item $\daoverlap$: $0.8799$
-\item $\complexityfactor$: $0.907$
-\item $\loopnum$: $0.8039$
-\item $\loopavg$: $0.8128$
-\item $\loopmax$: $0.9275$
-\item $\loopavgsize$: $0.9007$
-\item $\loopmaxsize$: $0.8491$
-\item $\repnum$: $0.921$
-\item $\numberofneighborhoods$: $0.9351$
-\item $\numberofties$: $0.9429$
-\item $\lempelziv$: $0.9697$
-\item $\deviationfromrandom$: $0.751$
-\item $\dfgedges$: $0.8734$
-\item $\dfgcnc$: $0.8654$
-\item $\dfgmaxdeg$: $0.9686$
-\item $\dfgdens$: $0.7412$
-\item $\dfgstruct$: $0.7459$
-\item $\dfgcycnumber$: $0.8403$
-\item $\dfgsepnum$: $0.923$
-\item $\dfgcyc$: $0.9364$
-\item $\avgdist$: $0.9145$
-\item overall MSA: $0.8811453675954087$
+\item $\numberuniquetraces$: $0.9515$
+\item $\magnitude$: $0.9334$
+\item $\tlmin$: $0.9715$
+\item $\tlmax$: $0.9711$
+\item $\tlmed$: $0.9885$
+\item $\tlmode$: $0.9904$
+\item $\tldev$: $0.8876$
+\item $\tlvar$: $0.9039$
+\item $\tlqone$: $0.9706$
+\item $\tlqthree$: $0.9675$
+\item $\tliqr$: $0.9531$
+\item $\tlgmean$: $0.9304$
+\item $\tlgdev$: $0.8483$
+\item $\tlhmean$: $0.9304$
+\item $\tlcvariation$: $0.6747$
+\item $\tlentropy$: $0.7123$
+\item $\tlhistone$: $0.6857$
+\item $\tlhisttwo$: $0.8901$
+\item $\tlhistthree$: $0.8829$
+\item $\tlhistfour$: $0.6531$
+\item $\tlhistfive$: $0.7403$
+\item $\tlhistsix$: $0.6069$
+\item $\tlhistseven$: $0.7051$
+\item $\tlhisteight$: $0.69$
+\item $\tlhistnine$: $0.8552$
+\item $\tlhistten$: $0.634$
+\item $\tlskewhist$: $0.8807$
+\item $\tlkurthist$: $0.8881$
+\item $\freqmaxr$: $0.8278$
+\item $\freqmaxone$: $0.9745$
+\item $\freqmaxfive$: $0.891$
+\item $\freqmaxten$: $0.9006$
+\item $\freqmaxtwenty$: $0.8442$
+\item $\freqmaxfifty$: $0.8187$
+\item $\freqmaxseventyfive$: $0.9563$
+\item $\freqmean$: $0.9135$
+\item $\freqdev$: $0.9115$
+\item $\dthet$: $0.7569$
+\item $\dtsim$: $0.7538$
+\item $\variety$: $0.7005$
+\item $\actfreqmin$: $0.8742$
+\item $\actfreqmax$: $0.9717$
+\item $\actfreqmean$: $0.9324$
+\item $\actfreqmedian$: $0.9713$
+\item $\actfreqdev$: $0.8851$
+\item $\actfreqvar$: $0.8994$
+\item $\actfreqqone$: $0.9271$
+\item $\actfreqqthree$: $0.947$
+\item $\actfreqiqr$: $0.9399$
+\item $\actfreqskew$: $0.8469$
+\item $\actfreqkurt$: $0.792$
+\item $\startactivities$: $0.8208$
+\item $\startmin$: $0.7808$
+\item $\startmax$: $0.7094$
+\item $\startmean$: $0.8065$
+\item $\startmedian$: $0.826$
+\item $\startdev$: $0.7917$
+\item $\startvar$: $0.8864$
+\item $\startqone$: $0.8911$
+\item $\startqthree$: $0.8671$
+\item $\startactivitiesrel$: $0.7119$
+\item $\lastactivities$: $0.897$
+\item $\lastmin$: $0.8115$
+\item $\lastmax$: $0.9142$
+\item $\lastmean$: $0.8503$
+\item $\lastmedian$: $0.8692$
+\item $\lastdev$: $0.7407$
+\item $\lastvar$: $0.9154$
+\item $\lastqone$: $0.9258$
+\item $\lastqthree$: $0.8911$
+\item $\lastactivitiesrel$: $0.728$
+\item $\enttrace$: $0.9555$
+\item $\entprefix$: $0.93$
+\item $\entprefixflat$: $0.9215$
+\item $\entgblock$: $0.9202$
+\item $\entgblockflat$: $0.9174$
+\item $\entlempelziv$: $0.9345$
+\item $\entlempelzivflat$: $0.9002$
+\item $\entkblockdone$: $0.6769$
+\item $\entkblockdthree$: $0.8057$
+\item $\entkblockdfive$: $0.9478$
+\item $\entkblockrthree$: $0.8033$
+\item $\entkblockrfive$: $0.831$
+\item $\entknnthree$: $0.9204$
+\item $\entknnfive$: $0.914$
+\item $\entknnseven$: $0.9145$
+\item $\epavariant$: $0.9652$
+\item $\epanormvariant$: $0.7623$
+\item $\epasequence$: $0.9493$
+\item $\epanormsequence$: $0.7789$
+\item $\epasequencel$: $0.9483$
+\item $\epanormsequencel$: $0.7331$
+\item $\epasequencee$: $0.9479$
+\item $\epanormsequencee$: $0.7543$
+\item $\simpletracediv$: $0.8649$
+\item $\advtracediv$: $0.8833$
+\item $\damax$: $0.9459$
+\item $\daavg$: $0.9213$
+\item $\dadev$: $0.9258$
+\item $\dadens$: $0.803$
+\item $\daoverlap$: $0.8847$
+\item $\complexityfactor$: $0.9045$
+\item $\loopnum$: $0.8233$
+\item $\loopavg$: $0.8267$
+\item $\loopmax$: $0.9303$
+\item $\loopavgsize$: $0.9068$
+\item $\loopmaxsize$: $0.8559$
+\item $\repnum$: $0.9219$
+\item $\numberofneighborhoods$: $0.9432$
+\item $\numberofties$: $0.9438$
+\item $\lempelziv$: $0.977$
+\item $\deviationfromrandom$: $0.7721$
+\item $\dfgedges$: $0.8679$
+\item $\dfgcnc$: $0.8651$
+\item $\dfgmaxdeg$: $0.9667$
+\item $\dfgdens$: $0.7387$
+\item $\dfgstruct$: $0.7414$
+\item $\dfgcycnumber$: $0.8408$
+\item $\dfgsepnum$: $0.9403$
+\item $\dfgsepratio$: $0.6132$
+\item $\dfgcyc$: $0.9338$
+\item $\avgdist$: $0.9202$
+\item overall MSA: $0.879411329164347$
 \end{compactitem}
 
 \bigskip
 \noindent
 During the analysis, the MSA values of the following complexity measures were too low:
 \begin{compactitem}
-\item $\startiqr$: $0.2825$
-\item $\lastiqr$: $0.2556$
-\item $\structure$: $0.2627$
-\item $\affinity$: $0.3711$
-\item $\dfgsepratio$: $0.596$
-\item $\dfgseqratio$: $0.269$
+\item $\startiqr$: $0.2905$
+\item $\lastiqr$: $0.3188$
+\item $\structure$: $0.2773$
+\item $\affinity$: $0.4216$
+\item $\dfgseqratio$: $0.2488$
 \end{compactitem}
 These complexity measures were left out of the analysis to produce dependable results.
 
@@ -645,7 +651,7 @@ The Scree test resulted in the following Eigenvalue plot:
 \begin{center}
 \begin{tikzpicture}
 \begin{axis}[width=15cm,height=8cm]
-\addplot [draw=cyan!50!blue, mark=*] coordinates { (1,0.3949) (2,0.1591) (3,0.1075) (4,0.061) (5,0.0314) (6,0.025) (7,0.0233) (8,0.0185) (9,0.0163) (10,0.0155) (11,0.0136) (12,0.0128) (13,0.0118) (14,0.0101) (15,0.0089) (16,0.008) (17,0.0078) (18,0.0072) (19,0.0061) (20,0.0054) (21,0.005) (22,0.0047) (23,0.0042) (24,0.0036) (25,0.0032) (26,0.0031) (27,0.0028) (28,0.0026) (29,0.0023) (30,0.0021) (31,0.0019) (32,0.0018) (33,0.0016) (34,0.0013) (35,0.0013) (36,0.0013) (37,0.0011) (38,0.001) (39,0.0009) (40,0.0008) (41,0.0007) (42,0.0007) (43,0.0006) (44,0.0006) (45,0.0005) (46,0.0005) (47,0.0005) (48,0.0004) (49,0.0004) (50,0.0004) (51,0.0004) (52,0.0003) (53,0.0003) (54,0.0003) (55,0.0002) (56,0.0002) (57,0.0002) (58,0.0002) (59,0.0002) (60,0.0002) (61,0.0001) (62,0.0001) (63,0.0001) (64,0.0001) (65,0.0001) (66,0.0001) (67,0.0001) (68,0.0001) (69,0.0001) (70,0.0001) (71,0.0001) (72,0.0001) (73,0.0) (74,0.0) (75,0.0) (76,0.0) (77,0.0) (78,0.0) (79,0.0) (80,0.0) (81,0.0) (82,0.0) (83,0.0) (84,0.0) (85,0.0) (86,0.0) (87,0.0) (88,0.0) (89,0.0) (90,0.0) (91,0.0) (92,0.0) (93,0.0) (94,0.0) (95,0.0) (96,0.0) (97,0.0) (98,0.0) (99,0.0) (100,0.0) (101,0.0) (102,0.0) (103,0.0) (104,0.0) (105,0.0) (106,0.0) (107,0.0) (108,0.0) (109,0.0) (110,0.0) (111,0.0) (112,0.0) (113,0.0) (114,0.0) (115,0.0) (116,0.0) (117,0.0) (118,0.0)};
+\addplot [draw=cyan!50!blue, mark=*] coordinates { (1,0.3958) (2,0.1575) (3,0.1147) (4,0.0595) (5,0.0304) (6,0.0244) (7,0.0232) (8,0.018) (9,0.0159) (10,0.015) (11,0.0131) (12,0.0124) (13,0.0114) (14,0.0098) (15,0.0088) (16,0.0078) (17,0.0075) (18,0.0074) (19,0.0059) (20,0.0053) (21,0.005) (22,0.0046) (23,0.0041) (24,0.0036) (25,0.0031) (26,0.003) (27,0.0027) (28,0.0026) (29,0.0023) (30,0.0021) (31,0.0019) (32,0.0018) (33,0.0017) (34,0.0015) (35,0.0013) (36,0.0012) (37,0.0012) (38,0.001) (39,0.0009) (40,0.0008) (41,0.0007) (42,0.0007) (43,0.0006) (44,0.0006) (45,0.0005) (46,0.0005) (47,0.0005) (48,0.0004) (49,0.0004) (50,0.0004) (51,0.0004) (52,0.0003) (53,0.0003) (54,0.0003) (55,0.0003) (56,0.0002) (57,0.0002) (58,0.0002) (59,0.0002) (60,0.0002) (61,0.0002) (62,0.0001) (63,0.0001) (64,0.0001) (65,0.0001) (66,0.0001) (67,0.0001) (68,0.0001) (69,0.0001) (70,0.0001) (71,0.0001) (72,0.0001) (73,0.0001) (74,0.0) (75,0.0) (76,0.0) (77,0.0) (78,0.0) (79,0.0) (80,0.0) (81,0.0) (82,0.0) (83,0.0) (84,0.0) (85,0.0) (86,0.0) (87,0.0) (88,0.0) (89,0.0) (90,0.0) (91,0.0) (92,0.0) (93,0.0) (94,0.0) (95,0.0) (96,0.0) (97,0.0) (98,0.0) (99,0.0) (100,0.0) (101,0.0) (102,0.0) (103,0.0) (104,0.0) (105,0.0) (106,0.0) (107,0.0) (108,0.0) (109,0.0) (110,0.0) (111,0.0) (112,0.0) (113,0.0) (114,0.0) (115,0.0) (116,0.0) (117,0.0) (118,0.0) (119,0.0) (120,0.0) (121,0.0) (122,0.0)};
 \end{axis}
 \end{tikzpicture}
 \end{center}
