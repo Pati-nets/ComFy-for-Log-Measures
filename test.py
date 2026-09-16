@@ -1,0 +1,178 @@
+from feeed import extract_features
+import math
+import numbers
+import numpy
+import os # for finding .xes and .csv files on the storage
+import pandas
+
+import FactorAnalysis
+import Constants
+import LatexExporter
+import user_interaction
+import measure_evaluator
+
+
+analyzed_measures = ['n_traces',
+                     'n_variants',
+                     'ratio_variants_per_number_of_traces',
+                     'n_events',
+                     'trace_len_min',
+                     'trace_len_max',
+                     'trace_len_mean',
+                     'trace_len_median',
+                     'trace_len_mode',
+                     'trace_len_std',
+                     'trace_len_variance',
+                     'trace_len_q1',
+                     'trace_len_q3',
+                     'trace_len_iqr',
+                     'trace_len_geometric_mean',
+                     'trace_len_geometric_std',
+                     'trace_len_harmonic_mean',
+                     'trace_len_skewness',
+                     'trace_len_kurtosis',
+                     'trace_len_coefficient_variation',
+                     'trace_len_entropy',
+                     'trace_len_hist1',
+                     'trace_len_hist2',
+                     'trace_len_hist3',
+                     'trace_len_hist4',
+                     'trace_len_hist5',
+                     'trace_len_hist6',
+                     'trace_len_hist7',
+                     'trace_len_hist8',
+                     'trace_len_hist9',
+                     'trace_len_hist10',
+                     'trace_len_skewness_hist',
+                     'trace_len_kurtosis_hist',
+                     'ratio_most_common_variant',
+                     'ratio_top_1_variants',
+                     'ratio_top_5_variants',
+                     'ratio_top_10_variants',
+                     'ratio_top_20_variants',
+                     'ratio_top_50_variants',
+                     'ratio_top_75_variants',
+                     'mean_variant_occurrence',
+                     'std_variant_occurrence',
+                     'skewness_variant_occurrence',
+                     'kurtosis_variant_occurrence',
+                     'coverage_variants',
+                     'rel_coverage_variants',
+                     'heterogeneity_rate_variants',
+                     'similarity_rate_variants',
+                     'n_unique_activities',
+                     'activities_min',
+                     'activities_max',
+                     'activities_mean',
+                     'activities_median',
+                     'activities_std',
+                     'activities_variance',
+                     'activities_q1',
+                     'activities_q3',
+                     'activities_iqr',
+                     'activities_skewness',
+                     'activities_kurtosis',
+                     'n_unique_start_activities',
+                     'start_activities_min',
+                     'start_activities_max',
+                     'start_activities_mean',
+                     'start_activities_median',
+                     'start_activities_std',
+                     'start_activities_variance',
+                     'start_activities_q1',
+                     'start_activities_q3',
+                     'start_activities_iqr',
+                     'start_activities_skewness',
+                     'start_activities_kurtosis',
+                     'rel_unique_start_activities',
+                     'n_unique_end_activities',
+                     'end_activities_min',
+                     'end_activities_max',
+                     #'end_activities_mean', # Bartlett's test of sphericity fails with this feature
+                     'end_activities_median',
+                     'end_activities_std',
+                     'end_activities_variance',
+                     'end_activities_q1',
+                     'end_activities_q3',
+                     'end_activities_iqr',
+                     'end_activities_skewness',
+                     'end_activities_kurtosis',
+                     'rel_unique_end_activities',
+                     'eventropy_trace',
+                     'eventropy_prefix',
+                     #'eventropy_prefix_flattened', # Bartlett's test of sphericity fails with this feature
+                     #'eventropy_global_block', # Bartlett's test of sphericity fails with this feature
+                     'eventropy_global_block_flattened',
+                     'eventropy_lempel_ziv',
+                     'eventropy_lempel_ziv_flattened',
+                     'eventropy_k_block_diff_1',
+                     'eventropy_k_block_diff_3',
+                     'eventropy_k_block_diff_5',
+                     'eventropy_k_block_ratio_1',
+                     'eventropy_k_block_ratio_3',
+                     'eventropy_k_block_ratio_5',
+                     'eventropy_knn_3',
+                     'eventropy_knn_5',
+                     'eventropy_knn_7',
+                     'epa_variant_entropy',
+                     'epa_normalized_variant_entropy',
+                     'epa_sequence_entropy',
+                     'epa_normalized_sequence_entropy',
+                     'epa_sequence_entropy_linear_forgetting',
+                     'epa_normalized_sequence_entropy_linear_forgetting',
+                     'epa_sequence_entropy_exponential_forgetting',
+                     'epa_normalized_sequence_entropy_exponential_forgetting',
+                     'simple_trace_diversity',
+                     'advanced_trace_diversity',
+                     'distinct_activities_min',
+                     'distinct_activities_max',
+                     'distinct_activities_mean',
+                     'distinct_activities_std',
+                     'event_density',
+                     'distinct_activities_non_overlap',
+                     'complexity_factor',
+                     'n_traces_with_loop',
+                     'avg_traces_with_loop',
+                     'avg_loops_per_trace',
+                     'max_loops_per_trace',
+                     'avg_loop_size_per_trace',
+                     'max_loop_size_per_trace',
+                     'n_traces_with_repetition',
+                     'avg_traces_with_repetition',
+                     'number_of_successions',
+                     'number_of_ties',
+                     'structure',
+                     'average_affinity',
+                     'lempel_ziv_complexity',
+                     'deviation_from_random',
+                     'average_edit_distance',
+                     'n_nodes_dfg',
+                     'n_edges_dfg',
+                     'coeff_of_connectivity_dfg',
+                     'avg_node_degree_dfg',
+                     'max_node_degree_dfg',
+                     'density_dfg',
+                     'structure_dfg',
+                     'cyclomatic_number_dfg',
+                     'n_cut_vertices_dfg',
+                     'separability_ratio_dfg',
+                     'sequentiality_ratio_dfg',
+                     'cyclicity_dfg'
+                     ]
+
+
+
+if __name__ == "__main__":
+    file = "./input/log_measures_all_pdc_training_logs.csv"
+    complexity, population, measures = measure_evaluator.import_data_from_csv_file(file, analyzed_measures)
+    CFA = FactorAnalysis.ComplexityFactorAnalysis(complexity)
+    CFA.prepare_data_for_factor_analysis()
+    CFA.show_descriptive_stats()
+    bartlett_ok = CFA.execute_Bartletts_test_of_sphericity()
+    msa_ok = False
+    if bartlett_ok:
+        msa_ok = CFA.repeat_calculate_measure_of_sampling_adequacy()
+    if bartlett_ok and msa_ok:
+        CFA.perform_factor_analysis(10, rotation='varimax', show_plot=False)
+        exporter = LatexExporter.LatexExporter(CFA, measures, population)
+        exporter.export()
