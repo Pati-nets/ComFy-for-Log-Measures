@@ -1,0 +1,82 @@
+[
+    {
+        "pipeline_step": "event_logs_generation",
+        "output_path": "data",
+        "targets": [
+            {
+                "number_of_ties": 1.0
+            },
+            {
+                "number_of_ties": 112.0
+            },
+            {
+                "number_of_ties": 223.0
+            },
+            {
+                "number_of_ties": 334.0
+            },
+            {
+                "number_of_ties": 445.0
+            },
+            {
+                "number_of_ties": 556.0
+            },
+            {
+                "number_of_ties": 667.0
+            },
+            {
+                "number_of_ties": 778.0
+            },
+            {
+                "number_of_ties": 889.0
+            },
+            {
+                "number_of_ties": 1000.0
+            }
+        ],
+        "config_space": {
+            "mode": [
+                5,
+                20
+            ],
+            "sequence": [
+                0.01,
+                1
+            ],
+            "choice": [
+                0.01,
+                1
+            ],
+            "parallel": [
+                0.01,
+                1
+            ],
+            "loop": [
+                0.01,
+                1
+            ],
+            "silent": [
+                0.01,
+                1
+            ],
+            "lt_dependency": [
+                0.01,
+                1
+            ],
+            "num_traces": [
+                10,
+                10001
+            ],
+            "duplicate": [
+                0
+            ],
+            "or": [
+                0
+            ]
+        },
+        "system_params": {
+            "output_path": "data",
+            "n_trials": 50
+        }
+    }
+]

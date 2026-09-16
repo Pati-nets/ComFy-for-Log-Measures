@@ -1,0 +1,82 @@
+[
+    {
+        "pipeline_step": "event_logs_generation",
+        "output_path": "data",
+        "targets": [
+            {
+                "activities_iqr": 0.0
+            },
+            {
+                "activities_iqr": 1111.111111111111
+            },
+            {
+                "activities_iqr": 2222.222222222222
+            },
+            {
+                "activities_iqr": 3333.333333333333
+            },
+            {
+                "activities_iqr": 4444.444444444444
+            },
+            {
+                "activities_iqr": 5555.555555555556
+            },
+            {
+                "activities_iqr": 6666.666666666666
+            },
+            {
+                "activities_iqr": 7777.777777777777
+            },
+            {
+                "activities_iqr": 8888.888888888889
+            },
+            {
+                "activities_iqr": 10000.0
+            }
+        ],
+        "config_space": {
+            "mode": [
+                5,
+                20
+            ],
+            "sequence": [
+                0.01,
+                1
+            ],
+            "choice": [
+                0.01,
+                1
+            ],
+            "parallel": [
+                0.01,
+                1
+            ],
+            "loop": [
+                0.01,
+                1
+            ],
+            "silent": [
+                0.01,
+                1
+            ],
+            "lt_dependency": [
+                0.01,
+                1
+            ],
+            "num_traces": [
+                10,
+                10001
+            ],
+            "duplicate": [
+                0
+            ],
+            "or": [
+                0
+            ]
+        },
+        "system_params": {
+            "output_path": "data",
+            "n_trials": 50
+        }
+    }
+]

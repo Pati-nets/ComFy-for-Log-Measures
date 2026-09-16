@@ -1,0 +1,82 @@
+[
+    {
+        "pipeline_step": "event_logs_generation",
+        "output_path": "data",
+        "targets": [
+            {
+                "max_node_degree_dfg": 0.0
+            },
+            {
+                "max_node_degree_dfg": 16.666666666666668
+            },
+            {
+                "max_node_degree_dfg": 33.333333333333336
+            },
+            {
+                "max_node_degree_dfg": 50.0
+            },
+            {
+                "max_node_degree_dfg": 66.66666666666667
+            },
+            {
+                "max_node_degree_dfg": 83.33333333333334
+            },
+            {
+                "max_node_degree_dfg": 100.0
+            },
+            {
+                "max_node_degree_dfg": 116.66666666666667
+            },
+            {
+                "max_node_degree_dfg": 133.33333333333334
+            },
+            {
+                "max_node_degree_dfg": 150.0
+            }
+        ],
+        "config_space": {
+            "mode": [
+                5,
+                20
+            ],
+            "sequence": [
+                0.01,
+                1
+            ],
+            "choice": [
+                0.01,
+                1
+            ],
+            "parallel": [
+                0.01,
+                1
+            ],
+            "loop": [
+                0.01,
+                1
+            ],
+            "silent": [
+                0.01,
+                1
+            ],
+            "lt_dependency": [
+                0.01,
+                1
+            ],
+            "num_traces": [
+                10,
+                10001
+            ],
+            "duplicate": [
+                0
+            ],
+            "or": [
+                0
+            ]
+        },
+        "system_params": {
+            "output_path": "data",
+            "n_trials": 50
+        }
+    }
+]

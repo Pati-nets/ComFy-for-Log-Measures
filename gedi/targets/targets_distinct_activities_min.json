@@ -1,0 +1,82 @@
+[
+    {
+        "pipeline_step": "event_logs_generation",
+        "output_path": "data",
+        "targets": [
+            {
+                "distinct_activities_min": 1.0
+            },
+            {
+                "distinct_activities_min": 1.4444444444444444
+            },
+            {
+                "distinct_activities_min": 1.8888888888888888
+            },
+            {
+                "distinct_activities_min": 2.333333333333333
+            },
+            {
+                "distinct_activities_min": 2.7777777777777777
+            },
+            {
+                "distinct_activities_min": 3.2222222222222223
+            },
+            {
+                "distinct_activities_min": 3.6666666666666665
+            },
+            {
+                "distinct_activities_min": 4.111111111111111
+            },
+            {
+                "distinct_activities_min": 4.555555555555555
+            },
+            {
+                "distinct_activities_min": 5.0
+            }
+        ],
+        "config_space": {
+            "mode": [
+                5,
+                20
+            ],
+            "sequence": [
+                0.01,
+                1
+            ],
+            "choice": [
+                0.01,
+                1
+            ],
+            "parallel": [
+                0.01,
+                1
+            ],
+            "loop": [
+                0.01,
+                1
+            ],
+            "silent": [
+                0.01,
+                1
+            ],
+            "lt_dependency": [
+                0.01,
+                1
+            ],
+            "num_traces": [
+                10,
+                10001
+            ],
+            "duplicate": [
+                0
+            ],
+            "or": [
+                0
+            ]
+        },
+        "system_params": {
+            "output_path": "data",
+            "n_trials": 50
+        }
+    }
+]
