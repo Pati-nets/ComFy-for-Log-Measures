@@ -30,6 +30,11 @@ ignore_threshold = 0.5
 communality_threshold = 0.6
 number_of_decimals = 4
 
+# We treat the Eigenvalue below as zero
+eigenvalue_floor = 1e-10
+# Fraction of an eigenvector's (unit) squared-loading total that its top variables must cover to be reported as a near-singularity's cause (see execute_Bartletts_test_of_sphericity).
+eigenvector_loading_coverage_threshold = 0.8
+
 # lists of analyzable log measures
 simple_stats = ['n_traces', 'n_variants', 'ratio_variants_per_number_of_traces', 'n_events']
 trace_length = ['trace_len_min', 'trace_len_max', 'trace_len_mean', 'trace_len_median',
