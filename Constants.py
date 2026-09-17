@@ -1,14 +1,7 @@
-from pathlib import Path
-
 # constants for storing output files
 INPUT_PATH = "./input/"
 OUTPUT_PATH = "./output/"
 LATEX_REPORT_PATH = "./output/"
-prom4py_script_path = Path('/home/schalk/ProM/prom4py/ProM4Py/ProM4Py.sh')
-
-# constants for measure calculation timeouts and abort behavior
-timeout_seconds = 5
-abort_key = {"code": '\x18', "label": 'Ctrl+X'}
 
 # constants for handling event logs
 case_specifier = 'case:concept:name'
@@ -19,9 +12,6 @@ timestamp_specifier = 'time:timestamp'
 SUCCESS_COLOR = "\033[92m"
 FAILURE_COLOR = "\033[91m"
 RESET_COLOR = "\x1b[0m"
-
-# constants for links to papers
-paper_hybrid_ilp_miner = "https://doi.org/10.1007/s00607-017-0582-5"
 
 # constants for the factor analysis
 bartlett_p_value_threshold = 0.05
@@ -85,6 +75,20 @@ comparison_based = ['number_of_successions', 'number_of_ties', 'structure', 'ave
 dfg_based = ['n_nodes_dfg', 'n_edges_dfg', 'coeff_of_connectivity_dfg', 'avg_node_degree_dfg',
              'max_node_degree_dfg', 'density_dfg', 'structure_dfg', 'cyclomatic_number_dfg',
              'n_cut_vertices_dfg', 'separability_ratio_dfg', 'sequentiality_ratio_dfg', 'cyclicity_dfg']
+
+all_measures = {'simple_stats': simple_stats,
+                'trace_length':  trace_length,
+                'trace_variant': trace_variant,
+                'activities': activities,
+                'start_activities': start_activities,
+                'end_activities': end_activities,
+                'eventropies': eventropies,
+                'epa_based': epa_based,
+                'trace_diversity': trace_diversity,
+                'distinct_activities': distinct_activities,
+                'repetitions': repetitions,
+                'comparison_based': comparison_based,
+                'dfg_based': dfg_based}
 
 # Possible user responses when asked for the source of complexity scores.
 # They are defined as global variables so we can access them from different functions.
