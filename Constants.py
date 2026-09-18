@@ -17,7 +17,7 @@ RESET_COLOR = "\x1b[0m"
 bartlett_p_value_threshold = 0.05
 msa_threshold = 0.6
 ignore_threshold = 0.5
-communality_threshold = 0.6
+communality_threshold = 0.5
 number_of_decimals = 4
 
 # We treat the Eigenvalue below as zero

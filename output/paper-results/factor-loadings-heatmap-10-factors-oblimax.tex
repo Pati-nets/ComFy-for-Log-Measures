@@ -1,0 +1,1552 @@
+\documentclass{standalone}
+
+\usepackage{tikz}
+\usepackage{amsmath}
+
+\newcommand{\magnitudename}{\text{mag}}
+\newcommand{\magnitude}{C_{\magnitudename}}
+\newcommand{\varietyname}{\text{var}}
+\newcommand{\variety}{C_{\varietyname}}
+\newcommand{\lengthname}{\text{len}}
+\newcommand{\length}{C_{\lengthname}}
+\newcommand{\startactivitiesname}{\text{A-start-\#}}
+\newcommand{\startactivities}{C_{\startactivitiesname}}
+\newcommand{\startactivitiesrelname}{\text{A-start-rel}}
+\newcommand{\startactivitiesrel}{C_{\startactivitiesrelname}}
+\newcommand{\startminname}{\text{A-start-min}}
+\newcommand{\startmin}{C_{\startminname}}
+\newcommand{\startmaxname}{\text{A-start-max}}
+\newcommand{\startmax}{C_{\startmaxname}}
+\newcommand{\startmeanname}{\text{A-start-mean}}
+\newcommand{\startmean}{C_{\startmeanname}}
+\newcommand{\startmedianname}{\text{A-start-med}}
+\newcommand{\startmedian}{C_{\startmedianname}}
+\newcommand{\startdevname}{\text{A-start-dev}}
+\newcommand{\startdev}{C_{\startdevname}}
+\newcommand{\startvarname}{\text{A-start-var}}
+\newcommand{\startvar}{C_{\startvarname}}
+\newcommand{\startqonename}{\text{A-start-Q1}}
+\newcommand{\startqone}{C_{\startqonename}}
+\newcommand{\startqthreename}{\text{A-start-Q3}}
+\newcommand{\startqthree}{C_{\startqthreename}}
+\newcommand{\startiqrname}{\text{A-start-IQR}}
+\newcommand{\startiqr}{C_{\startiqrname}}
+\newcommand{\startskewname}{\text{A-start-skew}}
+\newcommand{\startskew}{C_{\startskewname}}
+\newcommand{\startkurtname}{\text{A-start-kurt}}
+\newcommand{\startkurt}{C_{\startkurtname}}
+\newcommand{\lastactivitiesname}{\text{A-end-\#}}
+\newcommand{\lastactivities}{C_{\lastactivitiesname}}
+\newcommand{\lastactivitiesrelname}{\text{A-end-rel}}
+\newcommand{\lastactivitiesrel}{C_{\lastactivitiesrelname}}
+\newcommand{\lastminname}{\text{A-end-min}}
+\newcommand{\lastmin}{C_{\lastminname}}
+\newcommand{\lastmaxname}{\text{A-end-max}}
+\newcommand{\lastmax}{C_{\lastmaxname}}
+\newcommand{\lastmeanname}{\text{A-end-mean}}
+\newcommand{\lastmean}{C_{\lastmeanname}}
+\newcommand{\lastmedianname}{\text{A-end-med}}
+\newcommand{\lastmedian}{C_{\lastmedianname}}
+\newcommand{\lastdevname}{\text{A-end-dev}}
+\newcommand{\lastdev}{C_{\lastdevname}}
+\newcommand{\lastvarname}{\text{A-end-var}}
+\newcommand{\lastvar}{C_{\lastvarname}}
+\newcommand{\lastqonename}{\text{A-end-Q1}}
+\newcommand{\lastqone}{C_{\lastqonename}}
+\newcommand{\lastqthreename}{\text{A-end-Q3}}
+\newcommand{\lastqthree}{C_{\lastqthreename}}
+\newcommand{\lastiqrname}{\text{A-end-IQR}}
+\newcommand{\lastiqr}{C_{\lastiqrname}}
+\newcommand{\lastskewname}{\text{A-end-skew}}
+\newcommand{\lastskew}{C_{\lastskewname}}
+\newcommand{\lastkurtname}{\text{A-end-kurt}}
+\newcommand{\lastkurt}{C_{\lastkurtname}}
+\newcommand{\tlminname}{\text{TL-min}}
+\newcommand{\tlmin}{C_{\tlminname}}
+\newcommand{\tlavgname}{\text{TL-mean}}
+\newcommand{\tlavg}{C_{\tlavgname}}
+\newcommand{\tlmaxname}{\text{TL-max}}
+\newcommand{\tlmax}{C_{\tlmaxname}}
+\newcommand{\tlmedname}{\text{TL-med}}
+\newcommand{\tlmed}{C_{\tlmedname}}
+\newcommand{\tlmodename}{\text{TL-mode}}
+\newcommand{\tlmode}{C_{\tlmodename}}
+\newcommand{\tldevname}{\text{TL-dev}}
+\newcommand{\tldev}{C_{\tldevname}}
+\newcommand{\tlvarname}{\text{TL-var}}
+\newcommand{\tlvar}{C_{\tlvarname}}
+\newcommand{\tlqonename}{\text{TL-Q1}}
+\newcommand{\tlqone}{C_{\tlqonename}}
+\newcommand{\tlqthreename}{\text{TL-Q3}}
+\newcommand{\tlqthree}{C_{\tlqthreename}}
+\newcommand{\tliqrname}{\text{TL-IQR}}
+\newcommand{\tliqr}{C_{\tliqrname}}
+\newcommand{\tlgmeanname}{\text{TL-g-mean}}
+\newcommand{\tlgmean}{C_{\tlgmeanname}}
+\newcommand{\tlgdevname}{\text{TL-g-dev}}
+\newcommand{\tlgdev}{C_{\tlgdevname}}
+\newcommand{\tlhmeanname}{\text{TL-h-mean}}
+\newcommand{\tlhmean}{C_{\tlhmeanname}}
+\newcommand{\tlskewnessname}{\text{TL-skew}}
+\newcommand{\tlskewness}{C_{\tlskewnessname}}
+\newcommand{\tlkurtosisname}{\text{TL-kurt}}
+\newcommand{\tlkurtosis}{C_{\tlkurtosisname}}
+\newcommand{\tlcvariationname}{\text{TL-cvar}}
+\newcommand{\tlcvariation}{C_{\tlcvariationname}}
+\newcommand{\tlentropyname}{\text{TL-ent}}
+\newcommand{\tlentropy}{C_{\tlentropyname}}
+\newcommand{\tlhistonename}{\text{TL-hist1}}
+\newcommand{\tlhistone}{C_{\tlhistonename}}
+\newcommand{\tlhisttwoname}{\text{TL-hist2}}
+\newcommand{\tlhisttwo}{C_{\tlhisttwoname}}
+\newcommand{\tlhistthreename}{\text{TL-hist3}}
+\newcommand{\tlhistthree}{C_{\tlhistthreename}}
+\newcommand{\tlhistfourname}{\text{TL-hist4}}
+\newcommand{\tlhistfour}{C_{\tlhistfourname}}
+\newcommand{\tlhistfivename}{\text{TL-hist5}}
+\newcommand{\tlhistfive}{C_{\tlhistfivename}}
+\newcommand{\tlhistsixname}{\text{TL-hist6}}
+\newcommand{\tlhistsix}{C_{\tlhistsixname}}
+\newcommand{\tlhistsevenname}{\text{TL-hist7}}
+\newcommand{\tlhistseven}{C_{\tlhistsevenname}}
+\newcommand{\tlhisteightname}{\text{TL-hist8}}
+\newcommand{\tlhisteight}{C_{\tlhisteightname}}
+\newcommand{\tlhistninename}{\text{TL-hist9}}
+\newcommand{\tlhistnine}{C_{\tlhistninename}}
+\newcommand{\tlhisttenname}{\text{TL-hist10}}
+\newcommand{\tlhistten}{C_{\tlhisttenname}}
+\newcommand{\tlskewhistname}{\text{TL-hist-skew}}
+\newcommand{\tlskewhist}{C_{\tlskewhistname}}
+\newcommand{\tlkurthistname}{\text{TL-hist-kurt}}
+\newcommand{\tlkurthist}{C_{\tlkurthistname}}
+\newcommand{\freqmaxrname}{\text{FREQ-T-max-r}}
+\newcommand{\freqmaxr}{C_{\freqmaxrname}}
+\newcommand{\freqmaxonename}{\text{FREQ-T-max-1\%}}
+\newcommand{\freqmaxone}{C_{\freqmaxonename}}
+\newcommand{\freqmaxfivename}{\text{FREQ-T-max-5\%}}
+\newcommand{\freqmaxfive}{C_{\freqmaxfivename}}
+\newcommand{\freqmaxtenname}{\text{FREQ-T-max-10\%}}
+\newcommand{\freqmaxten}{C_{\freqmaxtenname}}
+\newcommand{\freqmaxtwentyname}{\text{FREQ-T-max-20\%}}
+\newcommand{\freqmaxtwenty}{C_{\freqmaxtwentyname}}
+\newcommand{\freqmaxfiftyname}{\text{FREQ-T-max-50\%}}
+\newcommand{\freqmaxfifty}{C_{\freqmaxfiftyname}}
+\newcommand{\freqmaxseventyfivename}{\text{FREQ-T-max-75\%}}
+\newcommand{\freqmaxseventyfive}{C_{\freqmaxseventyfivename}}
+\newcommand{\freqmeanname}{\text{FREQ-T-mean}}
+\newcommand{\freqmean}{C_{\freqmeanname}}
+\newcommand{\freqdevname}{\text{FREQ-T-dev}}
+\newcommand{\freqdev}{C_{\freqdevname}}
+\newcommand{\freqskewname}{\text{FREQ-T-skew}}
+\newcommand{\freqskew}{C_{\freqskewname}}
+\newcommand{\freqkurtname}{\text{FREQ-T-kurt}}
+\newcommand{\freqkurt}{C_{\freqkurtname}}
+\newcommand{\actfreqminname}{\text{FREQ-A-min}}
+\newcommand{\actfreqmin}{C_{\actfreqminname}}
+\newcommand{\actfreqmaxname}{\text{FREQ-A-max}}
+\newcommand{\actfreqmax}{C_{\actfreqmaxname}}
+\newcommand{\actfreqmeanname}{\text{FREQ-A-mean}}
+\newcommand{\actfreqmean}{C_{\actfreqmeanname}}
+\newcommand{\actfreqmedianname}{\text{FREQ-A-med}}
+\newcommand{\actfreqmedian}{C_{\actfreqmedianname}}
+\newcommand{\actfreqdevname}{\text{FREQ-A-dev}}
+\newcommand{\actfreqdev}{C_{\actfreqdevname}}
+\newcommand{\actfreqvarname}{\text{FREQ-A-var}}
+\newcommand{\actfreqvar}{C_{\actfreqvarname}}
+\newcommand{\actfreqqonename}{\text{FREQ-A-Q1}}
+\newcommand{\actfreqqone}{C_{\actfreqqonename}}
+\newcommand{\actfreqqthreename}{\text{FREQ-A-Q3}}
+\newcommand{\actfreqqthree}{C_{\actfreqqthreename}}
+\newcommand{\actfreqiqrname}{\text{FREQ-A-IRQ}}
+\newcommand{\actfreqiqr}{C_{\actfreqiqrname}}
+\newcommand{\actfreqskewname}{\text{FREQ-A-skew}}
+\newcommand{\actfreqskew}{C_{\actfreqskewname}}
+\newcommand{\actfreqkurtname}{\text{FREQ-A-kurt}}
+\newcommand{\actfreqkurt}{C_{\actfreqkurtname}}
+\newcommand{\numberuniquetracesname}{\text{DT-\#}}
+\newcommand{\numberuniquetraces}{C_{\numberuniquetracesname}}
+\newcommand{\percentageuniquetracesname}{\text{DT-\%}}
+\newcommand{\percentageuniquetraces}{C_{\percentageuniquetracesname}}
+\newcommand{\dtcovname}{\text{DT-cov}}
+\newcommand{\dtcov}{C_{\dtcovname}}
+\newcommand{\dtrelcovname}{\text{DT-cov-\%}}
+\newcommand{\dtrelcov}{C_{\dtrelcovname}}
+\newcommand{\dthetname}{\text{DT-het}}
+\newcommand{\dthet}{C_{\dthetname}}
+\newcommand{\dtsimname}{\text{DT-sim}}
+\newcommand{\dtsim}{C_{\dtsimname}}
+\newcommand{\daminname}{\text{DA-min}}
+\newcommand{\damin}{C_{\daminname}}
+\newcommand{\daavgname}{\text{DA-avg}}
+\newcommand{\daavg}{C_{\daavgname}}
+\newcommand{\damaxname}{\text{DA-max}}
+\newcommand{\damax}{C_{\damaxname}}
+\newcommand{\dadevname}{\text{DA-dev}}
+\newcommand{\dadev}{C_{\dadevname}}
+\newcommand{\dadensname}{\text{DA-dens}}
+\newcommand{\dadens}{C_{\dadensname}}
+\newcommand{\daoverlapname}{\text{DA-ovrlp}}
+\newcommand{\daoverlap}{C_{\daoverlapname}}
+\newcommand{\complexityfactorname}{\text{comp-fact}}
+\newcommand{\complexityfactor}{C_{\complexityfactorname}}
+\newcommand{\simpletracedivname}{\text{s-T-div}}
+\newcommand{\simpletracediv}{C_{\simpletracedivname}}
+\newcommand{\advtracedivname}{\text{a-T-div}}
+\newcommand{\advtracediv}{C_{\advtracedivname}}
+\newcommand{\loopnumname}{\text{loop-\#}}
+\newcommand{\loopnum}{C_{\loopnumname}}
+\newcommand{\looprelnumname}{\text{loop-rel-\#}}
+\newcommand{\looprelnum}{C_{\looprelnumname}}
+\newcommand{\loopavgname}{\text{loop-avg-\#}}
+\newcommand{\loopavg}{C_{\loopavgname}}
+\newcommand{\loopmaxname}{\text{loop-max-\#}}
+\newcommand{\loopmax}{C_{\loopmaxname}}
+\newcommand{\loopavgsizename}{\text{loop-avg-size}}
+\newcommand{\loopavgsize}{C_{\loopavgsizename}}
+\newcommand{\loopmaxsizename}{\text{loop-max-size}}
+\newcommand{\loopmaxsize}{C_{\loopmaxsizename}}
+\newcommand{\repnumname}{\text{rep-\#}}
+\newcommand{\repnum}{C_{\repnumname}}
+\newcommand{\reprelnumname}{\text{rep-rel-\#}}
+\newcommand{\reprelnum}{C_{\reprelnumname}}
+\newcommand{\dfgnodesname}{\text{DFG-V}}
+\newcommand{\dfgnodes}{C_{\dfgnodesname}}
+\newcommand{\dfgedgesname}{\text{DFG-E}}
+\newcommand{\dfgedges}{C_{\dfgedgesname}}
+\newcommand{\dfgcncname}{\text{DFG-cnc}}
+\newcommand{\dfgcnc}{C_{\dfgcncname}}
+\newcommand{\dfgavgdegname}{\text{DFG-adeg}}
+\newcommand{\dfgavgdeg}{C_{\dfgavgdegname}}
+\newcommand{\dfgmaxdegname}{\text{DFG-mdeg}}
+\newcommand{\dfgmaxdeg}{C_{\dfgmaxdegname}}
+\newcommand{\dfgdensname}{\text{DFG-dens}}
+\newcommand{\dfgdens}{C_{\dfgdensname}}
+\newcommand{\dfgstructname}{\text{DFG-struct}}
+\newcommand{\dfgstruct}{C_{\dfgstructname}}
+\newcommand{\dfgcycnumbername}{\text{DFG-CN}}
+\newcommand{\dfgcycnumber}{C_{\dfgcycnumbername}}
+\newcommand{\dfgdiamname}{\text{DFG-diam}}
+\newcommand{\dfgdiam}{C_{\dfgdiamname}}
+\newcommand{\dfgsepnumname}{\text{DFG-sep-\#}}
+\newcommand{\dfgsepnum}{C_{\dfgsepnumname}}
+\newcommand{\dfgseprationame}{\text{DFG-sep-r}}
+\newcommand{\dfgsepratio}{C_{\dfgseprationame}}
+\newcommand{\dfgseqrationame}{\text{DFG-seq-r}}
+\newcommand{\dfgseqratio}{C_{\dfgseqrationame}}
+\newcommand{\dfgcycname}{\text{DFG-cyc}}
+\newcommand{\dfgcyc}{C_{\dfgcycname}}
+\newcommand{\dfgpathcomplexityname}{\text{DFG-P-comp}}
+\newcommand{\dfgpathcomplexity}{C_{\dfgpathcomplexityname}}
+\newcommand{\numberofneighborhoodsname}{\text{succ}}
+\newcommand{\numberofneighborhoods}{C_{\numberofneighborhoodsname}}
+\newcommand{\numberoftiesname}{\text{ties}}
+\newcommand{\numberofties}{C_{\numberoftiesname}}
+\newcommand{\lempelzivname}{\text{LZ}}
+\newcommand{\lempelziv}{C_{\lempelzivname}}
+\newcommand{\structurename}{\text{struct}}
+\newcommand{\structure}{C_{\structurename}}
+\newcommand{\affinityname}{\text{affinity}}
+\newcommand{\affinity}{C_{\affinityname}}
+\newcommand{\deviationfromrandomname}{\text{dev-R}}
+\newcommand{\deviationfromrandom}{C_{\deviationfromrandomname}}
+\newcommand{\avgdistname}{\text{avg-dist}}
+\newcommand{\avgdist}{C_{\avgdistname}}
+\newcommand{\enttracename}{\text{ENT-trace}}
+\newcommand{\enttrace}{C_{\enttracename}}
+\newcommand{\entprefixname}{\text{ENT-pref}}
+\newcommand{\entprefix}{C_{\entprefixname}}
+\newcommand{\entprefixflatname}{\text{ENT-pref-F}}
+\newcommand{\entprefixflat}{C_{\entprefixflatname}}
+\newcommand{\entgblockname}{\text{ENT-g-block}}
+\newcommand{\entgblock}{C_{\entgblockname}}
+\newcommand{\entgblockflatname}{\text{ENT-g-block-F}}
+\newcommand{\entgblockflat}{C_{\entgblockflatname}}
+\newcommand{\entlempelzivname}{\text{ENT-LZ}}
+\newcommand{\entlempelziv}{C_{\entlempelzivname}}
+\newcommand{\entlempelzivflatname}{\text{ENT-LZ-F}}
+\newcommand{\entlempelzivflat}{C_{\entlempelzivflatname}}
+\newcommand{\entkblockdonename}{\text{ENT-k-block-d1}}
+\newcommand{\entkblockdone}{C_{\entkblockdonename}}
+\newcommand{\entkblockdthreename}{\text{ENT-k-block-d3}}
+\newcommand{\entkblockdthree}{C_{\entkblockdthreename}}
+\newcommand{\entkblockdfivename}{\text{ENT-k-block-d5}}
+\newcommand{\entkblockdfive}{C_{\entkblockdfivename}}
+\newcommand{\entkblockronename}{\text{ENT-k-block-r1}}
+\newcommand{\entkblockrone}{C_{\entkblockronename}}
+\newcommand{\entkblockrthreename}{\text{ENT-k-block-r3}}
+\newcommand{\entkblockrthree}{C_{\entkblockrthreename}}
+\newcommand{\entkblockrfivename}{\text{ENT-k-block-r5}}
+\newcommand{\entkblockrfive}{C_{\entkblockrfivename}}
+\newcommand{\entknnthreename}{\text{ENT-knn-3}}
+\newcommand{\entknnthree}{C_{\entknnthreename}}
+\newcommand{\entknnfivename}{\text{ENT-knn-5}}
+\newcommand{\entknnfive}{C_{\entknnfivename}}
+\newcommand{\entknnsevenname}{\text{ENT-knn-7}}
+\newcommand{\entknnseven}{C_{\entknnsevenname}}
+\newcommand{\epavariantname}{\text{epa-var}}
+\newcommand{\epavariant}{C_{\epavariantname}}
+\newcommand{\epanormvariantname}{\text{epa-n-var}}
+\newcommand{\epanormvariant}{C_{\epanormvariantname}}
+\newcommand{\epasequencename}{\text{epa-seq}}
+\newcommand{\epasequence}{C_{\epasequencename}}
+\newcommand{\epanormsequencename}{\text{epa-n-seq}}
+\newcommand{\epanormsequence}{C_{\epanormsequencename}}
+\newcommand{\epasequencelname}{\text{epa-seq-L}}
+\newcommand{\epasequencel}{C_{\epasequencelname}}
+\newcommand{\epanormsequencelname}{\text{epa-n-seq-L}}
+\newcommand{\epanormsequencel}{C_{\epanormsequencelname}}
+\newcommand{\epasequenceename}{\text{epa-seq-E}}
+\newcommand{\epasequencee}{C_{\epasequenceename}}
+\newcommand{\epanormsequenceename}{\text{epa-n-seq-E}}
+\newcommand{\epanormsequencee}{C_{\epanormsequenceename}}
+
+\begin{document}
+
+\begin{tikzpicture}
+\def\width{0.5}
+\def\height{0.5}
+\node[anchor=south] at (0.5*\width, \height) {F1};
+\node[anchor=south] at (1.5*\width, \height) {F2};
+\node[anchor=south] at (2.5*\width, \height) {F3};
+\node[anchor=south] at (3.5*\width, \height) {F4};
+\node[anchor=south] at (4.5*\width, \height) {F5};
+\node[anchor=south] at (5.5*\width, \height) {F6};
+\node[anchor=south] at (6.5*\width, \height) {F7};
+\node[anchor=south] at (7.5*\width, \height) {F8};
+\node[anchor=south] at (8.5*\width, \height) {F9};
+\node[anchor=south] at (9.5*\width, \height) {F10};
+\node[anchor=east] at (0, -0*\height + 0.5*\height) {$\numberuniquetraces$};
+\fill[red!91] (0*\width,-0*\height) rectangle (1*\width,-0*\height+\height);
+\fill[white] (1*\width,-0*\height) rectangle (2*\width,-0*\height+\height);
+\fill[white] (2*\width,-0*\height) rectangle (3*\width,-0*\height+\height);
+\fill[white] (3*\width,-0*\height) rectangle (4*\width,-0*\height+\height);
+\fill[white] (4*\width,-0*\height) rectangle (5*\width,-0*\height+\height);
+\fill[white] (5*\width,-0*\height) rectangle (6*\width,-0*\height+\height);
+\fill[white] (6*\width,-0*\height) rectangle (7*\width,-0*\height+\height);
+\fill[white] (7*\width,-0*\height) rectangle (8*\width,-0*\height+\height);
+\fill[white] (8*\width,-0*\height) rectangle (9*\width,-0*\height+\height);
+\fill[white] (9*\width,-0*\height) rectangle (10*\width,-0*\height+\height);
+\node[anchor=east] at (0, -1*\height + 0.5*\height) {$\magnitude$};
+\fill[red!87] (0*\width,-1*\height) rectangle (1*\width,-1*\height+\height);
+\fill[white] (1*\width,-1*\height) rectangle (2*\width,-1*\height+\height);
+\fill[white] (2*\width,-1*\height) rectangle (3*\width,-1*\height+\height);
+\fill[white] (3*\width,-1*\height) rectangle (4*\width,-1*\height+\height);
+\fill[white] (4*\width,-1*\height) rectangle (5*\width,-1*\height+\height);
+\fill[white] (5*\width,-1*\height) rectangle (6*\width,-1*\height+\height);
+\fill[white] (6*\width,-1*\height) rectangle (7*\width,-1*\height+\height);
+\fill[white] (7*\width,-1*\height) rectangle (8*\width,-1*\height+\height);
+\fill[white] (8*\width,-1*\height) rectangle (9*\width,-1*\height+\height);
+\fill[white] (9*\width,-1*\height) rectangle (10*\width,-1*\height+\height);
+\node[anchor=east] at (0, -2*\height + 0.5*\height) {$\tlmin$};
+\fill[red!83] (0*\width,-2*\height) rectangle (1*\width,-2*\height+\height);
+\fill[white] (1*\width,-2*\height) rectangle (2*\width,-2*\height+\height);
+\fill[white] (2*\width,-2*\height) rectangle (3*\width,-2*\height+\height);
+\fill[white] (3*\width,-2*\height) rectangle (4*\width,-2*\height+\height);
+\fill[white] (4*\width,-2*\height) rectangle (5*\width,-2*\height+\height);
+\fill[white] (5*\width,-2*\height) rectangle (6*\width,-2*\height+\height);
+\fill[white] (6*\width,-2*\height) rectangle (7*\width,-2*\height+\height);
+\fill[white] (7*\width,-2*\height) rectangle (8*\width,-2*\height+\height);
+\fill[white] (8*\width,-2*\height) rectangle (9*\width,-2*\height+\height);
+\fill[white] (9*\width,-2*\height) rectangle (10*\width,-2*\height+\height);
+\node[anchor=east] at (0, -3*\height + 0.5*\height) {$\tlmax$};
+\fill[red!58] (0*\width,-3*\height) rectangle (1*\width,-3*\height+\height);
+\fill[red!71] (1*\width,-3*\height) rectangle (2*\width,-3*\height+\height);
+\fill[white] (2*\width,-3*\height) rectangle (3*\width,-3*\height+\height);
+\fill[white] (3*\width,-3*\height) rectangle (4*\width,-3*\height+\height);
+\fill[white] (4*\width,-3*\height) rectangle (5*\width,-3*\height+\height);
+\fill[white] (5*\width,-3*\height) rectangle (6*\width,-3*\height+\height);
+\fill[white] (6*\width,-3*\height) rectangle (7*\width,-3*\height+\height);
+\fill[white] (7*\width,-3*\height) rectangle (8*\width,-3*\height+\height);
+\fill[white] (8*\width,-3*\height) rectangle (9*\width,-3*\height+\height);
+\fill[white] (9*\width,-3*\height) rectangle (10*\width,-3*\height+\height);
+\node[anchor=east] at (0, -4*\height + 0.5*\height) {$\tlmed$};
+\fill[red!90] (0*\width,-4*\height) rectangle (1*\width,-4*\height+\height);
+\fill[white] (1*\width,-4*\height) rectangle (2*\width,-4*\height+\height);
+\fill[white] (2*\width,-4*\height) rectangle (3*\width,-4*\height+\height);
+\fill[white] (3*\width,-4*\height) rectangle (4*\width,-4*\height+\height);
+\fill[white] (4*\width,-4*\height) rectangle (5*\width,-4*\height+\height);
+\fill[white] (5*\width,-4*\height) rectangle (6*\width,-4*\height+\height);
+\fill[white] (6*\width,-4*\height) rectangle (7*\width,-4*\height+\height);
+\fill[white] (7*\width,-4*\height) rectangle (8*\width,-4*\height+\height);
+\fill[white] (8*\width,-4*\height) rectangle (9*\width,-4*\height+\height);
+\fill[white] (9*\width,-4*\height) rectangle (10*\width,-4*\height+\height);
+\node[anchor=east] at (0, -5*\height + 0.5*\height) {$\tlmode$};
+\fill[red!82] (0*\width,-5*\height) rectangle (1*\width,-5*\height+\height);
+\fill[white] (1*\width,-5*\height) rectangle (2*\width,-5*\height+\height);
+\fill[white] (2*\width,-5*\height) rectangle (3*\width,-5*\height+\height);
+\fill[white] (3*\width,-5*\height) rectangle (4*\width,-5*\height+\height);
+\fill[white] (4*\width,-5*\height) rectangle (5*\width,-5*\height+\height);
+\fill[white] (5*\width,-5*\height) rectangle (6*\width,-5*\height+\height);
+\fill[white] (6*\width,-5*\height) rectangle (7*\width,-5*\height+\height);
+\fill[white] (7*\width,-5*\height) rectangle (8*\width,-5*\height+\height);
+\fill[white] (8*\width,-5*\height) rectangle (9*\width,-5*\height+\height);
+\fill[white] (9*\width,-5*\height) rectangle (10*\width,-5*\height+\height);
+\node[anchor=east] at (0, -6*\height + 0.5*\height) {$\tldev$};
+\fill[white] (0*\width,-6*\height) rectangle (1*\width,-6*\height+\height);
+\fill[red!81] (1*\width,-6*\height) rectangle (2*\width,-6*\height+\height);
+\fill[white] (2*\width,-6*\height) rectangle (3*\width,-6*\height+\height);
+\fill[white] (3*\width,-6*\height) rectangle (4*\width,-6*\height+\height);
+\fill[white] (4*\width,-6*\height) rectangle (5*\width,-6*\height+\height);
+\fill[white] (5*\width,-6*\height) rectangle (6*\width,-6*\height+\height);
+\fill[white] (6*\width,-6*\height) rectangle (7*\width,-6*\height+\height);
+\fill[white] (7*\width,-6*\height) rectangle (8*\width,-6*\height+\height);
+\fill[white] (8*\width,-6*\height) rectangle (9*\width,-6*\height+\height);
+\fill[white] (9*\width,-6*\height) rectangle (10*\width,-6*\height+\height);
+\node[anchor=east] at (0, -7*\height + 0.5*\height) {$\tlvar$};
+\fill[white] (0*\width,-7*\height) rectangle (1*\width,-7*\height+\height);
+\fill[red!70] (1*\width,-7*\height) rectangle (2*\width,-7*\height+\height);
+\fill[white] (2*\width,-7*\height) rectangle (3*\width,-7*\height+\height);
+\fill[white] (3*\width,-7*\height) rectangle (4*\width,-7*\height+\height);
+\fill[white] (4*\width,-7*\height) rectangle (5*\width,-7*\height+\height);
+\fill[white] (5*\width,-7*\height) rectangle (6*\width,-7*\height+\height);
+\fill[white] (6*\width,-7*\height) rectangle (7*\width,-7*\height+\height);
+\fill[white] (7*\width,-7*\height) rectangle (8*\width,-7*\height+\height);
+\fill[white] (8*\width,-7*\height) rectangle (9*\width,-7*\height+\height);
+\fill[white] (9*\width,-7*\height) rectangle (10*\width,-7*\height+\height);
+\node[anchor=east] at (0, -8*\height + 0.5*\height) {$\tlqone$};
+\fill[red!91] (0*\width,-8*\height) rectangle (1*\width,-8*\height+\height);
+\fill[white] (1*\width,-8*\height) rectangle (2*\width,-8*\height+\height);
+\fill[white] (2*\width,-8*\height) rectangle (3*\width,-8*\height+\height);
+\fill[white] (3*\width,-8*\height) rectangle (4*\width,-8*\height+\height);
+\fill[white] (4*\width,-8*\height) rectangle (5*\width,-8*\height+\height);
+\fill[white] (5*\width,-8*\height) rectangle (6*\width,-8*\height+\height);
+\fill[white] (6*\width,-8*\height) rectangle (7*\width,-8*\height+\height);
+\fill[white] (7*\width,-8*\height) rectangle (8*\width,-8*\height+\height);
+\fill[white] (8*\width,-8*\height) rectangle (9*\width,-8*\height+\height);
+\fill[white] (9*\width,-8*\height) rectangle (10*\width,-8*\height+\height);
+\node[anchor=east] at (0, -9*\height + 0.5*\height) {$\tlqthree$};
+\fill[red!77] (0*\width,-9*\height) rectangle (1*\width,-9*\height+\height);
+\fill[red!54] (1*\width,-9*\height) rectangle (2*\width,-9*\height+\height);
+\fill[white] (2*\width,-9*\height) rectangle (3*\width,-9*\height+\height);
+\fill[white] (3*\width,-9*\height) rectangle (4*\width,-9*\height+\height);
+\fill[white] (4*\width,-9*\height) rectangle (5*\width,-9*\height+\height);
+\fill[white] (5*\width,-9*\height) rectangle (6*\width,-9*\height+\height);
+\fill[white] (6*\width,-9*\height) rectangle (7*\width,-9*\height+\height);
+\fill[white] (7*\width,-9*\height) rectangle (8*\width,-9*\height+\height);
+\fill[white] (8*\width,-9*\height) rectangle (9*\width,-9*\height+\height);
+\fill[white] (9*\width,-9*\height) rectangle (10*\width,-9*\height+\height);
+\node[anchor=east] at (0, -10*\height + 0.5*\height) {$\tliqr$};
+\fill[white] (0*\width,-10*\height) rectangle (1*\width,-10*\height+\height);
+\fill[red!84] (1*\width,-10*\height) rectangle (2*\width,-10*\height+\height);
+\fill[white] (2*\width,-10*\height) rectangle (3*\width,-10*\height+\height);
+\fill[white] (3*\width,-10*\height) rectangle (4*\width,-10*\height+\height);
+\fill[white] (4*\width,-10*\height) rectangle (5*\width,-10*\height+\height);
+\fill[white] (5*\width,-10*\height) rectangle (6*\width,-10*\height+\height);
+\fill[white] (6*\width,-10*\height) rectangle (7*\width,-10*\height+\height);
+\fill[white] (7*\width,-10*\height) rectangle (8*\width,-10*\height+\height);
+\fill[white] (8*\width,-10*\height) rectangle (9*\width,-10*\height+\height);
+\fill[white] (9*\width,-10*\height) rectangle (10*\width,-10*\height+\height);
+\node[anchor=east] at (0, -11*\height + 0.5*\height) {$\tlgmean$};
+\fill[red!93] (0*\width,-11*\height) rectangle (1*\width,-11*\height+\height);
+\fill[white] (1*\width,-11*\height) rectangle (2*\width,-11*\height+\height);
+\fill[white] (2*\width,-11*\height) rectangle (3*\width,-11*\height+\height);
+\fill[white] (3*\width,-11*\height) rectangle (4*\width,-11*\height+\height);
+\fill[white] (4*\width,-11*\height) rectangle (5*\width,-11*\height+\height);
+\fill[white] (5*\width,-11*\height) rectangle (6*\width,-11*\height+\height);
+\fill[white] (6*\width,-11*\height) rectangle (7*\width,-11*\height+\height);
+\fill[white] (7*\width,-11*\height) rectangle (8*\width,-11*\height+\height);
+\fill[white] (8*\width,-11*\height) rectangle (9*\width,-11*\height+\height);
+\fill[white] (9*\width,-11*\height) rectangle (10*\width,-11*\height+\height);
+\node[anchor=east] at (0, -12*\height + 0.5*\height) {$\tlgdev$};
+\fill[white] (0*\width,-12*\height) rectangle (1*\width,-12*\height+\height);
+\fill[red!92] (1*\width,-12*\height) rectangle (2*\width,-12*\height+\height);
+\fill[white] (2*\width,-12*\height) rectangle (3*\width,-12*\height+\height);
+\fill[white] (3*\width,-12*\height) rectangle (4*\width,-12*\height+\height);
+\fill[white] (4*\width,-12*\height) rectangle (5*\width,-12*\height+\height);
+\fill[white] (5*\width,-12*\height) rectangle (6*\width,-12*\height+\height);
+\fill[white] (6*\width,-12*\height) rectangle (7*\width,-12*\height+\height);
+\fill[white] (7*\width,-12*\height) rectangle (8*\width,-12*\height+\height);
+\fill[white] (8*\width,-12*\height) rectangle (9*\width,-12*\height+\height);
+\fill[white] (9*\width,-12*\height) rectangle (10*\width,-12*\height+\height);
+\node[anchor=east] at (0, -13*\height + 0.5*\height) {$\tlhmean$};
+\fill[red!93] (0*\width,-13*\height) rectangle (1*\width,-13*\height+\height);
+\fill[white] (1*\width,-13*\height) rectangle (2*\width,-13*\height+\height);
+\fill[white] (2*\width,-13*\height) rectangle (3*\width,-13*\height+\height);
+\fill[white] (3*\width,-13*\height) rectangle (4*\width,-13*\height+\height);
+\fill[white] (4*\width,-13*\height) rectangle (5*\width,-13*\height+\height);
+\fill[white] (5*\width,-13*\height) rectangle (6*\width,-13*\height+\height);
+\fill[white] (6*\width,-13*\height) rectangle (7*\width,-13*\height+\height);
+\fill[white] (7*\width,-13*\height) rectangle (8*\width,-13*\height+\height);
+\fill[white] (8*\width,-13*\height) rectangle (9*\width,-13*\height+\height);
+\fill[white] (9*\width,-13*\height) rectangle (10*\width,-13*\height+\height);
+\node[anchor=east] at (0, -14*\height + 0.5*\height) {$\tlcvariation$};
+\fill[white] (0*\width,-14*\height) rectangle (1*\width,-14*\height+\height);
+\fill[red!93] (1*\width,-14*\height) rectangle (2*\width,-14*\height+\height);
+\fill[white] (2*\width,-14*\height) rectangle (3*\width,-14*\height+\height);
+\fill[white] (3*\width,-14*\height) rectangle (4*\width,-14*\height+\height);
+\fill[white] (4*\width,-14*\height) rectangle (5*\width,-14*\height+\height);
+\fill[white] (5*\width,-14*\height) rectangle (6*\width,-14*\height+\height);
+\fill[white] (6*\width,-14*\height) rectangle (7*\width,-14*\height+\height);
+\fill[white] (7*\width,-14*\height) rectangle (8*\width,-14*\height+\height);
+\fill[white] (8*\width,-14*\height) rectangle (9*\width,-14*\height+\height);
+\fill[white] (9*\width,-14*\height) rectangle (10*\width,-14*\height+\height);
+\node[anchor=east] at (0, -15*\height + 0.5*\height) {$\tlentropy$};
+\fill[white] (0*\width,-15*\height) rectangle (1*\width,-15*\height+\height);
+\fill[blue!92] (1*\width,-15*\height) rectangle (2*\width,-15*\height+\height);
+\fill[white] (2*\width,-15*\height) rectangle (3*\width,-15*\height+\height);
+\fill[white] (3*\width,-15*\height) rectangle (4*\width,-15*\height+\height);
+\fill[white] (4*\width,-15*\height) rectangle (5*\width,-15*\height+\height);
+\fill[white] (5*\width,-15*\height) rectangle (6*\width,-15*\height+\height);
+\fill[white] (6*\width,-15*\height) rectangle (7*\width,-15*\height+\height);
+\fill[white] (7*\width,-15*\height) rectangle (8*\width,-15*\height+\height);
+\fill[white] (8*\width,-15*\height) rectangle (9*\width,-15*\height+\height);
+\fill[white] (9*\width,-15*\height) rectangle (10*\width,-15*\height+\height);
+\node[anchor=east] at (0, -16*\height + 0.5*\height) {$\tlskewhist$};
+\fill[white] (0*\width,-16*\height) rectangle (1*\width,-16*\height+\height);
+\fill[red!57] (1*\width,-16*\height) rectangle (2*\width,-16*\height+\height);
+\fill[white] (2*\width,-16*\height) rectangle (3*\width,-16*\height+\height);
+\fill[white] (3*\width,-16*\height) rectangle (4*\width,-16*\height+\height);
+\fill[white] (4*\width,-16*\height) rectangle (5*\width,-16*\height+\height);
+\fill[white] (5*\width,-16*\height) rectangle (6*\width,-16*\height+\height);
+\fill[white] (6*\width,-16*\height) rectangle (7*\width,-16*\height+\height);
+\fill[white] (7*\width,-16*\height) rectangle (8*\width,-16*\height+\height);
+\fill[white] (8*\width,-16*\height) rectangle (9*\width,-16*\height+\height);
+\fill[white] (9*\width,-16*\height) rectangle (10*\width,-16*\height+\height);
+\node[anchor=east] at (0, -17*\height + 0.5*\height) {$\tlkurthist$};
+\fill[white] (0*\width,-17*\height) rectangle (1*\width,-17*\height+\height);
+\fill[red!60] (1*\width,-17*\height) rectangle (2*\width,-17*\height+\height);
+\fill[white] (2*\width,-17*\height) rectangle (3*\width,-17*\height+\height);
+\fill[white] (3*\width,-17*\height) rectangle (4*\width,-17*\height+\height);
+\fill[white] (4*\width,-17*\height) rectangle (5*\width,-17*\height+\height);
+\fill[white] (5*\width,-17*\height) rectangle (6*\width,-17*\height+\height);
+\fill[white] (6*\width,-17*\height) rectangle (7*\width,-17*\height+\height);
+\fill[white] (7*\width,-17*\height) rectangle (8*\width,-17*\height+\height);
+\fill[white] (8*\width,-17*\height) rectangle (9*\width,-17*\height+\height);
+\fill[white] (9*\width,-17*\height) rectangle (10*\width,-17*\height+\height);
+\node[anchor=east] at (0, -18*\height + 0.5*\height) {$\freqmaxr$};
+\fill[blue!74] (0*\width,-18*\height) rectangle (1*\width,-18*\height+\height);
+\fill[white] (1*\width,-18*\height) rectangle (2*\width,-18*\height+\height);
+\fill[white] (2*\width,-18*\height) rectangle (3*\width,-18*\height+\height);
+\fill[white] (3*\width,-18*\height) rectangle (4*\width,-18*\height+\height);
+\fill[white] (4*\width,-18*\height) rectangle (5*\width,-18*\height+\height);
+\fill[white] (5*\width,-18*\height) rectangle (6*\width,-18*\height+\height);
+\fill[white] (6*\width,-18*\height) rectangle (7*\width,-18*\height+\height);
+\fill[white] (7*\width,-18*\height) rectangle (8*\width,-18*\height+\height);
+\fill[white] (8*\width,-18*\height) rectangle (9*\width,-18*\height+\height);
+\fill[white] (9*\width,-18*\height) rectangle (10*\width,-18*\height+\height);
+\node[anchor=east] at (0, -19*\height + 0.5*\height) {$\freqmaxone$};
+\fill[blue!62] (0*\width,-19*\height) rectangle (1*\width,-19*\height+\height);
+\fill[red!58] (1*\width,-19*\height) rectangle (2*\width,-19*\height+\height);
+\fill[white] (2*\width,-19*\height) rectangle (3*\width,-19*\height+\height);
+\fill[white] (3*\width,-19*\height) rectangle (4*\width,-19*\height+\height);
+\fill[white] (4*\width,-19*\height) rectangle (5*\width,-19*\height+\height);
+\fill[white] (5*\width,-19*\height) rectangle (6*\width,-19*\height+\height);
+\fill[white] (6*\width,-19*\height) rectangle (7*\width,-19*\height+\height);
+\fill[white] (7*\width,-19*\height) rectangle (8*\width,-19*\height+\height);
+\fill[white] (8*\width,-19*\height) rectangle (9*\width,-19*\height+\height);
+\fill[white] (9*\width,-19*\height) rectangle (10*\width,-19*\height+\height);
+\node[anchor=east] at (0, -20*\height + 0.5*\height) {$\freqmaxfive$};
+\fill[blue!81] (0*\width,-20*\height) rectangle (1*\width,-20*\height+\height);
+\fill[white] (1*\width,-20*\height) rectangle (2*\width,-20*\height+\height);
+\fill[white] (2*\width,-20*\height) rectangle (3*\width,-20*\height+\height);
+\fill[white] (3*\width,-20*\height) rectangle (4*\width,-20*\height+\height);
+\fill[white] (4*\width,-20*\height) rectangle (5*\width,-20*\height+\height);
+\fill[white] (5*\width,-20*\height) rectangle (6*\width,-20*\height+\height);
+\fill[white] (6*\width,-20*\height) rectangle (7*\width,-20*\height+\height);
+\fill[white] (7*\width,-20*\height) rectangle (8*\width,-20*\height+\height);
+\fill[white] (8*\width,-20*\height) rectangle (9*\width,-20*\height+\height);
+\fill[white] (9*\width,-20*\height) rectangle (10*\width,-20*\height+\height);
+\node[anchor=east] at (0, -21*\height + 0.5*\height) {$\freqmaxten$};
+\fill[blue!87] (0*\width,-21*\height) rectangle (1*\width,-21*\height+\height);
+\fill[white] (1*\width,-21*\height) rectangle (2*\width,-21*\height+\height);
+\fill[white] (2*\width,-21*\height) rectangle (3*\width,-21*\height+\height);
+\fill[white] (3*\width,-21*\height) rectangle (4*\width,-21*\height+\height);
+\fill[white] (4*\width,-21*\height) rectangle (5*\width,-21*\height+\height);
+\fill[white] (5*\width,-21*\height) rectangle (6*\width,-21*\height+\height);
+\fill[white] (6*\width,-21*\height) rectangle (7*\width,-21*\height+\height);
+\fill[white] (7*\width,-21*\height) rectangle (8*\width,-21*\height+\height);
+\fill[white] (8*\width,-21*\height) rectangle (9*\width,-21*\height+\height);
+\fill[white] (9*\width,-21*\height) rectangle (10*\width,-21*\height+\height);
+\node[anchor=east] at (0, -22*\height + 0.5*\height) {$\freqmaxtwenty$};
+\fill[blue!90] (0*\width,-22*\height) rectangle (1*\width,-22*\height+\height);
+\fill[white] (1*\width,-22*\height) rectangle (2*\width,-22*\height+\height);
+\fill[white] (2*\width,-22*\height) rectangle (3*\width,-22*\height+\height);
+\fill[white] (3*\width,-22*\height) rectangle (4*\width,-22*\height+\height);
+\fill[white] (4*\width,-22*\height) rectangle (5*\width,-22*\height+\height);
+\fill[white] (5*\width,-22*\height) rectangle (6*\width,-22*\height+\height);
+\fill[white] (6*\width,-22*\height) rectangle (7*\width,-22*\height+\height);
+\fill[white] (7*\width,-22*\height) rectangle (8*\width,-22*\height+\height);
+\fill[white] (8*\width,-22*\height) rectangle (9*\width,-22*\height+\height);
+\fill[white] (9*\width,-22*\height) rectangle (10*\width,-22*\height+\height);
+\node[anchor=east] at (0, -23*\height + 0.5*\height) {$\freqmaxfifty$};
+\fill[blue!91] (0*\width,-23*\height) rectangle (1*\width,-23*\height+\height);
+\fill[white] (1*\width,-23*\height) rectangle (2*\width,-23*\height+\height);
+\fill[white] (2*\width,-23*\height) rectangle (3*\width,-23*\height+\height);
+\fill[white] (3*\width,-23*\height) rectangle (4*\width,-23*\height+\height);
+\fill[white] (4*\width,-23*\height) rectangle (5*\width,-23*\height+\height);
+\fill[white] (5*\width,-23*\height) rectangle (6*\width,-23*\height+\height);
+\fill[white] (6*\width,-23*\height) rectangle (7*\width,-23*\height+\height);
+\fill[white] (7*\width,-23*\height) rectangle (8*\width,-23*\height+\height);
+\fill[white] (8*\width,-23*\height) rectangle (9*\width,-23*\height+\height);
+\fill[white] (9*\width,-23*\height) rectangle (10*\width,-23*\height+\height);
+\node[anchor=east] at (0, -24*\height + 0.5*\height) {$\freqmaxseventyfive$};
+\fill[blue!91] (0*\width,-24*\height) rectangle (1*\width,-24*\height+\height);
+\fill[white] (1*\width,-24*\height) rectangle (2*\width,-24*\height+\height);
+\fill[white] (2*\width,-24*\height) rectangle (3*\width,-24*\height+\height);
+\fill[white] (3*\width,-24*\height) rectangle (4*\width,-24*\height+\height);
+\fill[white] (4*\width,-24*\height) rectangle (5*\width,-24*\height+\height);
+\fill[white] (5*\width,-24*\height) rectangle (6*\width,-24*\height+\height);
+\fill[white] (6*\width,-24*\height) rectangle (7*\width,-24*\height+\height);
+\fill[white] (7*\width,-24*\height) rectangle (8*\width,-24*\height+\height);
+\fill[white] (8*\width,-24*\height) rectangle (9*\width,-24*\height+\height);
+\fill[white] (9*\width,-24*\height) rectangle (10*\width,-24*\height+\height);
+\node[anchor=east] at (0, -25*\height + 0.5*\height) {$\freqmean$};
+\fill[blue!62] (0*\width,-25*\height) rectangle (1*\width,-25*\height+\height);
+\fill[white] (1*\width,-25*\height) rectangle (2*\width,-25*\height+\height);
+\fill[white] (2*\width,-25*\height) rectangle (3*\width,-25*\height+\height);
+\fill[white] (3*\width,-25*\height) rectangle (4*\width,-25*\height+\height);
+\fill[white] (4*\width,-25*\height) rectangle (5*\width,-25*\height+\height);
+\fill[white] (5*\width,-25*\height) rectangle (6*\width,-25*\height+\height);
+\fill[white] (6*\width,-25*\height) rectangle (7*\width,-25*\height+\height);
+\fill[white] (7*\width,-25*\height) rectangle (8*\width,-25*\height+\height);
+\fill[white] (8*\width,-25*\height) rectangle (9*\width,-25*\height+\height);
+\fill[white] (9*\width,-25*\height) rectangle (10*\width,-25*\height+\height);
+\node[anchor=east] at (0, -26*\height + 0.5*\height) {$\freqdev$};
+\fill[blue!77] (0*\width,-26*\height) rectangle (1*\width,-26*\height+\height);
+\fill[white] (1*\width,-26*\height) rectangle (2*\width,-26*\height+\height);
+\fill[white] (2*\width,-26*\height) rectangle (3*\width,-26*\height+\height);
+\fill[white] (3*\width,-26*\height) rectangle (4*\width,-26*\height+\height);
+\fill[white] (4*\width,-26*\height) rectangle (5*\width,-26*\height+\height);
+\fill[white] (5*\width,-26*\height) rectangle (6*\width,-26*\height+\height);
+\fill[white] (6*\width,-26*\height) rectangle (7*\width,-26*\height+\height);
+\fill[white] (7*\width,-26*\height) rectangle (8*\width,-26*\height+\height);
+\fill[white] (8*\width,-26*\height) rectangle (9*\width,-26*\height+\height);
+\fill[white] (9*\width,-26*\height) rectangle (10*\width,-26*\height+\height);
+\node[anchor=east] at (0, -27*\height + 0.5*\height) {$\dthet$};
+\fill[red!88] (0*\width,-27*\height) rectangle (1*\width,-27*\height+\height);
+\fill[white] (1*\width,-27*\height) rectangle (2*\width,-27*\height+\height);
+\fill[white] (2*\width,-27*\height) rectangle (3*\width,-27*\height+\height);
+\fill[white] (3*\width,-27*\height) rectangle (4*\width,-27*\height+\height);
+\fill[white] (4*\width,-27*\height) rectangle (5*\width,-27*\height+\height);
+\fill[white] (5*\width,-27*\height) rectangle (6*\width,-27*\height+\height);
+\fill[white] (6*\width,-27*\height) rectangle (7*\width,-27*\height+\height);
+\fill[white] (7*\width,-27*\height) rectangle (8*\width,-27*\height+\height);
+\fill[white] (8*\width,-27*\height) rectangle (9*\width,-27*\height+\height);
+\fill[white] (9*\width,-27*\height) rectangle (10*\width,-27*\height+\height);
+\node[anchor=east] at (0, -28*\height + 0.5*\height) {$\dtsim$};
+\fill[white] (0*\width,-28*\height) rectangle (1*\width,-28*\height+\height);
+\fill[blue!57] (1*\width,-28*\height) rectangle (2*\width,-28*\height+\height);
+\fill[white] (2*\width,-28*\height) rectangle (3*\width,-28*\height+\height);
+\fill[white] (3*\width,-28*\height) rectangle (4*\width,-28*\height+\height);
+\fill[white] (4*\width,-28*\height) rectangle (5*\width,-28*\height+\height);
+\fill[white] (5*\width,-28*\height) rectangle (6*\width,-28*\height+\height);
+\fill[white] (6*\width,-28*\height) rectangle (7*\width,-28*\height+\height);
+\fill[white] (7*\width,-28*\height) rectangle (8*\width,-28*\height+\height);
+\fill[white] (8*\width,-28*\height) rectangle (9*\width,-28*\height+\height);
+\fill[white] (9*\width,-28*\height) rectangle (10*\width,-28*\height+\height);
+\node[anchor=east] at (0, -29*\height + 0.5*\height) {$\variety$};
+\fill[white] (0*\width,-29*\height) rectangle (1*\width,-29*\height+\height);
+\fill[red!80] (1*\width,-29*\height) rectangle (2*\width,-29*\height+\height);
+\fill[white] (2*\width,-29*\height) rectangle (3*\width,-29*\height+\height);
+\fill[white] (3*\width,-29*\height) rectangle (4*\width,-29*\height+\height);
+\fill[white] (4*\width,-29*\height) rectangle (5*\width,-29*\height+\height);
+\fill[white] (5*\width,-29*\height) rectangle (6*\width,-29*\height+\height);
+\fill[white] (6*\width,-29*\height) rectangle (7*\width,-29*\height+\height);
+\fill[white] (7*\width,-29*\height) rectangle (8*\width,-29*\height+\height);
+\fill[white] (8*\width,-29*\height) rectangle (9*\width,-29*\height+\height);
+\fill[white] (9*\width,-29*\height) rectangle (10*\width,-29*\height+\height);
+\node[anchor=east] at (0, -30*\height + 0.5*\height) {$\actfreqmax$};
+\fill[red!72] (0*\width,-30*\height) rectangle (1*\width,-30*\height+\height);
+\fill[white] (1*\width,-30*\height) rectangle (2*\width,-30*\height+\height);
+\fill[white] (2*\width,-30*\height) rectangle (3*\width,-30*\height+\height);
+\fill[red!60] (3*\width,-30*\height) rectangle (4*\width,-30*\height+\height);
+\fill[white] (4*\width,-30*\height) rectangle (5*\width,-30*\height+\height);
+\fill[white] (5*\width,-30*\height) rectangle (6*\width,-30*\height+\height);
+\fill[white] (6*\width,-30*\height) rectangle (7*\width,-30*\height+\height);
+\fill[white] (7*\width,-30*\height) rectangle (8*\width,-30*\height+\height);
+\fill[white] (8*\width,-30*\height) rectangle (9*\width,-30*\height+\height);
+\fill[white] (9*\width,-30*\height) rectangle (10*\width,-30*\height+\height);
+\node[anchor=east] at (0, -31*\height + 0.5*\height) {$\actfreqmean$};
+\fill[red!85] (0*\width,-31*\height) rectangle (1*\width,-31*\height+\height);
+\fill[white] (1*\width,-31*\height) rectangle (2*\width,-31*\height+\height);
+\fill[white] (2*\width,-31*\height) rectangle (3*\width,-31*\height+\height);
+\fill[white] (3*\width,-31*\height) rectangle (4*\width,-31*\height+\height);
+\fill[white] (4*\width,-31*\height) rectangle (5*\width,-31*\height+\height);
+\fill[white] (5*\width,-31*\height) rectangle (6*\width,-31*\height+\height);
+\fill[white] (6*\width,-31*\height) rectangle (7*\width,-31*\height+\height);
+\fill[white] (7*\width,-31*\height) rectangle (8*\width,-31*\height+\height);
+\fill[white] (8*\width,-31*\height) rectangle (9*\width,-31*\height+\height);
+\fill[white] (9*\width,-31*\height) rectangle (10*\width,-31*\height+\height);
+\node[anchor=east] at (0, -32*\height + 0.5*\height) {$\actfreqmedian$};
+\fill[red!82] (0*\width,-32*\height) rectangle (1*\width,-32*\height+\height);
+\fill[white] (1*\width,-32*\height) rectangle (2*\width,-32*\height+\height);
+\fill[white] (2*\width,-32*\height) rectangle (3*\width,-32*\height+\height);
+\fill[white] (3*\width,-32*\height) rectangle (4*\width,-32*\height+\height);
+\fill[white] (4*\width,-32*\height) rectangle (5*\width,-32*\height+\height);
+\fill[white] (5*\width,-32*\height) rectangle (6*\width,-32*\height+\height);
+\fill[white] (6*\width,-32*\height) rectangle (7*\width,-32*\height+\height);
+\fill[white] (7*\width,-32*\height) rectangle (8*\width,-32*\height+\height);
+\fill[white] (8*\width,-32*\height) rectangle (9*\width,-32*\height+\height);
+\fill[white] (9*\width,-32*\height) rectangle (10*\width,-32*\height+\height);
+\node[anchor=east] at (0, -33*\height + 0.5*\height) {$\actfreqdev$};
+\fill[red!70] (0*\width,-33*\height) rectangle (1*\width,-33*\height+\height);
+\fill[white] (1*\width,-33*\height) rectangle (2*\width,-33*\height+\height);
+\fill[white] (2*\width,-33*\height) rectangle (3*\width,-33*\height+\height);
+\fill[red!60] (3*\width,-33*\height) rectangle (4*\width,-33*\height+\height);
+\fill[white] (4*\width,-33*\height) rectangle (5*\width,-33*\height+\height);
+\fill[white] (5*\width,-33*\height) rectangle (6*\width,-33*\height+\height);
+\fill[white] (6*\width,-33*\height) rectangle (7*\width,-33*\height+\height);
+\fill[white] (7*\width,-33*\height) rectangle (8*\width,-33*\height+\height);
+\fill[white] (8*\width,-33*\height) rectangle (9*\width,-33*\height+\height);
+\fill[white] (9*\width,-33*\height) rectangle (10*\width,-33*\height+\height);
+\node[anchor=east] at (0, -34*\height + 0.5*\height) {$\actfreqvar$};
+\fill[red!62] (0*\width,-34*\height) rectangle (1*\width,-34*\height+\height);
+\fill[white] (1*\width,-34*\height) rectangle (2*\width,-34*\height+\height);
+\fill[white] (2*\width,-34*\height) rectangle (3*\width,-34*\height+\height);
+\fill[red!63] (3*\width,-34*\height) rectangle (4*\width,-34*\height+\height);
+\fill[white] (4*\width,-34*\height) rectangle (5*\width,-34*\height+\height);
+\fill[white] (5*\width,-34*\height) rectangle (6*\width,-34*\height+\height);
+\fill[white] (6*\width,-34*\height) rectangle (7*\width,-34*\height+\height);
+\fill[white] (7*\width,-34*\height) rectangle (8*\width,-34*\height+\height);
+\fill[white] (8*\width,-34*\height) rectangle (9*\width,-34*\height+\height);
+\fill[white] (9*\width,-34*\height) rectangle (10*\width,-34*\height+\height);
+\node[anchor=east] at (0, -35*\height + 0.5*\height) {$\actfreqqone$};
+\fill[red!76] (0*\width,-35*\height) rectangle (1*\width,-35*\height+\height);
+\fill[white] (1*\width,-35*\height) rectangle (2*\width,-35*\height+\height);
+\fill[white] (2*\width,-35*\height) rectangle (3*\width,-35*\height+\height);
+\fill[white] (3*\width,-35*\height) rectangle (4*\width,-35*\height+\height);
+\fill[white] (4*\width,-35*\height) rectangle (5*\width,-35*\height+\height);
+\fill[white] (5*\width,-35*\height) rectangle (6*\width,-35*\height+\height);
+\fill[white] (6*\width,-35*\height) rectangle (7*\width,-35*\height+\height);
+\fill[white] (7*\width,-35*\height) rectangle (8*\width,-35*\height+\height);
+\fill[white] (8*\width,-35*\height) rectangle (9*\width,-35*\height+\height);
+\fill[white] (9*\width,-35*\height) rectangle (10*\width,-35*\height+\height);
+\node[anchor=east] at (0, -36*\height + 0.5*\height) {$\actfreqqthree$};
+\fill[red!83] (0*\width,-36*\height) rectangle (1*\width,-36*\height+\height);
+\fill[white] (1*\width,-36*\height) rectangle (2*\width,-36*\height+\height);
+\fill[white] (2*\width,-36*\height) rectangle (3*\width,-36*\height+\height);
+\fill[white] (3*\width,-36*\height) rectangle (4*\width,-36*\height+\height);
+\fill[white] (4*\width,-36*\height) rectangle (5*\width,-36*\height+\height);
+\fill[white] (5*\width,-36*\height) rectangle (6*\width,-36*\height+\height);
+\fill[white] (6*\width,-36*\height) rectangle (7*\width,-36*\height+\height);
+\fill[white] (7*\width,-36*\height) rectangle (8*\width,-36*\height+\height);
+\fill[white] (8*\width,-36*\height) rectangle (9*\width,-36*\height+\height);
+\fill[white] (9*\width,-36*\height) rectangle (10*\width,-36*\height+\height);
+\node[anchor=east] at (0, -37*\height + 0.5*\height) {$\actfreqiqr$};
+\fill[red!69] (0*\width,-37*\height) rectangle (1*\width,-37*\height+\height);
+\fill[white] (1*\width,-37*\height) rectangle (2*\width,-37*\height+\height);
+\fill[white] (2*\width,-37*\height) rectangle (3*\width,-37*\height+\height);
+\fill[white] (3*\width,-37*\height) rectangle (4*\width,-37*\height+\height);
+\fill[white] (4*\width,-37*\height) rectangle (5*\width,-37*\height+\height);
+\fill[white] (5*\width,-37*\height) rectangle (6*\width,-37*\height+\height);
+\fill[white] (6*\width,-37*\height) rectangle (7*\width,-37*\height+\height);
+\fill[white] (7*\width,-37*\height) rectangle (8*\width,-37*\height+\height);
+\fill[white] (8*\width,-37*\height) rectangle (9*\width,-37*\height+\height);
+\fill[white] (9*\width,-37*\height) rectangle (10*\width,-37*\height+\height);
+\node[anchor=east] at (0, -38*\height + 0.5*\height) {$\actfreqskew$};
+\fill[white] (0*\width,-38*\height) rectangle (1*\width,-38*\height+\height);
+\fill[red!54] (1*\width,-38*\height) rectangle (2*\width,-38*\height+\height);
+\fill[white] (2*\width,-38*\height) rectangle (3*\width,-38*\height+\height);
+\fill[white] (3*\width,-38*\height) rectangle (4*\width,-38*\height+\height);
+\fill[white] (4*\width,-38*\height) rectangle (5*\width,-38*\height+\height);
+\fill[white] (5*\width,-38*\height) rectangle (6*\width,-38*\height+\height);
+\fill[white] (6*\width,-38*\height) rectangle (7*\width,-38*\height+\height);
+\fill[white] (7*\width,-38*\height) rectangle (8*\width,-38*\height+\height);
+\fill[white] (8*\width,-38*\height) rectangle (9*\width,-38*\height+\height);
+\fill[white] (9*\width,-38*\height) rectangle (10*\width,-38*\height+\height);
+\node[anchor=east] at (0, -39*\height + 0.5*\height) {$\actfreqkurt$};
+\fill[white] (0*\width,-39*\height) rectangle (1*\width,-39*\height+\height);
+\fill[white] (1*\width,-39*\height) rectangle (2*\width,-39*\height+\height);
+\fill[white] (2*\width,-39*\height) rectangle (3*\width,-39*\height+\height);
+\fill[white] (3*\width,-39*\height) rectangle (4*\width,-39*\height+\height);
+\fill[white] (4*\width,-39*\height) rectangle (5*\width,-39*\height+\height);
+\fill[white] (5*\width,-39*\height) rectangle (6*\width,-39*\height+\height);
+\fill[white] (6*\width,-39*\height) rectangle (7*\width,-39*\height+\height);
+\fill[white] (7*\width,-39*\height) rectangle (8*\width,-39*\height+\height);
+\fill[white] (8*\width,-39*\height) rectangle (9*\width,-39*\height+\height);
+\fill[white] (9*\width,-39*\height) rectangle (10*\width,-39*\height+\height);
+\node[anchor=east] at (0, -40*\height + 0.5*\height) {$\startactivities$};
+\fill[white] (0*\width,-40*\height) rectangle (1*\width,-40*\height+\height);
+\fill[white] (1*\width,-40*\height) rectangle (2*\width,-40*\height+\height);
+\fill[blue!81] (2*\width,-40*\height) rectangle (3*\width,-40*\height+\height);
+\fill[white] (3*\width,-40*\height) rectangle (4*\width,-40*\height+\height);
+\fill[white] (4*\width,-40*\height) rectangle (5*\width,-40*\height+\height);
+\fill[white] (5*\width,-40*\height) rectangle (6*\width,-40*\height+\height);
+\fill[white] (6*\width,-40*\height) rectangle (7*\width,-40*\height+\height);
+\fill[white] (7*\width,-40*\height) rectangle (8*\width,-40*\height+\height);
+\fill[white] (8*\width,-40*\height) rectangle (9*\width,-40*\height+\height);
+\fill[white] (9*\width,-40*\height) rectangle (10*\width,-40*\height+\height);
+\node[anchor=east] at (0, -41*\height + 0.5*\height) {$\startmin$};
+\fill[white] (0*\width,-41*\height) rectangle (1*\width,-41*\height+\height);
+\fill[white] (1*\width,-41*\height) rectangle (2*\width,-41*\height+\height);
+\fill[red!95] (2*\width,-41*\height) rectangle (3*\width,-41*\height+\height);
+\fill[white] (3*\width,-41*\height) rectangle (4*\width,-41*\height+\height);
+\fill[white] (4*\width,-41*\height) rectangle (5*\width,-41*\height+\height);
+\fill[white] (5*\width,-41*\height) rectangle (6*\width,-41*\height+\height);
+\fill[white] (6*\width,-41*\height) rectangle (7*\width,-41*\height+\height);
+\fill[white] (7*\width,-41*\height) rectangle (8*\width,-41*\height+\height);
+\fill[white] (8*\width,-41*\height) rectangle (9*\width,-41*\height+\height);
+\fill[white] (9*\width,-41*\height) rectangle (10*\width,-41*\height+\height);
+\node[anchor=east] at (0, -42*\height + 0.5*\height) {$\startmax$};
+\fill[white] (0*\width,-42*\height) rectangle (1*\width,-42*\height+\height);
+\fill[white] (1*\width,-42*\height) rectangle (2*\width,-42*\height+\height);
+\fill[white] (2*\width,-42*\height) rectangle (3*\width,-42*\height+\height);
+\fill[white] (3*\width,-42*\height) rectangle (4*\width,-42*\height+\height);
+\fill[white] (4*\width,-42*\height) rectangle (5*\width,-42*\height+\height);
+\fill[red!57] (5*\width,-42*\height) rectangle (6*\width,-42*\height+\height);
+\fill[white] (6*\width,-42*\height) rectangle (7*\width,-42*\height+\height);
+\fill[white] (7*\width,-42*\height) rectangle (8*\width,-42*\height+\height);
+\fill[white] (8*\width,-42*\height) rectangle (9*\width,-42*\height+\height);
+\fill[white] (9*\width,-42*\height) rectangle (10*\width,-42*\height+\height);
+\node[anchor=east] at (0, -43*\height + 0.5*\height) {$\startmean$};
+\fill[white] (0*\width,-43*\height) rectangle (1*\width,-43*\height+\height);
+\fill[white] (1*\width,-43*\height) rectangle (2*\width,-43*\height+\height);
+\fill[red!97] (2*\width,-43*\height) rectangle (3*\width,-43*\height+\height);
+\fill[white] (3*\width,-43*\height) rectangle (4*\width,-43*\height+\height);
+\fill[white] (4*\width,-43*\height) rectangle (5*\width,-43*\height+\height);
+\fill[white] (5*\width,-43*\height) rectangle (6*\width,-43*\height+\height);
+\fill[white] (6*\width,-43*\height) rectangle (7*\width,-43*\height+\height);
+\fill[white] (7*\width,-43*\height) rectangle (8*\width,-43*\height+\height);
+\fill[white] (8*\width,-43*\height) rectangle (9*\width,-43*\height+\height);
+\fill[white] (9*\width,-43*\height) rectangle (10*\width,-43*\height+\height);
+\node[anchor=east] at (0, -44*\height + 0.5*\height) {$\startmedian$};
+\fill[white] (0*\width,-44*\height) rectangle (1*\width,-44*\height+\height);
+\fill[white] (1*\width,-44*\height) rectangle (2*\width,-44*\height+\height);
+\fill[red!96] (2*\width,-44*\height) rectangle (3*\width,-44*\height+\height);
+\fill[white] (3*\width,-44*\height) rectangle (4*\width,-44*\height+\height);
+\fill[white] (4*\width,-44*\height) rectangle (5*\width,-44*\height+\height);
+\fill[white] (5*\width,-44*\height) rectangle (6*\width,-44*\height+\height);
+\fill[white] (6*\width,-44*\height) rectangle (7*\width,-44*\height+\height);
+\fill[white] (7*\width,-44*\height) rectangle (8*\width,-44*\height+\height);
+\fill[white] (8*\width,-44*\height) rectangle (9*\width,-44*\height+\height);
+\fill[white] (9*\width,-44*\height) rectangle (10*\width,-44*\height+\height);
+\node[anchor=east] at (0, -45*\height + 0.5*\height) {$\startdev$};
+\fill[white] (0*\width,-45*\height) rectangle (1*\width,-45*\height+\height);
+\fill[white] (1*\width,-45*\height) rectangle (2*\width,-45*\height+\height);
+\fill[blue!72] (2*\width,-45*\height) rectangle (3*\width,-45*\height+\height);
+\fill[white] (3*\width,-45*\height) rectangle (4*\width,-45*\height+\height);
+\fill[white] (4*\width,-45*\height) rectangle (5*\width,-45*\height+\height);
+\fill[white] (5*\width,-45*\height) rectangle (6*\width,-45*\height+\height);
+\fill[white] (6*\width,-45*\height) rectangle (7*\width,-45*\height+\height);
+\fill[white] (7*\width,-45*\height) rectangle (8*\width,-45*\height+\height);
+\fill[white] (8*\width,-45*\height) rectangle (9*\width,-45*\height+\height);
+\fill[white] (9*\width,-45*\height) rectangle (10*\width,-45*\height+\height);
+\node[anchor=east] at (0, -46*\height + 0.5*\height) {$\startvar$};
+\fill[white] (0*\width,-46*\height) rectangle (1*\width,-46*\height+\height);
+\fill[white] (1*\width,-46*\height) rectangle (2*\width,-46*\height+\height);
+\fill[blue!52] (2*\width,-46*\height) rectangle (3*\width,-46*\height+\height);
+\fill[white] (3*\width,-46*\height) rectangle (4*\width,-46*\height+\height);
+\fill[white] (4*\width,-46*\height) rectangle (5*\width,-46*\height+\height);
+\fill[white] (5*\width,-46*\height) rectangle (6*\width,-46*\height+\height);
+\fill[white] (6*\width,-46*\height) rectangle (7*\width,-46*\height+\height);
+\fill[white] (7*\width,-46*\height) rectangle (8*\width,-46*\height+\height);
+\fill[white] (8*\width,-46*\height) rectangle (9*\width,-46*\height+\height);
+\fill[white] (9*\width,-46*\height) rectangle (10*\width,-46*\height+\height);
+\node[anchor=east] at (0, -47*\height + 0.5*\height) {$\startqone$};
+\fill[white] (0*\width,-47*\height) rectangle (1*\width,-47*\height+\height);
+\fill[white] (1*\width,-47*\height) rectangle (2*\width,-47*\height+\height);
+\fill[red!96] (2*\width,-47*\height) rectangle (3*\width,-47*\height+\height);
+\fill[white] (3*\width,-47*\height) rectangle (4*\width,-47*\height+\height);
+\fill[white] (4*\width,-47*\height) rectangle (5*\width,-47*\height+\height);
+\fill[white] (5*\width,-47*\height) rectangle (6*\width,-47*\height+\height);
+\fill[white] (6*\width,-47*\height) rectangle (7*\width,-47*\height+\height);
+\fill[white] (7*\width,-47*\height) rectangle (8*\width,-47*\height+\height);
+\fill[white] (8*\width,-47*\height) rectangle (9*\width,-47*\height+\height);
+\fill[white] (9*\width,-47*\height) rectangle (10*\width,-47*\height+\height);
+\node[anchor=east] at (0, -48*\height + 0.5*\height) {$\startqthree$};
+\fill[white] (0*\width,-48*\height) rectangle (1*\width,-48*\height+\height);
+\fill[white] (1*\width,-48*\height) rectangle (2*\width,-48*\height+\height);
+\fill[red!93] (2*\width,-48*\height) rectangle (3*\width,-48*\height+\height);
+\fill[white] (3*\width,-48*\height) rectangle (4*\width,-48*\height+\height);
+\fill[white] (4*\width,-48*\height) rectangle (5*\width,-48*\height+\height);
+\fill[white] (5*\width,-48*\height) rectangle (6*\width,-48*\height+\height);
+\fill[white] (6*\width,-48*\height) rectangle (7*\width,-48*\height+\height);
+\fill[white] (7*\width,-48*\height) rectangle (8*\width,-48*\height+\height);
+\fill[white] (8*\width,-48*\height) rectangle (9*\width,-48*\height+\height);
+\fill[white] (9*\width,-48*\height) rectangle (10*\width,-48*\height+\height);
+\node[anchor=east] at (0, -49*\height + 0.5*\height) {$\startactivitiesrel$};
+\fill[blue!60] (0*\width,-49*\height) rectangle (1*\width,-49*\height+\height);
+\fill[white] (1*\width,-49*\height) rectangle (2*\width,-49*\height+\height);
+\fill[white] (2*\width,-49*\height) rectangle (3*\width,-49*\height+\height);
+\fill[white] (3*\width,-49*\height) rectangle (4*\width,-49*\height+\height);
+\fill[white] (4*\width,-49*\height) rectangle (5*\width,-49*\height+\height);
+\fill[white] (5*\width,-49*\height) rectangle (6*\width,-49*\height+\height);
+\fill[white] (6*\width,-49*\height) rectangle (7*\width,-49*\height+\height);
+\fill[white] (7*\width,-49*\height) rectangle (8*\width,-49*\height+\height);
+\fill[white] (8*\width,-49*\height) rectangle (9*\width,-49*\height+\height);
+\fill[white] (9*\width,-49*\height) rectangle (10*\width,-49*\height+\height);
+\node[anchor=east] at (0, -50*\height + 0.5*\height) {$\lastactivities$};
+\fill[white] (0*\width,-50*\height) rectangle (1*\width,-50*\height+\height);
+\fill[white] (1*\width,-50*\height) rectangle (2*\width,-50*\height+\height);
+\fill[blue!70] (2*\width,-50*\height) rectangle (3*\width,-50*\height+\height);
+\fill[white] (3*\width,-50*\height) rectangle (4*\width,-50*\height+\height);
+\fill[white] (4*\width,-50*\height) rectangle (5*\width,-50*\height+\height);
+\fill[white] (5*\width,-50*\height) rectangle (6*\width,-50*\height+\height);
+\fill[white] (6*\width,-50*\height) rectangle (7*\width,-50*\height+\height);
+\fill[white] (7*\width,-50*\height) rectangle (8*\width,-50*\height+\height);
+\fill[white] (8*\width,-50*\height) rectangle (9*\width,-50*\height+\height);
+\fill[white] (9*\width,-50*\height) rectangle (10*\width,-50*\height+\height);
+\node[anchor=east] at (0, -51*\height + 0.5*\height) {$\lastmin$};
+\fill[white] (0*\width,-51*\height) rectangle (1*\width,-51*\height+\height);
+\fill[white] (1*\width,-51*\height) rectangle (2*\width,-51*\height+\height);
+\fill[red!74] (2*\width,-51*\height) rectangle (3*\width,-51*\height+\height);
+\fill[white] (3*\width,-51*\height) rectangle (4*\width,-51*\height+\height);
+\fill[white] (4*\width,-51*\height) rectangle (5*\width,-51*\height+\height);
+\fill[white] (5*\width,-51*\height) rectangle (6*\width,-51*\height+\height);
+\fill[white] (6*\width,-51*\height) rectangle (7*\width,-51*\height+\height);
+\fill[white] (7*\width,-51*\height) rectangle (8*\width,-51*\height+\height);
+\fill[white] (8*\width,-51*\height) rectangle (9*\width,-51*\height+\height);
+\fill[white] (9*\width,-51*\height) rectangle (10*\width,-51*\height+\height);
+\node[anchor=east] at (0, -52*\height + 0.5*\height) {$\lastmax$};
+\fill[red!68] (0*\width,-52*\height) rectangle (1*\width,-52*\height+\height);
+\fill[white] (1*\width,-52*\height) rectangle (2*\width,-52*\height+\height);
+\fill[white] (2*\width,-52*\height) rectangle (3*\width,-52*\height+\height);
+\fill[white] (3*\width,-52*\height) rectangle (4*\width,-52*\height+\height);
+\fill[white] (4*\width,-52*\height) rectangle (5*\width,-52*\height+\height);
+\fill[white] (5*\width,-52*\height) rectangle (6*\width,-52*\height+\height);
+\fill[white] (6*\width,-52*\height) rectangle (7*\width,-52*\height+\height);
+\fill[white] (7*\width,-52*\height) rectangle (8*\width,-52*\height+\height);
+\fill[white] (8*\width,-52*\height) rectangle (9*\width,-52*\height+\height);
+\fill[white] (9*\width,-52*\height) rectangle (10*\width,-52*\height+\height);
+\node[anchor=east] at (0, -53*\height + 0.5*\height) {$\lastmean$};
+\fill[white] (0*\width,-53*\height) rectangle (1*\width,-53*\height+\height);
+\fill[white] (1*\width,-53*\height) rectangle (2*\width,-53*\height+\height);
+\fill[red!77] (2*\width,-53*\height) rectangle (3*\width,-53*\height+\height);
+\fill[white] (3*\width,-53*\height) rectangle (4*\width,-53*\height+\height);
+\fill[white] (4*\width,-53*\height) rectangle (5*\width,-53*\height+\height);
+\fill[white] (5*\width,-53*\height) rectangle (6*\width,-53*\height+\height);
+\fill[white] (6*\width,-53*\height) rectangle (7*\width,-53*\height+\height);
+\fill[white] (7*\width,-53*\height) rectangle (8*\width,-53*\height+\height);
+\fill[white] (8*\width,-53*\height) rectangle (9*\width,-53*\height+\height);
+\fill[white] (9*\width,-53*\height) rectangle (10*\width,-53*\height+\height);
+\node[anchor=east] at (0, -54*\height + 0.5*\height) {$\lastmedian$};
+\fill[white] (0*\width,-54*\height) rectangle (1*\width,-54*\height+\height);
+\fill[white] (1*\width,-54*\height) rectangle (2*\width,-54*\height+\height);
+\fill[red!83] (2*\width,-54*\height) rectangle (3*\width,-54*\height+\height);
+\fill[white] (3*\width,-54*\height) rectangle (4*\width,-54*\height+\height);
+\fill[white] (4*\width,-54*\height) rectangle (5*\width,-54*\height+\height);
+\fill[white] (5*\width,-54*\height) rectangle (6*\width,-54*\height+\height);
+\fill[white] (6*\width,-54*\height) rectangle (7*\width,-54*\height+\height);
+\fill[white] (7*\width,-54*\height) rectangle (8*\width,-54*\height+\height);
+\fill[white] (8*\width,-54*\height) rectangle (9*\width,-54*\height+\height);
+\fill[white] (9*\width,-54*\height) rectangle (10*\width,-54*\height+\height);
+\node[anchor=east] at (0, -55*\height + 0.5*\height) {$\lastdev$};
+\fill[white] (0*\width,-55*\height) rectangle (1*\width,-55*\height+\height);
+\fill[white] (1*\width,-55*\height) rectangle (2*\width,-55*\height+\height);
+\fill[blue!56] (2*\width,-55*\height) rectangle (3*\width,-55*\height+\height);
+\fill[white] (3*\width,-55*\height) rectangle (4*\width,-55*\height+\height);
+\fill[white] (4*\width,-55*\height) rectangle (5*\width,-55*\height+\height);
+\fill[white] (5*\width,-55*\height) rectangle (6*\width,-55*\height+\height);
+\fill[white] (6*\width,-55*\height) rectangle (7*\width,-55*\height+\height);
+\fill[white] (7*\width,-55*\height) rectangle (8*\width,-55*\height+\height);
+\fill[white] (8*\width,-55*\height) rectangle (9*\width,-55*\height+\height);
+\fill[white] (9*\width,-55*\height) rectangle (10*\width,-55*\height+\height);
+\node[anchor=east] at (0, -56*\height + 0.5*\height) {$\lastvar$};
+\fill[white] (0*\width,-56*\height) rectangle (1*\width,-56*\height+\height);
+\fill[white] (1*\width,-56*\height) rectangle (2*\width,-56*\height+\height);
+\fill[white] (2*\width,-56*\height) rectangle (3*\width,-56*\height+\height);
+\fill[white] (3*\width,-56*\height) rectangle (4*\width,-56*\height+\height);
+\fill[white] (4*\width,-56*\height) rectangle (5*\width,-56*\height+\height);
+\fill[white] (5*\width,-56*\height) rectangle (6*\width,-56*\height+\height);
+\fill[white] (6*\width,-56*\height) rectangle (7*\width,-56*\height+\height);
+\fill[white] (7*\width,-56*\height) rectangle (8*\width,-56*\height+\height);
+\fill[white] (8*\width,-56*\height) rectangle (9*\width,-56*\height+\height);
+\fill[white] (9*\width,-56*\height) rectangle (10*\width,-56*\height+\height);
+\node[anchor=east] at (0, -57*\height + 0.5*\height) {$\lastqone$};
+\fill[white] (0*\width,-57*\height) rectangle (1*\width,-57*\height+\height);
+\fill[white] (1*\width,-57*\height) rectangle (2*\width,-57*\height+\height);
+\fill[red!79] (2*\width,-57*\height) rectangle (3*\width,-57*\height+\height);
+\fill[white] (3*\width,-57*\height) rectangle (4*\width,-57*\height+\height);
+\fill[white] (4*\width,-57*\height) rectangle (5*\width,-57*\height+\height);
+\fill[white] (5*\width,-57*\height) rectangle (6*\width,-57*\height+\height);
+\fill[white] (6*\width,-57*\height) rectangle (7*\width,-57*\height+\height);
+\fill[white] (7*\width,-57*\height) rectangle (8*\width,-57*\height+\height);
+\fill[white] (8*\width,-57*\height) rectangle (9*\width,-57*\height+\height);
+\fill[white] (9*\width,-57*\height) rectangle (10*\width,-57*\height+\height);
+\node[anchor=east] at (0, -58*\height + 0.5*\height) {$\lastqthree$};
+\fill[white] (0*\width,-58*\height) rectangle (1*\width,-58*\height+\height);
+\fill[white] (1*\width,-58*\height) rectangle (2*\width,-58*\height+\height);
+\fill[red!77] (2*\width,-58*\height) rectangle (3*\width,-58*\height+\height);
+\fill[white] (3*\width,-58*\height) rectangle (4*\width,-58*\height+\height);
+\fill[white] (4*\width,-58*\height) rectangle (5*\width,-58*\height+\height);
+\fill[white] (5*\width,-58*\height) rectangle (6*\width,-58*\height+\height);
+\fill[white] (6*\width,-58*\height) rectangle (7*\width,-58*\height+\height);
+\fill[white] (7*\width,-58*\height) rectangle (8*\width,-58*\height+\height);
+\fill[white] (8*\width,-58*\height) rectangle (9*\width,-58*\height+\height);
+\fill[white] (9*\width,-58*\height) rectangle (10*\width,-58*\height+\height);
+\node[anchor=east] at (0, -59*\height + 0.5*\height) {$\lastactivitiesrel$};
+\fill[blue!73] (0*\width,-59*\height) rectangle (1*\width,-59*\height+\height);
+\fill[white] (1*\width,-59*\height) rectangle (2*\width,-59*\height+\height);
+\fill[white] (2*\width,-59*\height) rectangle (3*\width,-59*\height+\height);
+\fill[white] (3*\width,-59*\height) rectangle (4*\width,-59*\height+\height);
+\fill[white] (4*\width,-59*\height) rectangle (5*\width,-59*\height+\height);
+\fill[white] (5*\width,-59*\height) rectangle (6*\width,-59*\height+\height);
+\fill[white] (6*\width,-59*\height) rectangle (7*\width,-59*\height+\height);
+\fill[white] (7*\width,-59*\height) rectangle (8*\width,-59*\height+\height);
+\fill[white] (8*\width,-59*\height) rectangle (9*\width,-59*\height+\height);
+\fill[white] (9*\width,-59*\height) rectangle (10*\width,-59*\height+\height);
+\node[anchor=east] at (0, -60*\height + 0.5*\height) {$\enttrace$};
+\fill[red!88] (0*\width,-60*\height) rectangle (1*\width,-60*\height+\height);
+\fill[white] (1*\width,-60*\height) rectangle (2*\width,-60*\height+\height);
+\fill[white] (2*\width,-60*\height) rectangle (3*\width,-60*\height+\height);
+\fill[white] (3*\width,-60*\height) rectangle (4*\width,-60*\height+\height);
+\fill[white] (4*\width,-60*\height) rectangle (5*\width,-60*\height+\height);
+\fill[white] (5*\width,-60*\height) rectangle (6*\width,-60*\height+\height);
+\fill[white] (6*\width,-60*\height) rectangle (7*\width,-60*\height+\height);
+\fill[white] (7*\width,-60*\height) rectangle (8*\width,-60*\height+\height);
+\fill[white] (8*\width,-60*\height) rectangle (9*\width,-60*\height+\height);
+\fill[white] (9*\width,-60*\height) rectangle (10*\width,-60*\height+\height);
+\node[anchor=east] at (0, -61*\height + 0.5*\height) {$\entprefix$};
+\fill[red!93] (0*\width,-61*\height) rectangle (1*\width,-61*\height+\height);
+\fill[white] (1*\width,-61*\height) rectangle (2*\width,-61*\height+\height);
+\fill[white] (2*\width,-61*\height) rectangle (3*\width,-61*\height+\height);
+\fill[white] (3*\width,-61*\height) rectangle (4*\width,-61*\height+\height);
+\fill[white] (4*\width,-61*\height) rectangle (5*\width,-61*\height+\height);
+\fill[white] (5*\width,-61*\height) rectangle (6*\width,-61*\height+\height);
+\fill[white] (6*\width,-61*\height) rectangle (7*\width,-61*\height+\height);
+\fill[white] (7*\width,-61*\height) rectangle (8*\width,-61*\height+\height);
+\fill[white] (8*\width,-61*\height) rectangle (9*\width,-61*\height+\height);
+\fill[white] (9*\width,-61*\height) rectangle (10*\width,-61*\height+\height);
+\node[anchor=east] at (0, -62*\height + 0.5*\height) {$\entprefixflat$};
+\fill[red!91] (0*\width,-62*\height) rectangle (1*\width,-62*\height+\height);
+\fill[white] (1*\width,-62*\height) rectangle (2*\width,-62*\height+\height);
+\fill[white] (2*\width,-62*\height) rectangle (3*\width,-62*\height+\height);
+\fill[white] (3*\width,-62*\height) rectangle (4*\width,-62*\height+\height);
+\fill[white] (4*\width,-62*\height) rectangle (5*\width,-62*\height+\height);
+\fill[white] (5*\width,-62*\height) rectangle (6*\width,-62*\height+\height);
+\fill[white] (6*\width,-62*\height) rectangle (7*\width,-62*\height+\height);
+\fill[white] (7*\width,-62*\height) rectangle (8*\width,-62*\height+\height);
+\fill[white] (8*\width,-62*\height) rectangle (9*\width,-62*\height+\height);
+\fill[white] (9*\width,-62*\height) rectangle (10*\width,-62*\height+\height);
+\node[anchor=east] at (0, -63*\height + 0.5*\height) {$\entgblock$};
+\fill[red!81] (0*\width,-63*\height) rectangle (1*\width,-63*\height+\height);
+\fill[red!52] (1*\width,-63*\height) rectangle (2*\width,-63*\height+\height);
+\fill[white] (2*\width,-63*\height) rectangle (3*\width,-63*\height+\height);
+\fill[white] (3*\width,-63*\height) rectangle (4*\width,-63*\height+\height);
+\fill[white] (4*\width,-63*\height) rectangle (5*\width,-63*\height+\height);
+\fill[white] (5*\width,-63*\height) rectangle (6*\width,-63*\height+\height);
+\fill[white] (6*\width,-63*\height) rectangle (7*\width,-63*\height+\height);
+\fill[white] (7*\width,-63*\height) rectangle (8*\width,-63*\height+\height);
+\fill[white] (8*\width,-63*\height) rectangle (9*\width,-63*\height+\height);
+\fill[white] (9*\width,-63*\height) rectangle (10*\width,-63*\height+\height);
+\node[anchor=east] at (0, -64*\height + 0.5*\height) {$\entgblockflat$};
+\fill[red!80] (0*\width,-64*\height) rectangle (1*\width,-64*\height+\height);
+\fill[red!55] (1*\width,-64*\height) rectangle (2*\width,-64*\height+\height);
+\fill[white] (2*\width,-64*\height) rectangle (3*\width,-64*\height+\height);
+\fill[white] (3*\width,-64*\height) rectangle (4*\width,-64*\height+\height);
+\fill[white] (4*\width,-64*\height) rectangle (5*\width,-64*\height+\height);
+\fill[white] (5*\width,-64*\height) rectangle (6*\width,-64*\height+\height);
+\fill[white] (6*\width,-64*\height) rectangle (7*\width,-64*\height+\height);
+\fill[white] (7*\width,-64*\height) rectangle (8*\width,-64*\height+\height);
+\fill[white] (8*\width,-64*\height) rectangle (9*\width,-64*\height+\height);
+\fill[white] (9*\width,-64*\height) rectangle (10*\width,-64*\height+\height);
+\node[anchor=east] at (0, -65*\height + 0.5*\height) {$\entlempelziv$};
+\fill[red!90] (0*\width,-65*\height) rectangle (1*\width,-65*\height+\height);
+\fill[white] (1*\width,-65*\height) rectangle (2*\width,-65*\height+\height);
+\fill[white] (2*\width,-65*\height) rectangle (3*\width,-65*\height+\height);
+\fill[white] (3*\width,-65*\height) rectangle (4*\width,-65*\height+\height);
+\fill[white] (4*\width,-65*\height) rectangle (5*\width,-65*\height+\height);
+\fill[white] (5*\width,-65*\height) rectangle (6*\width,-65*\height+\height);
+\fill[white] (6*\width,-65*\height) rectangle (7*\width,-65*\height+\height);
+\fill[white] (7*\width,-65*\height) rectangle (8*\width,-65*\height+\height);
+\fill[white] (8*\width,-65*\height) rectangle (9*\width,-65*\height+\height);
+\fill[white] (9*\width,-65*\height) rectangle (10*\width,-65*\height+\height);
+\node[anchor=east] at (0, -66*\height + 0.5*\height) {$\entlempelzivflat$};
+\fill[red!63] (0*\width,-66*\height) rectangle (1*\width,-66*\height+\height);
+\fill[white] (1*\width,-66*\height) rectangle (2*\width,-66*\height+\height);
+\fill[white] (2*\width,-66*\height) rectangle (3*\width,-66*\height+\height);
+\fill[white] (3*\width,-66*\height) rectangle (4*\width,-66*\height+\height);
+\fill[white] (4*\width,-66*\height) rectangle (5*\width,-66*\height+\height);
+\fill[white] (5*\width,-66*\height) rectangle (6*\width,-66*\height+\height);
+\fill[white] (6*\width,-66*\height) rectangle (7*\width,-66*\height+\height);
+\fill[white] (7*\width,-66*\height) rectangle (8*\width,-66*\height+\height);
+\fill[white] (8*\width,-66*\height) rectangle (9*\width,-66*\height+\height);
+\fill[white] (9*\width,-66*\height) rectangle (10*\width,-66*\height+\height);
+\node[anchor=east] at (0, -67*\height + 0.5*\height) {$\entkblockdone$};
+\fill[white] (0*\width,-67*\height) rectangle (1*\width,-67*\height+\height);
+\fill[red!66] (1*\width,-67*\height) rectangle (2*\width,-67*\height+\height);
+\fill[white] (2*\width,-67*\height) rectangle (3*\width,-67*\height+\height);
+\fill[blue!50] (3*\width,-67*\height) rectangle (4*\width,-67*\height+\height);
+\fill[white] (4*\width,-67*\height) rectangle (5*\width,-67*\height+\height);
+\fill[white] (5*\width,-67*\height) rectangle (6*\width,-67*\height+\height);
+\fill[white] (6*\width,-67*\height) rectangle (7*\width,-67*\height+\height);
+\fill[white] (7*\width,-67*\height) rectangle (8*\width,-67*\height+\height);
+\fill[white] (8*\width,-67*\height) rectangle (9*\width,-67*\height+\height);
+\fill[white] (9*\width,-67*\height) rectangle (10*\width,-67*\height+\height);
+\node[anchor=east] at (0, -68*\height + 0.5*\height) {$\entkblockdthree$};
+\fill[red!71] (0*\width,-68*\height) rectangle (1*\width,-68*\height+\height);
+\fill[blue!51] (1*\width,-68*\height) rectangle (2*\width,-68*\height+\height);
+\fill[white] (2*\width,-68*\height) rectangle (3*\width,-68*\height+\height);
+\fill[white] (3*\width,-68*\height) rectangle (4*\width,-68*\height+\height);
+\fill[white] (4*\width,-68*\height) rectangle (5*\width,-68*\height+\height);
+\fill[white] (5*\width,-68*\height) rectangle (6*\width,-68*\height+\height);
+\fill[white] (6*\width,-68*\height) rectangle (7*\width,-68*\height+\height);
+\fill[white] (7*\width,-68*\height) rectangle (8*\width,-68*\height+\height);
+\fill[white] (8*\width,-68*\height) rectangle (9*\width,-68*\height+\height);
+\fill[white] (9*\width,-68*\height) rectangle (10*\width,-68*\height+\height);
+\node[anchor=east] at (0, -69*\height + 0.5*\height) {$\entkblockdfive$};
+\fill[red!72] (0*\width,-69*\height) rectangle (1*\width,-69*\height+\height);
+\fill[white] (1*\width,-69*\height) rectangle (2*\width,-69*\height+\height);
+\fill[white] (2*\width,-69*\height) rectangle (3*\width,-69*\height+\height);
+\fill[white] (3*\width,-69*\height) rectangle (4*\width,-69*\height+\height);
+\fill[white] (4*\width,-69*\height) rectangle (5*\width,-69*\height+\height);
+\fill[white] (5*\width,-69*\height) rectangle (6*\width,-69*\height+\height);
+\fill[white] (6*\width,-69*\height) rectangle (7*\width,-69*\height+\height);
+\fill[white] (7*\width,-69*\height) rectangle (8*\width,-69*\height+\height);
+\fill[white] (8*\width,-69*\height) rectangle (9*\width,-69*\height+\height);
+\fill[white] (9*\width,-69*\height) rectangle (10*\width,-69*\height+\height);
+\node[anchor=east] at (0, -70*\height + 0.5*\height) {$\entkblockrthree$};
+\fill[red!84] (0*\width,-70*\height) rectangle (1*\width,-70*\height+\height);
+\fill[white] (1*\width,-70*\height) rectangle (2*\width,-70*\height+\height);
+\fill[white] (2*\width,-70*\height) rectangle (3*\width,-70*\height+\height);
+\fill[white] (3*\width,-70*\height) rectangle (4*\width,-70*\height+\height);
+\fill[white] (4*\width,-70*\height) rectangle (5*\width,-70*\height+\height);
+\fill[white] (5*\width,-70*\height) rectangle (6*\width,-70*\height+\height);
+\fill[white] (6*\width,-70*\height) rectangle (7*\width,-70*\height+\height);
+\fill[white] (7*\width,-70*\height) rectangle (8*\width,-70*\height+\height);
+\fill[white] (8*\width,-70*\height) rectangle (9*\width,-70*\height+\height);
+\fill[white] (9*\width,-70*\height) rectangle (10*\width,-70*\height+\height);
+\node[anchor=east] at (0, -71*\height + 0.5*\height) {$\entkblockrfive$};
+\fill[red!83] (0*\width,-71*\height) rectangle (1*\width,-71*\height+\height);
+\fill[white] (1*\width,-71*\height) rectangle (2*\width,-71*\height+\height);
+\fill[white] (2*\width,-71*\height) rectangle (3*\width,-71*\height+\height);
+\fill[white] (3*\width,-71*\height) rectangle (4*\width,-71*\height+\height);
+\fill[white] (4*\width,-71*\height) rectangle (5*\width,-71*\height+\height);
+\fill[white] (5*\width,-71*\height) rectangle (6*\width,-71*\height+\height);
+\fill[white] (6*\width,-71*\height) rectangle (7*\width,-71*\height+\height);
+\fill[white] (7*\width,-71*\height) rectangle (8*\width,-71*\height+\height);
+\fill[white] (8*\width,-71*\height) rectangle (9*\width,-71*\height+\height);
+\fill[white] (9*\width,-71*\height) rectangle (10*\width,-71*\height+\height);
+\node[anchor=east] at (0, -72*\height + 0.5*\height) {$\entknnthree$};
+\fill[red!93] (0*\width,-72*\height) rectangle (1*\width,-72*\height+\height);
+\fill[white] (1*\width,-72*\height) rectangle (2*\width,-72*\height+\height);
+\fill[white] (2*\width,-72*\height) rectangle (3*\width,-72*\height+\height);
+\fill[white] (3*\width,-72*\height) rectangle (4*\width,-72*\height+\height);
+\fill[white] (4*\width,-72*\height) rectangle (5*\width,-72*\height+\height);
+\fill[white] (5*\width,-72*\height) rectangle (6*\width,-72*\height+\height);
+\fill[white] (6*\width,-72*\height) rectangle (7*\width,-72*\height+\height);
+\fill[white] (7*\width,-72*\height) rectangle (8*\width,-72*\height+\height);
+\fill[white] (8*\width,-72*\height) rectangle (9*\width,-72*\height+\height);
+\fill[white] (9*\width,-72*\height) rectangle (10*\width,-72*\height+\height);
+\node[anchor=east] at (0, -73*\height + 0.5*\height) {$\entknnfive$};
+\fill[red!93] (0*\width,-73*\height) rectangle (1*\width,-73*\height+\height);
+\fill[white] (1*\width,-73*\height) rectangle (2*\width,-73*\height+\height);
+\fill[white] (2*\width,-73*\height) rectangle (3*\width,-73*\height+\height);
+\fill[white] (3*\width,-73*\height) rectangle (4*\width,-73*\height+\height);
+\fill[white] (4*\width,-73*\height) rectangle (5*\width,-73*\height+\height);
+\fill[white] (5*\width,-73*\height) rectangle (6*\width,-73*\height+\height);
+\fill[white] (6*\width,-73*\height) rectangle (7*\width,-73*\height+\height);
+\fill[white] (7*\width,-73*\height) rectangle (8*\width,-73*\height+\height);
+\fill[white] (8*\width,-73*\height) rectangle (9*\width,-73*\height+\height);
+\fill[white] (9*\width,-73*\height) rectangle (10*\width,-73*\height+\height);
+\node[anchor=east] at (0, -74*\height + 0.5*\height) {$\entknnseven$};
+\fill[red!93] (0*\width,-74*\height) rectangle (1*\width,-74*\height+\height);
+\fill[white] (1*\width,-74*\height) rectangle (2*\width,-74*\height+\height);
+\fill[white] (2*\width,-74*\height) rectangle (3*\width,-74*\height+\height);
+\fill[white] (3*\width,-74*\height) rectangle (4*\width,-74*\height+\height);
+\fill[white] (4*\width,-74*\height) rectangle (5*\width,-74*\height+\height);
+\fill[white] (5*\width,-74*\height) rectangle (6*\width,-74*\height+\height);
+\fill[white] (6*\width,-74*\height) rectangle (7*\width,-74*\height+\height);
+\fill[white] (7*\width,-74*\height) rectangle (8*\width,-74*\height+\height);
+\fill[white] (8*\width,-74*\height) rectangle (9*\width,-74*\height+\height);
+\fill[white] (9*\width,-74*\height) rectangle (10*\width,-74*\height+\height);
+\node[anchor=east] at (0, -75*\height + 0.5*\height) {$\epavariant$};
+\fill[red!88] (0*\width,-75*\height) rectangle (1*\width,-75*\height+\height);
+\fill[white] (1*\width,-75*\height) rectangle (2*\width,-75*\height+\height);
+\fill[white] (2*\width,-75*\height) rectangle (3*\width,-75*\height+\height);
+\fill[white] (3*\width,-75*\height) rectangle (4*\width,-75*\height+\height);
+\fill[white] (4*\width,-75*\height) rectangle (5*\width,-75*\height+\height);
+\fill[white] (5*\width,-75*\height) rectangle (6*\width,-75*\height+\height);
+\fill[white] (6*\width,-75*\height) rectangle (7*\width,-75*\height+\height);
+\fill[white] (7*\width,-75*\height) rectangle (8*\width,-75*\height+\height);
+\fill[white] (8*\width,-75*\height) rectangle (9*\width,-75*\height+\height);
+\fill[white] (9*\width,-75*\height) rectangle (10*\width,-75*\height+\height);
+\node[anchor=east] at (0, -76*\height + 0.5*\height) {$\epanormvariant$};
+\fill[blue!51] (0*\width,-76*\height) rectangle (1*\width,-76*\height+\height);
+\fill[blue!79] (1*\width,-76*\height) rectangle (2*\width,-76*\height+\height);
+\fill[white] (2*\width,-76*\height) rectangle (3*\width,-76*\height+\height);
+\fill[white] (3*\width,-76*\height) rectangle (4*\width,-76*\height+\height);
+\fill[white] (4*\width,-76*\height) rectangle (5*\width,-76*\height+\height);
+\fill[white] (5*\width,-76*\height) rectangle (6*\width,-76*\height+\height);
+\fill[white] (6*\width,-76*\height) rectangle (7*\width,-76*\height+\height);
+\fill[white] (7*\width,-76*\height) rectangle (8*\width,-76*\height+\height);
+\fill[white] (8*\width,-76*\height) rectangle (9*\width,-76*\height+\height);
+\fill[white] (9*\width,-76*\height) rectangle (10*\width,-76*\height+\height);
+\node[anchor=east] at (0, -77*\height + 0.5*\height) {$\epasequence$};
+\fill[red!90] (0*\width,-77*\height) rectangle (1*\width,-77*\height+\height);
+\fill[white] (1*\width,-77*\height) rectangle (2*\width,-77*\height+\height);
+\fill[white] (2*\width,-77*\height) rectangle (3*\width,-77*\height+\height);
+\fill[white] (3*\width,-77*\height) rectangle (4*\width,-77*\height+\height);
+\fill[white] (4*\width,-77*\height) rectangle (5*\width,-77*\height+\height);
+\fill[white] (5*\width,-77*\height) rectangle (6*\width,-77*\height+\height);
+\fill[white] (6*\width,-77*\height) rectangle (7*\width,-77*\height+\height);
+\fill[white] (7*\width,-77*\height) rectangle (8*\width,-77*\height+\height);
+\fill[white] (8*\width,-77*\height) rectangle (9*\width,-77*\height+\height);
+\fill[white] (9*\width,-77*\height) rectangle (10*\width,-77*\height+\height);
+\node[anchor=east] at (0, -78*\height + 0.5*\height) {$\epanormsequence$};
+\fill[red!88] (0*\width,-78*\height) rectangle (1*\width,-78*\height+\height);
+\fill[white] (1*\width,-78*\height) rectangle (2*\width,-78*\height+\height);
+\fill[white] (2*\width,-78*\height) rectangle (3*\width,-78*\height+\height);
+\fill[white] (3*\width,-78*\height) rectangle (4*\width,-78*\height+\height);
+\fill[white] (4*\width,-78*\height) rectangle (5*\width,-78*\height+\height);
+\fill[white] (5*\width,-78*\height) rectangle (6*\width,-78*\height+\height);
+\fill[white] (6*\width,-78*\height) rectangle (7*\width,-78*\height+\height);
+\fill[white] (7*\width,-78*\height) rectangle (8*\width,-78*\height+\height);
+\fill[white] (8*\width,-78*\height) rectangle (9*\width,-78*\height+\height);
+\fill[white] (9*\width,-78*\height) rectangle (10*\width,-78*\height+\height);
+\node[anchor=east] at (0, -79*\height + 0.5*\height) {$\epasequencel$};
+\fill[red!90] (0*\width,-79*\height) rectangle (1*\width,-79*\height+\height);
+\fill[white] (1*\width,-79*\height) rectangle (2*\width,-79*\height+\height);
+\fill[white] (2*\width,-79*\height) rectangle (3*\width,-79*\height+\height);
+\fill[white] (3*\width,-79*\height) rectangle (4*\width,-79*\height+\height);
+\fill[white] (4*\width,-79*\height) rectangle (5*\width,-79*\height+\height);
+\fill[white] (5*\width,-79*\height) rectangle (6*\width,-79*\height+\height);
+\fill[white] (6*\width,-79*\height) rectangle (7*\width,-79*\height+\height);
+\fill[white] (7*\width,-79*\height) rectangle (8*\width,-79*\height+\height);
+\fill[white] (8*\width,-79*\height) rectangle (9*\width,-79*\height+\height);
+\fill[white] (9*\width,-79*\height) rectangle (10*\width,-79*\height+\height);
+\node[anchor=east] at (0, -80*\height + 0.5*\height) {$\epanormsequencel$};
+\fill[red!87] (0*\width,-80*\height) rectangle (1*\width,-80*\height+\height);
+\fill[white] (1*\width,-80*\height) rectangle (2*\width,-80*\height+\height);
+\fill[white] (2*\width,-80*\height) rectangle (3*\width,-80*\height+\height);
+\fill[white] (3*\width,-80*\height) rectangle (4*\width,-80*\height+\height);
+\fill[white] (4*\width,-80*\height) rectangle (5*\width,-80*\height+\height);
+\fill[white] (5*\width,-80*\height) rectangle (6*\width,-80*\height+\height);
+\fill[white] (6*\width,-80*\height) rectangle (7*\width,-80*\height+\height);
+\fill[white] (7*\width,-80*\height) rectangle (8*\width,-80*\height+\height);
+\fill[white] (8*\width,-80*\height) rectangle (9*\width,-80*\height+\height);
+\fill[white] (9*\width,-80*\height) rectangle (10*\width,-80*\height+\height);
+\node[anchor=east] at (0, -81*\height + 0.5*\height) {$\epasequencee$};
+\fill[red!90] (0*\width,-81*\height) rectangle (1*\width,-81*\height+\height);
+\fill[white] (1*\width,-81*\height) rectangle (2*\width,-81*\height+\height);
+\fill[white] (2*\width,-81*\height) rectangle (3*\width,-81*\height+\height);
+\fill[white] (3*\width,-81*\height) rectangle (4*\width,-81*\height+\height);
+\fill[white] (4*\width,-81*\height) rectangle (5*\width,-81*\height+\height);
+\fill[white] (5*\width,-81*\height) rectangle (6*\width,-81*\height+\height);
+\fill[white] (6*\width,-81*\height) rectangle (7*\width,-81*\height+\height);
+\fill[white] (7*\width,-81*\height) rectangle (8*\width,-81*\height+\height);
+\fill[white] (8*\width,-81*\height) rectangle (9*\width,-81*\height+\height);
+\fill[white] (9*\width,-81*\height) rectangle (10*\width,-81*\height+\height);
+\node[anchor=east] at (0, -82*\height + 0.5*\height) {$\epanormsequencee$};
+\fill[red!88] (0*\width,-82*\height) rectangle (1*\width,-82*\height+\height);
+\fill[white] (1*\width,-82*\height) rectangle (2*\width,-82*\height+\height);
+\fill[white] (2*\width,-82*\height) rectangle (3*\width,-82*\height+\height);
+\fill[white] (3*\width,-82*\height) rectangle (4*\width,-82*\height+\height);
+\fill[white] (4*\width,-82*\height) rectangle (5*\width,-82*\height+\height);
+\fill[white] (5*\width,-82*\height) rectangle (6*\width,-82*\height+\height);
+\fill[white] (6*\width,-82*\height) rectangle (7*\width,-82*\height+\height);
+\fill[white] (7*\width,-82*\height) rectangle (8*\width,-82*\height+\height);
+\fill[white] (8*\width,-82*\height) rectangle (9*\width,-82*\height+\height);
+\fill[white] (9*\width,-82*\height) rectangle (10*\width,-82*\height+\height);
+\node[anchor=east] at (0, -83*\height + 0.5*\height) {$\simpletracediv$};
+\fill[blue!72] (0*\width,-83*\height) rectangle (1*\width,-83*\height+\height);
+\fill[red!61] (1*\width,-83*\height) rectangle (2*\width,-83*\height+\height);
+\fill[white] (2*\width,-83*\height) rectangle (3*\width,-83*\height+\height);
+\fill[white] (3*\width,-83*\height) rectangle (4*\width,-83*\height+\height);
+\fill[white] (4*\width,-83*\height) rectangle (5*\width,-83*\height+\height);
+\fill[white] (5*\width,-83*\height) rectangle (6*\width,-83*\height+\height);
+\fill[white] (6*\width,-83*\height) rectangle (7*\width,-83*\height+\height);
+\fill[white] (7*\width,-83*\height) rectangle (8*\width,-83*\height+\height);
+\fill[white] (8*\width,-83*\height) rectangle (9*\width,-83*\height+\height);
+\fill[white] (9*\width,-83*\height) rectangle (10*\width,-83*\height+\height);
+\node[anchor=east] at (0, -84*\height + 0.5*\height) {$\advtracediv$};
+\fill[white] (0*\width,-84*\height) rectangle (1*\width,-84*\height+\height);
+\fill[red!88] (1*\width,-84*\height) rectangle (2*\width,-84*\height+\height);
+\fill[white] (2*\width,-84*\height) rectangle (3*\width,-84*\height+\height);
+\fill[white] (3*\width,-84*\height) rectangle (4*\width,-84*\height+\height);
+\fill[white] (4*\width,-84*\height) rectangle (5*\width,-84*\height+\height);
+\fill[white] (5*\width,-84*\height) rectangle (6*\width,-84*\height+\height);
+\fill[white] (6*\width,-84*\height) rectangle (7*\width,-84*\height+\height);
+\fill[white] (7*\width,-84*\height) rectangle (8*\width,-84*\height+\height);
+\fill[white] (8*\width,-84*\height) rectangle (9*\width,-84*\height+\height);
+\fill[white] (9*\width,-84*\height) rectangle (10*\width,-84*\height+\height);
+\node[anchor=east] at (0, -85*\height + 0.5*\height) {$\damax$};
+\fill[white] (0*\width,-85*\height) rectangle (1*\width,-85*\height+\height);
+\fill[red!77] (1*\width,-85*\height) rectangle (2*\width,-85*\height+\height);
+\fill[white] (2*\width,-85*\height) rectangle (3*\width,-85*\height+\height);
+\fill[white] (3*\width,-85*\height) rectangle (4*\width,-85*\height+\height);
+\fill[white] (4*\width,-85*\height) rectangle (5*\width,-85*\height+\height);
+\fill[white] (5*\width,-85*\height) rectangle (6*\width,-85*\height+\height);
+\fill[white] (6*\width,-85*\height) rectangle (7*\width,-85*\height+\height);
+\fill[white] (7*\width,-85*\height) rectangle (8*\width,-85*\height+\height);
+\fill[white] (8*\width,-85*\height) rectangle (9*\width,-85*\height+\height);
+\fill[white] (9*\width,-85*\height) rectangle (10*\width,-85*\height+\height);
+\node[anchor=east] at (0, -86*\height + 0.5*\height) {$\daavg$};
+\fill[red!90] (0*\width,-86*\height) rectangle (1*\width,-86*\height+\height);
+\fill[white] (1*\width,-86*\height) rectangle (2*\width,-86*\height+\height);
+\fill[white] (2*\width,-86*\height) rectangle (3*\width,-86*\height+\height);
+\fill[white] (3*\width,-86*\height) rectangle (4*\width,-86*\height+\height);
+\fill[white] (4*\width,-86*\height) rectangle (5*\width,-86*\height+\height);
+\fill[white] (5*\width,-86*\height) rectangle (6*\width,-86*\height+\height);
+\fill[white] (6*\width,-86*\height) rectangle (7*\width,-86*\height+\height);
+\fill[white] (7*\width,-86*\height) rectangle (8*\width,-86*\height+\height);
+\fill[white] (8*\width,-86*\height) rectangle (9*\width,-86*\height+\height);
+\fill[white] (9*\width,-86*\height) rectangle (10*\width,-86*\height+\height);
+\node[anchor=east] at (0, -87*\height + 0.5*\height) {$\dadev$};
+\fill[white] (0*\width,-87*\height) rectangle (1*\width,-87*\height+\height);
+\fill[red!90] (1*\width,-87*\height) rectangle (2*\width,-87*\height+\height);
+\fill[white] (2*\width,-87*\height) rectangle (3*\width,-87*\height+\height);
+\fill[white] (3*\width,-87*\height) rectangle (4*\width,-87*\height+\height);
+\fill[white] (4*\width,-87*\height) rectangle (5*\width,-87*\height+\height);
+\fill[white] (5*\width,-87*\height) rectangle (6*\width,-87*\height+\height);
+\fill[white] (6*\width,-87*\height) rectangle (7*\width,-87*\height+\height);
+\fill[white] (7*\width,-87*\height) rectangle (8*\width,-87*\height+\height);
+\fill[white] (8*\width,-87*\height) rectangle (9*\width,-87*\height+\height);
+\fill[white] (9*\width,-87*\height) rectangle (10*\width,-87*\height+\height);
+\node[anchor=east] at (0, -88*\height + 0.5*\height) {$\dadens$};
+\fill[blue!55] (0*\width,-88*\height) rectangle (1*\width,-88*\height+\height);
+\fill[blue!62] (1*\width,-88*\height) rectangle (2*\width,-88*\height+\height);
+\fill[white] (2*\width,-88*\height) rectangle (3*\width,-88*\height+\height);
+\fill[white] (3*\width,-88*\height) rectangle (4*\width,-88*\height+\height);
+\fill[white] (4*\width,-88*\height) rectangle (5*\width,-88*\height+\height);
+\fill[white] (5*\width,-88*\height) rectangle (6*\width,-88*\height+\height);
+\fill[white] (6*\width,-88*\height) rectangle (7*\width,-88*\height+\height);
+\fill[white] (7*\width,-88*\height) rectangle (8*\width,-88*\height+\height);
+\fill[white] (8*\width,-88*\height) rectangle (9*\width,-88*\height+\height);
+\fill[white] (9*\width,-88*\height) rectangle (10*\width,-88*\height+\height);
+\node[anchor=east] at (0, -89*\height + 0.5*\height) {$\daoverlap$};
+\fill[blue!63] (0*\width,-89*\height) rectangle (1*\width,-89*\height+\height);
+\fill[red!62] (1*\width,-89*\height) rectangle (2*\width,-89*\height+\height);
+\fill[white] (2*\width,-89*\height) rectangle (3*\width,-89*\height+\height);
+\fill[white] (3*\width,-89*\height) rectangle (4*\width,-89*\height+\height);
+\fill[white] (4*\width,-89*\height) rectangle (5*\width,-89*\height+\height);
+\fill[white] (5*\width,-89*\height) rectangle (6*\width,-89*\height+\height);
+\fill[white] (6*\width,-89*\height) rectangle (7*\width,-89*\height+\height);
+\fill[white] (7*\width,-89*\height) rectangle (8*\width,-89*\height+\height);
+\fill[white] (8*\width,-89*\height) rectangle (9*\width,-89*\height+\height);
+\fill[white] (9*\width,-89*\height) rectangle (10*\width,-89*\height+\height);
+\node[anchor=east] at (0, -90*\height + 0.5*\height) {$\complexityfactor$};
+\fill[red!70] (0*\width,-90*\height) rectangle (1*\width,-90*\height+\height);
+\fill[white] (1*\width,-90*\height) rectangle (2*\width,-90*\height+\height);
+\fill[white] (2*\width,-90*\height) rectangle (3*\width,-90*\height+\height);
+\fill[blue!51] (3*\width,-90*\height) rectangle (4*\width,-90*\height+\height);
+\fill[white] (4*\width,-90*\height) rectangle (5*\width,-90*\height+\height);
+\fill[white] (5*\width,-90*\height) rectangle (6*\width,-90*\height+\height);
+\fill[white] (6*\width,-90*\height) rectangle (7*\width,-90*\height+\height);
+\fill[white] (7*\width,-90*\height) rectangle (8*\width,-90*\height+\height);
+\fill[white] (8*\width,-90*\height) rectangle (9*\width,-90*\height+\height);
+\fill[white] (9*\width,-90*\height) rectangle (10*\width,-90*\height+\height);
+\node[anchor=east] at (0, -91*\height + 0.5*\height) {$\loopnum$};
+\fill[white] (0*\width,-91*\height) rectangle (1*\width,-91*\height+\height);
+\fill[white] (1*\width,-91*\height) rectangle (2*\width,-91*\height+\height);
+\fill[white] (2*\width,-91*\height) rectangle (3*\width,-91*\height+\height);
+\fill[white] (3*\width,-91*\height) rectangle (4*\width,-91*\height+\height);
+\fill[white] (4*\width,-91*\height) rectangle (5*\width,-91*\height+\height);
+\fill[red!63] (5*\width,-91*\height) rectangle (6*\width,-91*\height+\height);
+\fill[white] (6*\width,-91*\height) rectangle (7*\width,-91*\height+\height);
+\fill[white] (7*\width,-91*\height) rectangle (8*\width,-91*\height+\height);
+\fill[white] (8*\width,-91*\height) rectangle (9*\width,-91*\height+\height);
+\fill[white] (9*\width,-91*\height) rectangle (10*\width,-91*\height+\height);
+\node[anchor=east] at (0, -92*\height + 0.5*\height) {$\loopavg$};
+\fill[white] (0*\width,-92*\height) rectangle (1*\width,-92*\height+\height);
+\fill[white] (1*\width,-92*\height) rectangle (2*\width,-92*\height+\height);
+\fill[white] (2*\width,-92*\height) rectangle (3*\width,-92*\height+\height);
+\fill[white] (3*\width,-92*\height) rectangle (4*\width,-92*\height+\height);
+\fill[white] (4*\width,-92*\height) rectangle (5*\width,-92*\height+\height);
+\fill[red!62] (5*\width,-92*\height) rectangle (6*\width,-92*\height+\height);
+\fill[white] (6*\width,-92*\height) rectangle (7*\width,-92*\height+\height);
+\fill[white] (7*\width,-92*\height) rectangle (8*\width,-92*\height+\height);
+\fill[white] (8*\width,-92*\height) rectangle (9*\width,-92*\height+\height);
+\fill[white] (9*\width,-92*\height) rectangle (10*\width,-92*\height+\height);
+\node[anchor=east] at (0, -93*\height + 0.5*\height) {$\loopmax$};
+\fill[white] (0*\width,-93*\height) rectangle (1*\width,-93*\height+\height);
+\fill[white] (1*\width,-93*\height) rectangle (2*\width,-93*\height+\height);
+\fill[white] (2*\width,-93*\height) rectangle (3*\width,-93*\height+\height);
+\fill[white] (3*\width,-93*\height) rectangle (4*\width,-93*\height+\height);
+\fill[white] (4*\width,-93*\height) rectangle (5*\width,-93*\height+\height);
+\fill[red!60] (5*\width,-93*\height) rectangle (6*\width,-93*\height+\height);
+\fill[white] (6*\width,-93*\height) rectangle (7*\width,-93*\height+\height);
+\fill[white] (7*\width,-93*\height) rectangle (8*\width,-93*\height+\height);
+\fill[white] (8*\width,-93*\height) rectangle (9*\width,-93*\height+\height);
+\fill[white] (9*\width,-93*\height) rectangle (10*\width,-93*\height+\height);
+\node[anchor=east] at (0, -94*\height + 0.5*\height) {$\loopavgsize$};
+\fill[white] (0*\width,-94*\height) rectangle (1*\width,-94*\height+\height);
+\fill[white] (1*\width,-94*\height) rectangle (2*\width,-94*\height+\height);
+\fill[white] (2*\width,-94*\height) rectangle (3*\width,-94*\height+\height);
+\fill[white] (3*\width,-94*\height) rectangle (4*\width,-94*\height+\height);
+\fill[white] (4*\width,-94*\height) rectangle (5*\width,-94*\height+\height);
+\fill[white] (5*\width,-94*\height) rectangle (6*\width,-94*\height+\height);
+\fill[white] (6*\width,-94*\height) rectangle (7*\width,-94*\height+\height);
+\fill[white] (7*\width,-94*\height) rectangle (8*\width,-94*\height+\height);
+\fill[white] (8*\width,-94*\height) rectangle (9*\width,-94*\height+\height);
+\fill[white] (9*\width,-94*\height) rectangle (10*\width,-94*\height+\height);
+\node[anchor=east] at (0, -95*\height + 0.5*\height) {$\loopmaxsize$};
+\fill[white] (0*\width,-95*\height) rectangle (1*\width,-95*\height+\height);
+\fill[white] (1*\width,-95*\height) rectangle (2*\width,-95*\height+\height);
+\fill[white] (2*\width,-95*\height) rectangle (3*\width,-95*\height+\height);
+\fill[white] (3*\width,-95*\height) rectangle (4*\width,-95*\height+\height);
+\fill[white] (4*\width,-95*\height) rectangle (5*\width,-95*\height+\height);
+\fill[white] (5*\width,-95*\height) rectangle (6*\width,-95*\height+\height);
+\fill[white] (6*\width,-95*\height) rectangle (7*\width,-95*\height+\height);
+\fill[white] (7*\width,-95*\height) rectangle (8*\width,-95*\height+\height);
+\fill[white] (8*\width,-95*\height) rectangle (9*\width,-95*\height+\height);
+\fill[white] (9*\width,-95*\height) rectangle (10*\width,-95*\height+\height);
+\node[anchor=east] at (0, -96*\height + 0.5*\height) {$\repnum$};
+\fill[red!71] (0*\width,-96*\height) rectangle (1*\width,-96*\height+\height);
+\fill[white] (1*\width,-96*\height) rectangle (2*\width,-96*\height+\height);
+\fill[white] (2*\width,-96*\height) rectangle (3*\width,-96*\height+\height);
+\fill[white] (3*\width,-96*\height) rectangle (4*\width,-96*\height+\height);
+\fill[white] (4*\width,-96*\height) rectangle (5*\width,-96*\height+\height);
+\fill[white] (5*\width,-96*\height) rectangle (6*\width,-96*\height+\height);
+\fill[white] (6*\width,-96*\height) rectangle (7*\width,-96*\height+\height);
+\fill[white] (7*\width,-96*\height) rectangle (8*\width,-96*\height+\height);
+\fill[white] (8*\width,-96*\height) rectangle (9*\width,-96*\height+\height);
+\fill[white] (9*\width,-96*\height) rectangle (10*\width,-96*\height+\height);
+\node[anchor=east] at (0, -97*\height + 0.5*\height) {$\numberofneighborhoods$};
+\fill[red!79] (0*\width,-97*\height) rectangle (1*\width,-97*\height+\height);
+\fill[white] (1*\width,-97*\height) rectangle (2*\width,-97*\height+\height);
+\fill[white] (2*\width,-97*\height) rectangle (3*\width,-97*\height+\height);
+\fill[white] (3*\width,-97*\height) rectangle (4*\width,-97*\height+\height);
+\fill[white] (4*\width,-97*\height) rectangle (5*\width,-97*\height+\height);
+\fill[white] (5*\width,-97*\height) rectangle (6*\width,-97*\height+\height);
+\fill[white] (6*\width,-97*\height) rectangle (7*\width,-97*\height+\height);
+\fill[white] (7*\width,-97*\height) rectangle (8*\width,-97*\height+\height);
+\fill[white] (8*\width,-97*\height) rectangle (9*\width,-97*\height+\height);
+\fill[white] (9*\width,-97*\height) rectangle (10*\width,-97*\height+\height);
+\node[anchor=east] at (0, -98*\height + 0.5*\height) {$\numberofties$};
+\fill[white] (0*\width,-98*\height) rectangle (1*\width,-98*\height+\height);
+\fill[red!71] (1*\width,-98*\height) rectangle (2*\width,-98*\height+\height);
+\fill[white] (2*\width,-98*\height) rectangle (3*\width,-98*\height+\height);
+\fill[white] (3*\width,-98*\height) rectangle (4*\width,-98*\height+\height);
+\fill[white] (4*\width,-98*\height) rectangle (5*\width,-98*\height+\height);
+\fill[white] (5*\width,-98*\height) rectangle (6*\width,-98*\height+\height);
+\fill[white] (6*\width,-98*\height) rectangle (7*\width,-98*\height+\height);
+\fill[white] (7*\width,-98*\height) rectangle (8*\width,-98*\height+\height);
+\fill[white] (8*\width,-98*\height) rectangle (9*\width,-98*\height+\height);
+\fill[white] (9*\width,-98*\height) rectangle (10*\width,-98*\height+\height);
+\node[anchor=east] at (0, -99*\height + 0.5*\height) {$\lempelziv$};
+\fill[red!92] (0*\width,-99*\height) rectangle (1*\width,-99*\height+\height);
+\fill[white] (1*\width,-99*\height) rectangle (2*\width,-99*\height+\height);
+\fill[white] (2*\width,-99*\height) rectangle (3*\width,-99*\height+\height);
+\fill[white] (3*\width,-99*\height) rectangle (4*\width,-99*\height+\height);
+\fill[white] (4*\width,-99*\height) rectangle (5*\width,-99*\height+\height);
+\fill[white] (5*\width,-99*\height) rectangle (6*\width,-99*\height+\height);
+\fill[white] (6*\width,-99*\height) rectangle (7*\width,-99*\height+\height);
+\fill[white] (7*\width,-99*\height) rectangle (8*\width,-99*\height+\height);
+\fill[white] (8*\width,-99*\height) rectangle (9*\width,-99*\height+\height);
+\fill[white] (9*\width,-99*\height) rectangle (10*\width,-99*\height+\height);
+\node[anchor=east] at (0, -100*\height + 0.5*\height) {$\deviationfromrandom$};
+\fill[red!66] (0*\width,-100*\height) rectangle (1*\width,-100*\height+\height);
+\fill[white] (1*\width,-100*\height) rectangle (2*\width,-100*\height+\height);
+\fill[white] (2*\width,-100*\height) rectangle (3*\width,-100*\height+\height);
+\fill[blue!59] (3*\width,-100*\height) rectangle (4*\width,-100*\height+\height);
+\fill[white] (4*\width,-100*\height) rectangle (5*\width,-100*\height+\height);
+\fill[white] (5*\width,-100*\height) rectangle (6*\width,-100*\height+\height);
+\fill[white] (6*\width,-100*\height) rectangle (7*\width,-100*\height+\height);
+\fill[white] (7*\width,-100*\height) rectangle (8*\width,-100*\height+\height);
+\fill[white] (8*\width,-100*\height) rectangle (9*\width,-100*\height+\height);
+\fill[white] (9*\width,-100*\height) rectangle (10*\width,-100*\height+\height);
+\node[anchor=east] at (0, -101*\height + 0.5*\height) {$\dfgedges$};
+\fill[red!78] (0*\width,-101*\height) rectangle (1*\width,-101*\height+\height);
+\fill[white] (1*\width,-101*\height) rectangle (2*\width,-101*\height+\height);
+\fill[white] (2*\width,-101*\height) rectangle (3*\width,-101*\height+\height);
+\fill[white] (3*\width,-101*\height) rectangle (4*\width,-101*\height+\height);
+\fill[white] (4*\width,-101*\height) rectangle (5*\width,-101*\height+\height);
+\fill[white] (5*\width,-101*\height) rectangle (6*\width,-101*\height+\height);
+\fill[white] (6*\width,-101*\height) rectangle (7*\width,-101*\height+\height);
+\fill[white] (7*\width,-101*\height) rectangle (8*\width,-101*\height+\height);
+\fill[white] (8*\width,-101*\height) rectangle (9*\width,-101*\height+\height);
+\fill[white] (9*\width,-101*\height) rectangle (10*\width,-101*\height+\height);
+\node[anchor=east] at (0, -102*\height + 0.5*\height) {$\dfgcnc$};
+\fill[red!75] (0*\width,-102*\height) rectangle (1*\width,-102*\height+\height);
+\fill[white] (1*\width,-102*\height) rectangle (2*\width,-102*\height+\height);
+\fill[white] (2*\width,-102*\height) rectangle (3*\width,-102*\height+\height);
+\fill[white] (3*\width,-102*\height) rectangle (4*\width,-102*\height+\height);
+\fill[white] (4*\width,-102*\height) rectangle (5*\width,-102*\height+\height);
+\fill[white] (5*\width,-102*\height) rectangle (6*\width,-102*\height+\height);
+\fill[white] (6*\width,-102*\height) rectangle (7*\width,-102*\height+\height);
+\fill[white] (7*\width,-102*\height) rectangle (8*\width,-102*\height+\height);
+\fill[white] (8*\width,-102*\height) rectangle (9*\width,-102*\height+\height);
+\fill[white] (9*\width,-102*\height) rectangle (10*\width,-102*\height+\height);
+\node[anchor=east] at (0, -103*\height + 0.5*\height) {$\dfgmaxdeg$};
+\fill[red!76] (0*\width,-103*\height) rectangle (1*\width,-103*\height+\height);
+\fill[white] (1*\width,-103*\height) rectangle (2*\width,-103*\height+\height);
+\fill[white] (2*\width,-103*\height) rectangle (3*\width,-103*\height+\height);
+\fill[white] (3*\width,-103*\height) rectangle (4*\width,-103*\height+\height);
+\fill[white] (4*\width,-103*\height) rectangle (5*\width,-103*\height+\height);
+\fill[white] (5*\width,-103*\height) rectangle (6*\width,-103*\height+\height);
+\fill[white] (6*\width,-103*\height) rectangle (7*\width,-103*\height+\height);
+\fill[white] (7*\width,-103*\height) rectangle (8*\width,-103*\height+\height);
+\fill[white] (8*\width,-103*\height) rectangle (9*\width,-103*\height+\height);
+\fill[white] (9*\width,-103*\height) rectangle (10*\width,-103*\height+\height);
+\node[anchor=east] at (0, -104*\height + 0.5*\height) {$\dfgdens$};
+\fill[white] (0*\width,-104*\height) rectangle (1*\width,-104*\height+\height);
+\fill[blue!59] (1*\width,-104*\height) rectangle (2*\width,-104*\height+\height);
+\fill[white] (2*\width,-104*\height) rectangle (3*\width,-104*\height+\height);
+\fill[white] (3*\width,-104*\height) rectangle (4*\width,-104*\height+\height);
+\fill[white] (4*\width,-104*\height) rectangle (5*\width,-104*\height+\height);
+\fill[white] (5*\width,-104*\height) rectangle (6*\width,-104*\height+\height);
+\fill[white] (6*\width,-104*\height) rectangle (7*\width,-104*\height+\height);
+\fill[white] (7*\width,-104*\height) rectangle (8*\width,-104*\height+\height);
+\fill[white] (8*\width,-104*\height) rectangle (9*\width,-104*\height+\height);
+\fill[white] (9*\width,-104*\height) rectangle (10*\width,-104*\height+\height);
+\node[anchor=east] at (0, -105*\height + 0.5*\height) {$\dfgstruct$};
+\fill[white] (0*\width,-105*\height) rectangle (1*\width,-105*\height+\height);
+\fill[red!58] (1*\width,-105*\height) rectangle (2*\width,-105*\height+\height);
+\fill[white] (2*\width,-105*\height) rectangle (3*\width,-105*\height+\height);
+\fill[white] (3*\width,-105*\height) rectangle (4*\width,-105*\height+\height);
+\fill[white] (4*\width,-105*\height) rectangle (5*\width,-105*\height+\height);
+\fill[white] (5*\width,-105*\height) rectangle (6*\width,-105*\height+\height);
+\fill[white] (6*\width,-105*\height) rectangle (7*\width,-105*\height+\height);
+\fill[white] (7*\width,-105*\height) rectangle (8*\width,-105*\height+\height);
+\fill[white] (8*\width,-105*\height) rectangle (9*\width,-105*\height+\height);
+\fill[white] (9*\width,-105*\height) rectangle (10*\width,-105*\height+\height);
+\node[anchor=east] at (0, -106*\height + 0.5*\height) {$\dfgcycnumber$};
+\fill[red!78] (0*\width,-106*\height) rectangle (1*\width,-106*\height+\height);
+\fill[white] (1*\width,-106*\height) rectangle (2*\width,-106*\height+\height);
+\fill[white] (2*\width,-106*\height) rectangle (3*\width,-106*\height+\height);
+\fill[white] (3*\width,-106*\height) rectangle (4*\width,-106*\height+\height);
+\fill[white] (4*\width,-106*\height) rectangle (5*\width,-106*\height+\height);
+\fill[white] (5*\width,-106*\height) rectangle (6*\width,-106*\height+\height);
+\fill[white] (6*\width,-106*\height) rectangle (7*\width,-106*\height+\height);
+\fill[white] (7*\width,-106*\height) rectangle (8*\width,-106*\height+\height);
+\fill[white] (8*\width,-106*\height) rectangle (9*\width,-106*\height+\height);
+\fill[white] (9*\width,-106*\height) rectangle (10*\width,-106*\height+\height);
+\node[anchor=east] at (0, -107*\height + 0.5*\height) {$\dfgsepnum$};
+\fill[white] (0*\width,-107*\height) rectangle (1*\width,-107*\height+\height);
+\fill[white] (1*\width,-107*\height) rectangle (2*\width,-107*\height+\height);
+\fill[red!85] (2*\width,-107*\height) rectangle (3*\width,-107*\height+\height);
+\fill[white] (3*\width,-107*\height) rectangle (4*\width,-107*\height+\height);
+\fill[white] (4*\width,-107*\height) rectangle (5*\width,-107*\height+\height);
+\fill[white] (5*\width,-107*\height) rectangle (6*\width,-107*\height+\height);
+\fill[white] (6*\width,-107*\height) rectangle (7*\width,-107*\height+\height);
+\fill[white] (7*\width,-107*\height) rectangle (8*\width,-107*\height+\height);
+\fill[white] (8*\width,-107*\height) rectangle (9*\width,-107*\height+\height);
+\fill[white] (9*\width,-107*\height) rectangle (10*\width,-107*\height+\height);
+\node[anchor=east] at (0, -108*\height + 0.5*\height) {$\dfgsepratio$};
+\fill[white] (0*\width,-108*\height) rectangle (1*\width,-108*\height+\height);
+\fill[white] (1*\width,-108*\height) rectangle (2*\width,-108*\height+\height);
+\fill[red!82] (2*\width,-108*\height) rectangle (3*\width,-108*\height+\height);
+\fill[white] (3*\width,-108*\height) rectangle (4*\width,-108*\height+\height);
+\fill[white] (4*\width,-108*\height) rectangle (5*\width,-108*\height+\height);
+\fill[white] (5*\width,-108*\height) rectangle (6*\width,-108*\height+\height);
+\fill[white] (6*\width,-108*\height) rectangle (7*\width,-108*\height+\height);
+\fill[white] (7*\width,-108*\height) rectangle (8*\width,-108*\height+\height);
+\fill[white] (8*\width,-108*\height) rectangle (9*\width,-108*\height+\height);
+\fill[white] (9*\width,-108*\height) rectangle (10*\width,-108*\height+\height);
+\node[anchor=east] at (0, -109*\height + 0.5*\height) {$\dfgcyc$};
+\fill[white] (0*\width,-109*\height) rectangle (1*\width,-109*\height+\height);
+\fill[white] (1*\width,-109*\height) rectangle (2*\width,-109*\height+\height);
+\fill[blue!50] (2*\width,-109*\height) rectangle (3*\width,-109*\height+\height);
+\fill[white] (3*\width,-109*\height) rectangle (4*\width,-109*\height+\height);
+\fill[white] (4*\width,-109*\height) rectangle (5*\width,-109*\height+\height);
+\fill[white] (5*\width,-109*\height) rectangle (6*\width,-109*\height+\height);
+\fill[white] (6*\width,-109*\height) rectangle (7*\width,-109*\height+\height);
+\fill[white] (7*\width,-109*\height) rectangle (8*\width,-109*\height+\height);
+\fill[white] (8*\width,-109*\height) rectangle (9*\width,-109*\height+\height);
+\fill[white] (9*\width,-109*\height) rectangle (10*\width,-109*\height+\height);
+\node[anchor=east] at (0, -110*\height + 0.5*\height) {$\avgdist$};
+\fill[red!79] (0*\width,-110*\height) rectangle (1*\width,-110*\height+\height);
+\fill[red!52] (1*\width,-110*\height) rectangle (2*\width,-110*\height+\height);
+\fill[white] (2*\width,-110*\height) rectangle (3*\width,-110*\height+\height);
+\fill[white] (3*\width,-110*\height) rectangle (4*\width,-110*\height+\height);
+\fill[white] (4*\width,-110*\height) rectangle (5*\width,-110*\height+\height);
+\fill[white] (5*\width,-110*\height) rectangle (6*\width,-110*\height+\height);
+\fill[white] (6*\width,-110*\height) rectangle (7*\width,-110*\height+\height);
+\fill[white] (7*\width,-110*\height) rectangle (8*\width,-110*\height+\height);
+\fill[white] (8*\width,-110*\height) rectangle (9*\width,-110*\height+\height);
+\fill[white] (9*\width,-110*\height) rectangle (10*\width,-110*\height+\height);
+\node[anchor=east] at (0, -111*\height + 0.5*\height) {$\damin$};
+\fill[red!83] (0*\width,-111*\height) rectangle (1*\width,-111*\height+\height);
+\fill[white] (1*\width,-111*\height) rectangle (2*\width,-111*\height+\height);
+\fill[white] (2*\width,-111*\height) rectangle (3*\width,-111*\height+\height);
+\fill[white] (3*\width,-111*\height) rectangle (4*\width,-111*\height+\height);
+\fill[white] (4*\width,-111*\height) rectangle (5*\width,-111*\height+\height);
+\fill[white] (5*\width,-111*\height) rectangle (6*\width,-111*\height+\height);
+\fill[white] (6*\width,-111*\height) rectangle (7*\width,-111*\height+\height);
+\fill[white] (7*\width,-111*\height) rectangle (8*\width,-111*\height+\height);
+\fill[white] (8*\width,-111*\height) rectangle (9*\width,-111*\height+\height);
+\fill[white] (9*\width,-111*\height) rectangle (10*\width,-111*\height+\height);
+\end{tikzpicture}
+
+\end{document}

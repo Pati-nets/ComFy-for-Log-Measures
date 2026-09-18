@@ -1,4 +1,4 @@
-import pandas 
+import pandas
 import Constants
 import numpy as np
 
@@ -355,7 +355,7 @@ measure_codes += r'\newcommand{\loopmaxsize}{C_{\loopmaxsizename}}' + "\n"
 measure_codes += r'\newcommand{\repnumname}{\text{rep-\#}}' + "\n"
 measure_codes += r'\newcommand{\repnum}{C_{\repnumname}}' + "\n"
 measure_codes += r'\newcommand{\reprelnumname}{\text{rep-rel-\#}}' + "\n"
-measure_codes += r'\newcommand{\reprelnum}{C_{\repnumname}}' + "\n"
+measure_codes += r'\newcommand{\reprelnum}{C_{\reprelnumname}}' + "\n"
 measure_codes += r'\newcommand{\dfgnodesname}{\text{DFG-V}}' + "\n"
 measure_codes += r'\newcommand{\dfgnodes}{C_{\dfgnodesname}}' + "\n"
 measure_codes += r'\newcommand{\dfgedgesname}{\text{DFG-E}}' + "\n"
@@ -433,7 +433,7 @@ measure_codes += r'\newcommand{\entknnseven}{C_{\entknnsevenname}}' + "\n"
 measure_codes += r'\newcommand{\epavariantname}{\text{epa-var}}' + "\n"
 measure_codes += r'\newcommand{\epavariant}{C_{\epavariantname}}' + "\n"
 measure_codes += r'\newcommand{\epanormvariantname}{\text{epa-n-var}}' + "\n"
-measure_codes += r'\newcommand{\epanormvariant}{C_{\epanormsequencename}}' + "\n"
+measure_codes += r'\newcommand{\epanormvariant}{C_{\epanormvariantname}}' + "\n"
 measure_codes += r'\newcommand{\epasequencename}{\text{epa-seq}}' + "\n"
 measure_codes += r'\newcommand{\epasequence}{C_{\epasequencename}}' + "\n"
 measure_codes += r'\newcommand{\epanormsequencename}{\text{epa-n-seq}}' + "\n"
@@ -626,6 +626,39 @@ class LatexExporter():
         f.write(r'\end{document}')
         f.close()
 
+    def export_factor_loadings_heatmap(self, filename: str):
+        f = open(filename, "w")
+        f.write(r'\documentclass{standalone}' + "\n\n")
+        f.write(r'\usepackage{tikz}' + "\n")
+        f.write(r'\usepackage{amsmath}' + "\n\n")
+        f.write(measure_codes + "\n")
+        f.write(r'\begin{document}' + "\n\n")
+        rows = len(self.CFA.factor_loadings)
+        columns = len(self.CFA.factor_loadings[0])
+        f.write(r'\begin{tikzpicture}' + "\n")
+        f.write(r'\def\width{0.5}' + "\n")
+        f.write(r'\def\height{0.5}' + "\n")
+        for i in range(columns):
+            f.write(r'\node[anchor=south] at (' + str(i) + r'.5*\width, \height) {F' + str(i+1) + r'};' + "\n")
+        index = 0
+        for i in range(rows):
+            if self.CFA.communalities[i] >= Constants.communality_threshold:
+                f.write(r'\node[anchor=east] at (0, -' + str(index) + r'*\height + 0.5*\height) {$' + latex_command[str(list(self.CFA.complexity_data)[i])] + r'$};' + "\n")
+                for j in range(columns):
+                    color = 'white'
+                    value = round(self.CFA.factor_loadings[i][j], Constants.number_of_decimals)
+                    if abs(value) >= Constants.ignore_threshold:
+                        portion = int(abs(value) * 100)
+                        if value < 0:
+                            color = 'blue!' + str(portion)
+                        else:
+                            color = 'red!' + str(portion)
+                    f.write(r'\fill[' + color + r'] (' + str(j) + r'*\width,-' + str(index) + r'*\height) rectangle (' + str(j+1) + r'*\width,-' + str(index) + r'*\height+\height);' + "\n")
+                index += 1
+        f.write(r'\end{tikzpicture}' + "\n\n")
+        f.write(r'\end{document}')
+        f.close()
+
     def export(self):
         filename = self.get_latex_filename("analysis-info")
         print("Exporting info about the factor analysis to " + str(filename) + "...")
@@ -639,3 +672,6 @@ class LatexExporter():
         filename = self.get_latex_filename("factor-loadings")
         print("Exporting table of factor loadings to " + str(filename) + "...")
         self.export_factor_loadings_table(filename)
+        filename = self.get_latex_filename("factor-loadings-heatmap")
+        print("Exporting heatmap of factor loadings to " + str(filename) + "...")
+        self.export_factor_loadings_heatmap(filename)
