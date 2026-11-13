@@ -1,0 +1,411 @@
+\documentclass{standalone}
+
+\usepackage{booktabs}
+\usepackage{tikz}
+\usepackage{amsmath}
+
+\newcommand{\magnitudename}{\text{mag}}
+\newcommand{\magnitude}{C_{\magnitudename}}
+\newcommand{\varietyname}{\text{var}}
+\newcommand{\variety}{C_{\varietyname}}
+\newcommand{\lengthname}{\text{len}}
+\newcommand{\length}{C_{\lengthname}}
+\newcommand{\startactivitiesname}{\text{A-start-\#}}
+\newcommand{\startactivities}{C_{\startactivitiesname}}
+\newcommand{\startactivitiesrelname}{\text{A-start-rel}}
+\newcommand{\startactivitiesrel}{C_{\startactivitiesrelname}}
+\newcommand{\startminname}{\text{A-start-min}}
+\newcommand{\startmin}{C_{\startminname}}
+\newcommand{\startmaxname}{\text{A-start-max}}
+\newcommand{\startmax}{C_{\startmaxname}}
+\newcommand{\startmeanname}{\text{A-start-mean}}
+\newcommand{\startmean}{C_{\startmeanname}}
+\newcommand{\startmedianname}{\text{A-start-med}}
+\newcommand{\startmedian}{C_{\startmedianname}}
+\newcommand{\startdevname}{\text{A-start-dev}}
+\newcommand{\startdev}{C_{\startdevname}}
+\newcommand{\startvarname}{\text{A-start-var}}
+\newcommand{\startvar}{C_{\startvarname}}
+\newcommand{\startqonename}{\text{A-start-Q1}}
+\newcommand{\startqone}{C_{\startqonename}}
+\newcommand{\startqthreename}{\text{A-start-Q3}}
+\newcommand{\startqthree}{C_{\startqthreename}}
+\newcommand{\startiqrname}{\text{A-start-IQR}}
+\newcommand{\startiqr}{C_{\startiqrname}}
+\newcommand{\startskewname}{\text{A-start-skew}}
+\newcommand{\startskew}{C_{\startskewname}}
+\newcommand{\startkurtname}{\text{A-start-kurt}}
+\newcommand{\startkurt}{C_{\startkurtname}}
+\newcommand{\lastactivitiesname}{\text{A-end-\#}}
+\newcommand{\lastactivities}{C_{\lastactivitiesname}}
+\newcommand{\lastactivitiesrelname}{\text{A-end-rel}}
+\newcommand{\lastactivitiesrel}{C_{\lastactivitiesrelname}}
+\newcommand{\lastminname}{\text{A-end-min}}
+\newcommand{\lastmin}{C_{\lastminname}}
+\newcommand{\lastmaxname}{\text{A-end-max}}
+\newcommand{\lastmax}{C_{\lastmaxname}}
+\newcommand{\lastmeanname}{\text{A-end-mean}}
+\newcommand{\lastmean}{C_{\lastmeanname}}
+\newcommand{\lastmedianname}{\text{A-end-med}}
+\newcommand{\lastmedian}{C_{\lastmedianname}}
+\newcommand{\lastdevname}{\text{A-end-dev}}
+\newcommand{\lastdev}{C_{\lastdevname}}
+\newcommand{\lastvarname}{\text{A-end-var}}
+\newcommand{\lastvar}{C_{\lastvarname}}
+\newcommand{\lastqonename}{\text{A-end-Q1}}
+\newcommand{\lastqone}{C_{\lastqonename}}
+\newcommand{\lastqthreename}{\text{A-end-Q3}}
+\newcommand{\lastqthree}{C_{\lastqthreename}}
+\newcommand{\lastiqrname}{\text{A-end-IQR}}
+\newcommand{\lastiqr}{C_{\lastiqrname}}
+\newcommand{\lastskewname}{\text{A-end-skew}}
+\newcommand{\lastskew}{C_{\lastskewname}}
+\newcommand{\lastkurtname}{\text{A-end-kurt}}
+\newcommand{\lastkurt}{C_{\lastkurtname}}
+\newcommand{\tlminname}{\text{TL-min}}
+\newcommand{\tlmin}{C_{\tlminname}}
+\newcommand{\tlavgname}{\text{TL-mean}}
+\newcommand{\tlavg}{C_{\tlavgname}}
+\newcommand{\tlmaxname}{\text{TL-max}}
+\newcommand{\tlmax}{C_{\tlmaxname}}
+\newcommand{\tlmedname}{\text{TL-med}}
+\newcommand{\tlmed}{C_{\tlmedname}}
+\newcommand{\tlmodename}{\text{TL-mode}}
+\newcommand{\tlmode}{C_{\tlmodename}}
+\newcommand{\tldevname}{\text{TL-dev}}
+\newcommand{\tldev}{C_{\tldevname}}
+\newcommand{\tlvarname}{\text{TL-var}}
+\newcommand{\tlvar}{C_{\tlvarname}}
+\newcommand{\tlqonename}{\text{TL-Q1}}
+\newcommand{\tlqone}{C_{\tlqonename}}
+\newcommand{\tlqthreename}{\text{TL-Q3}}
+\newcommand{\tlqthree}{C_{\tlqthreename}}
+\newcommand{\tliqrname}{\text{TL-IQR}}
+\newcommand{\tliqr}{C_{\tliqrname}}
+\newcommand{\tlgmeanname}{\text{TL-g-mean}}
+\newcommand{\tlgmean}{C_{\tlgmeanname}}
+\newcommand{\tlgdevname}{\text{TL-g-dev}}
+\newcommand{\tlgdev}{C_{\tlgdevname}}
+\newcommand{\tlhmeanname}{\text{TL-h-mean}}
+\newcommand{\tlhmean}{C_{\tlhmeanname}}
+\newcommand{\tlskewnessname}{\text{TL-skew}}
+\newcommand{\tlskewness}{C_{\tlskewnessname}}
+\newcommand{\tlkurtosisname}{\text{TL-kurt}}
+\newcommand{\tlkurtosis}{C_{\tlkurtosisname}}
+\newcommand{\tlcvariationname}{\text{TL-cvar}}
+\newcommand{\tlcvariation}{C_{\tlcvariationname}}
+\newcommand{\tlentropyname}{\text{TL-ent}}
+\newcommand{\tlentropy}{C_{\tlentropyname}}
+\newcommand{\tlhistonename}{\text{TL-hist1}}
+\newcommand{\tlhistone}{C_{\tlhistonename}}
+\newcommand{\tlhisttwoname}{\text{TL-hist2}}
+\newcommand{\tlhisttwo}{C_{\tlhisttwoname}}
+\newcommand{\tlhistthreename}{\text{TL-hist3}}
+\newcommand{\tlhistthree}{C_{\tlhistthreename}}
+\newcommand{\tlhistfourname}{\text{TL-hist4}}
+\newcommand{\tlhistfour}{C_{\tlhistfourname}}
+\newcommand{\tlhistfivename}{\text{TL-hist5}}
+\newcommand{\tlhistfive}{C_{\tlhistfivename}}
+\newcommand{\tlhistsixname}{\text{TL-hist6}}
+\newcommand{\tlhistsix}{C_{\tlhistsixname}}
+\newcommand{\tlhistsevenname}{\text{TL-hist7}}
+\newcommand{\tlhistseven}{C_{\tlhistsevenname}}
+\newcommand{\tlhisteightname}{\text{TL-hist8}}
+\newcommand{\tlhisteight}{C_{\tlhisteightname}}
+\newcommand{\tlhistninename}{\text{TL-hist9}}
+\newcommand{\tlhistnine}{C_{\tlhistninename}}
+\newcommand{\tlhisttenname}{\text{TL-hist10}}
+\newcommand{\tlhistten}{C_{\tlhisttenname}}
+\newcommand{\tlskewhistname}{\text{TL-hist-skew}}
+\newcommand{\tlskewhist}{C_{\tlskewhistname}}
+\newcommand{\tlkurthistname}{\text{TL-hist-kurt}}
+\newcommand{\tlkurthist}{C_{\tlkurthistname}}
+\newcommand{\freqmaxrname}{\text{FREQ-T-max-r}}
+\newcommand{\freqmaxr}{C_{\freqmaxrname}}
+\newcommand{\freqmaxonename}{\text{FREQ-T-max-1\%}}
+\newcommand{\freqmaxone}{C_{\freqmaxonename}}
+\newcommand{\freqmaxfivename}{\text{FREQ-T-max-5\%}}
+\newcommand{\freqmaxfive}{C_{\freqmaxfivename}}
+\newcommand{\freqmaxtenname}{\text{FREQ-T-max-10\%}}
+\newcommand{\freqmaxten}{C_{\freqmaxtenname}}
+\newcommand{\freqmaxtwentyname}{\text{FREQ-T-max-20\%}}
+\newcommand{\freqmaxtwenty}{C_{\freqmaxtwentyname}}
+\newcommand{\freqmaxfiftyname}{\text{FREQ-T-max-50\%}}
+\newcommand{\freqmaxfifty}{C_{\freqmaxfiftyname}}
+\newcommand{\freqmaxseventyfivename}{\text{FREQ-T-max-75\%}}
+\newcommand{\freqmaxseventyfive}{C_{\freqmaxseventyfivename}}
+\newcommand{\freqmeanname}{\text{FREQ-T-mean}}
+\newcommand{\freqmean}{C_{\freqmeanname}}
+\newcommand{\freqdevname}{\text{FREQ-T-dev}}
+\newcommand{\freqdev}{C_{\freqdevname}}
+\newcommand{\freqskewname}{\text{FREQ-T-skew}}
+\newcommand{\freqskew}{C_{\freqskewname}}
+\newcommand{\freqkurtname}{\text{FREQ-T-kurt}}
+\newcommand{\freqkurt}{C_{\freqkurtname}}
+\newcommand{\actfreqminname}{\text{FREQ-A-min}}
+\newcommand{\actfreqmin}{C_{\actfreqminname}}
+\newcommand{\actfreqmaxname}{\text{FREQ-A-max}}
+\newcommand{\actfreqmax}{C_{\actfreqmaxname}}
+\newcommand{\actfreqmeanname}{\text{FREQ-A-mean}}
+\newcommand{\actfreqmean}{C_{\actfreqmeanname}}
+\newcommand{\actfreqmedianname}{\text{FREQ-A-med}}
+\newcommand{\actfreqmedian}{C_{\actfreqmedianname}}
+\newcommand{\actfreqdevname}{\text{FREQ-A-dev}}
+\newcommand{\actfreqdev}{C_{\actfreqdevname}}
+\newcommand{\actfreqvarname}{\text{FREQ-A-var}}
+\newcommand{\actfreqvar}{C_{\actfreqvarname}}
+\newcommand{\actfreqqonename}{\text{FREQ-A-Q1}}
+\newcommand{\actfreqqone}{C_{\actfreqqonename}}
+\newcommand{\actfreqqthreename}{\text{FREQ-A-Q3}}
+\newcommand{\actfreqqthree}{C_{\actfreqqthreename}}
+\newcommand{\actfreqiqrname}{\text{FREQ-A-IRQ}}
+\newcommand{\actfreqiqr}{C_{\actfreqiqrname}}
+\newcommand{\actfreqskewname}{\text{FREQ-A-skew}}
+\newcommand{\actfreqskew}{C_{\actfreqskewname}}
+\newcommand{\actfreqkurtname}{\text{FREQ-A-kurt}}
+\newcommand{\actfreqkurt}{C_{\actfreqkurtname}}
+\newcommand{\numberuniquetracesname}{\text{DT-\#}}
+\newcommand{\numberuniquetraces}{C_{\numberuniquetracesname}}
+\newcommand{\percentageuniquetracesname}{\text{DT-\%}}
+\newcommand{\percentageuniquetraces}{C_{\percentageuniquetracesname}}
+\newcommand{\dtcovname}{\text{DT-cov}}
+\newcommand{\dtcov}{C_{\dtcovname}}
+\newcommand{\dtrelcovname}{\text{DT-cov-\%}}
+\newcommand{\dtrelcov}{C_{\dtrelcovname}}
+\newcommand{\dthetname}{\text{DT-het}}
+\newcommand{\dthet}{C_{\dthetname}}
+\newcommand{\dtsimname}{\text{DT-sim}}
+\newcommand{\dtsim}{C_{\dtsimname}}
+\newcommand{\daminname}{\text{DA-min}}
+\newcommand{\damin}{C_{\daminname}}
+\newcommand{\daavgname}{\text{DA-avg}}
+\newcommand{\daavg}{C_{\daavgname}}
+\newcommand{\damaxname}{\text{DA-max}}
+\newcommand{\damax}{C_{\damaxname}}
+\newcommand{\dadevname}{\text{DA-dev}}
+\newcommand{\dadev}{C_{\dadevname}}
+\newcommand{\dadensname}{\text{DA-dens}}
+\newcommand{\dadens}{C_{\dadensname}}
+\newcommand{\daoverlapname}{\text{DA-ovrlp}}
+\newcommand{\daoverlap}{C_{\daoverlapname}}
+\newcommand{\complexityfactorname}{\text{comp-fact}}
+\newcommand{\complexityfactor}{C_{\complexityfactorname}}
+\newcommand{\simpletracedivname}{\text{s-T-div}}
+\newcommand{\simpletracediv}{C_{\simpletracedivname}}
+\newcommand{\advtracedivname}{\text{a-T-div}}
+\newcommand{\advtracediv}{C_{\advtracedivname}}
+\newcommand{\loopnumname}{\text{loop-\#}}
+\newcommand{\loopnum}{C_{\loopnumname}}
+\newcommand{\looprelnumname}{\text{loop-rel-\#}}
+\newcommand{\looprelnum}{C_{\looprelnumname}}
+\newcommand{\loopavgname}{\text{loop-avg-\#}}
+\newcommand{\loopavg}{C_{\loopavgname}}
+\newcommand{\loopmaxname}{\text{loop-max-\#}}
+\newcommand{\loopmax}{C_{\loopmaxname}}
+\newcommand{\loopavgsizename}{\text{loop-avg-size}}
+\newcommand{\loopavgsize}{C_{\loopavgsizename}}
+\newcommand{\loopmaxsizename}{\text{loop-max-size}}
+\newcommand{\loopmaxsize}{C_{\loopmaxsizename}}
+\newcommand{\repnumname}{\text{rep-\#}}
+\newcommand{\repnum}{C_{\repnumname}}
+\newcommand{\reprelnumname}{\text{rep-rel-\#}}
+\newcommand{\reprelnum}{C_{\reprelnumname}}
+\newcommand{\dfgnodesname}{\text{DFG-V}}
+\newcommand{\dfgnodes}{C_{\dfgnodesname}}
+\newcommand{\dfgedgesname}{\text{DFG-E}}
+\newcommand{\dfgedges}{C_{\dfgedgesname}}
+\newcommand{\dfgcncname}{\text{DFG-cnc}}
+\newcommand{\dfgcnc}{C_{\dfgcncname}}
+\newcommand{\dfgavgdegname}{\text{DFG-adeg}}
+\newcommand{\dfgavgdeg}{C_{\dfgavgdegname}}
+\newcommand{\dfgmaxdegname}{\text{DFG-mdeg}}
+\newcommand{\dfgmaxdeg}{C_{\dfgmaxdegname}}
+\newcommand{\dfgdensname}{\text{DFG-dens}}
+\newcommand{\dfgdens}{C_{\dfgdensname}}
+\newcommand{\dfgstructname}{\text{DFG-struct}}
+\newcommand{\dfgstruct}{C_{\dfgstructname}}
+\newcommand{\dfgcycnumbername}{\text{DFG-CN}}
+\newcommand{\dfgcycnumber}{C_{\dfgcycnumbername}}
+\newcommand{\dfgdiamname}{\text{DFG-diam}}
+\newcommand{\dfgdiam}{C_{\dfgdiamname}}
+\newcommand{\dfgsepnumname}{\text{DFG-sep-\#}}
+\newcommand{\dfgsepnum}{C_{\dfgsepnumname}}
+\newcommand{\dfgseprationame}{\text{DFG-sep-r}}
+\newcommand{\dfgsepratio}{C_{\dfgseprationame}}
+\newcommand{\dfgseqrationame}{\text{DFG-seq-r}}
+\newcommand{\dfgseqratio}{C_{\dfgseqrationame}}
+\newcommand{\dfgcycname}{\text{DFG-cyc}}
+\newcommand{\dfgcyc}{C_{\dfgcycname}}
+\newcommand{\dfgpathcomplexityname}{\text{DFG-P-comp}}
+\newcommand{\dfgpathcomplexity}{C_{\dfgpathcomplexityname}}
+\newcommand{\numberofneighborhoodsname}{\text{succ}}
+\newcommand{\numberofneighborhoods}{C_{\numberofneighborhoodsname}}
+\newcommand{\numberoftiesname}{\text{ties}}
+\newcommand{\numberofties}{C_{\numberoftiesname}}
+\newcommand{\lempelzivname}{\text{LZ}}
+\newcommand{\lempelziv}{C_{\lempelzivname}}
+\newcommand{\structurename}{\text{struct}}
+\newcommand{\structure}{C_{\structurename}}
+\newcommand{\affinityname}{\text{affinity}}
+\newcommand{\affinity}{C_{\affinityname}}
+\newcommand{\deviationfromrandomname}{\text{dev-R}}
+\newcommand{\deviationfromrandom}{C_{\deviationfromrandomname}}
+\newcommand{\avgdistname}{\text{avg-dist}}
+\newcommand{\avgdist}{C_{\avgdistname}}
+\newcommand{\enttracename}{\text{ENT-trace}}
+\newcommand{\enttrace}{C_{\enttracename}}
+\newcommand{\entprefixname}{\text{ENT-pref}}
+\newcommand{\entprefix}{C_{\entprefixname}}
+\newcommand{\entprefixflatname}{\text{ENT-pref-F}}
+\newcommand{\entprefixflat}{C_{\entprefixflatname}}
+\newcommand{\entgblockname}{\text{ENT-g-block}}
+\newcommand{\entgblock}{C_{\entgblockname}}
+\newcommand{\entgblockflatname}{\text{ENT-g-block-F}}
+\newcommand{\entgblockflat}{C_{\entgblockflatname}}
+\newcommand{\entlempelzivname}{\text{ENT-LZ}}
+\newcommand{\entlempelziv}{C_{\entlempelzivname}}
+\newcommand{\entlempelzivflatname}{\text{ENT-LZ-F}}
+\newcommand{\entlempelzivflat}{C_{\entlempelzivflatname}}
+\newcommand{\entkblockdonename}{\text{ENT-k-block-d1}}
+\newcommand{\entkblockdone}{C_{\entkblockdonename}}
+\newcommand{\entkblockdthreename}{\text{ENT-k-block-d3}}
+\newcommand{\entkblockdthree}{C_{\entkblockdthreename}}
+\newcommand{\entkblockdfivename}{\text{ENT-k-block-d5}}
+\newcommand{\entkblockdfive}{C_{\entkblockdfivename}}
+\newcommand{\entkblockronename}{\text{ENT-k-block-r1}}
+\newcommand{\entkblockrone}{C_{\entkblockronename}}
+\newcommand{\entkblockrthreename}{\text{ENT-k-block-r3}}
+\newcommand{\entkblockrthree}{C_{\entkblockrthreename}}
+\newcommand{\entkblockrfivename}{\text{ENT-k-block-r5}}
+\newcommand{\entkblockrfive}{C_{\entkblockrfivename}}
+\newcommand{\entknnthreename}{\text{ENT-knn-3}}
+\newcommand{\entknnthree}{C_{\entknnthreename}}
+\newcommand{\entknnfivename}{\text{ENT-knn-5}}
+\newcommand{\entknnfive}{C_{\entknnfivename}}
+\newcommand{\entknnsevenname}{\text{ENT-knn-7}}
+\newcommand{\entknnseven}{C_{\entknnsevenname}}
+\newcommand{\epavariantname}{\text{epa-var}}
+\newcommand{\epavariant}{C_{\epavariantname}}
+\newcommand{\epanormvariantname}{\text{epa-n-var}}
+\newcommand{\epanormvariant}{C_{\epanormvariantname}}
+\newcommand{\epasequencename}{\text{epa-seq}}
+\newcommand{\epasequence}{C_{\epasequencename}}
+\newcommand{\epanormsequencename}{\text{epa-n-seq}}
+\newcommand{\epanormsequence}{C_{\epanormsequencename}}
+\newcommand{\epasequencelname}{\text{epa-seq-L}}
+\newcommand{\epasequencel}{C_{\epasequencelname}}
+\newcommand{\epanormsequencelname}{\text{epa-n-seq-L}}
+\newcommand{\epanormsequencel}{C_{\epanormsequencelname}}
+\newcommand{\epasequenceename}{\text{epa-seq-E}}
+\newcommand{\epasequencee}{C_{\epasequenceename}}
+\newcommand{\epanormsequenceename}{\text{epa-n-seq-E}}
+\newcommand{\epanormsequencee}{C_{\epanormsequenceename}}
+
+\begin{document}
+
+\begin{tabular}{lcccccccccc} \toprule 
+ & \textbf{Factor 1} & \textbf{Factor 2} & \textbf{Factor 3} & \textbf{Factor 4} & \textbf{Factor 5} & \textbf{Factor 6} & \textbf{Factor 7} & \textbf{Factor 8} & \textbf{Factor 9} & \textbf{Factor 10} \\ \midrule 
+$\length$ & \textcolor{lightgray}{$0.134$} & $0.6237$ & \textcolor{lightgray}{$0.1218$} & \textcolor{lightgray}{$0.4928$} & \textcolor{lightgray}{$-0.0095$} & \textcolor{lightgray}{$-0.081$} & \textcolor{lightgray}{$-0.1224$} & \textcolor{lightgray}{$0.0841$} & \textcolor{lightgray}{$-0.1443$} & \textcolor{lightgray}{$0.1947$} \\ 
+$\variety$ & \textcolor{lightgray}{$0.1257$} & \textcolor{lightgray}{$0.109$} & $0.8705$ & \textcolor{lightgray}{$-0.216$} & \textcolor{lightgray}{$0.1091$} & \textcolor{lightgray}{$-0.1873$} & \textcolor{lightgray}{$0.0939$} & \textcolor{lightgray}{$-0.0172$} & \textcolor{lightgray}{$0.0558$} & \textcolor{lightgray}{$-0.0253$} \\ 
+$\magnitude$ & $0.9394$ & \textcolor{lightgray}{$0.0874$} & \textcolor{lightgray}{$0.0376$} & \textcolor{lightgray}{$0.009$} & \textcolor{lightgray}{$0.0265$} & \textcolor{lightgray}{$-0.0141$} & \textcolor{lightgray}{$0.0249$} & \textcolor{lightgray}{$-0.0102$} & \textcolor{lightgray}{$-0.0062$} & \textcolor{lightgray}{$0.0197$} \\ 
+$\startactivitiesrel$ & \textcolor{lightgray}{$-0.026$} & \textcolor{lightgray}{$-0.0641$} & \textcolor{lightgray}{$-0.138$} & \textcolor{lightgray}{$0.0037$} & \textcolor{lightgray}{$-0.0426$} & \textcolor{lightgray}{$-0.1763$} & \textcolor{lightgray}{$-0.1419$} & $-0.8044$ & \textcolor{lightgray}{$-0.1864$} & \textcolor{lightgray}{$-0.0379$} \\ 
+$\startmin$ & \textcolor{lightgray}{$-0.0673$} & $0.9697$ & \textcolor{lightgray}{$-0.0449$} & \textcolor{lightgray}{$-0.1478$} & \textcolor{lightgray}{$0.03$} & \textcolor{lightgray}{$0.0403$} & \textcolor{lightgray}{$0.0064$} & \textcolor{lightgray}{$-0.0176$} & \textcolor{lightgray}{$-0.0286$} & \textcolor{lightgray}{$-0.0009$} \\ 
+$\startmax$ & \textcolor{lightgray}{$0.1042$} & $0.7769$ & \textcolor{lightgray}{$0.0529$} & \textcolor{lightgray}{$0.4265$} & \textcolor{lightgray}{$-0.0045$} & \textcolor{lightgray}{$0.0292$} & \textcolor{lightgray}{$-0.0088$} & \textcolor{lightgray}{$0.0118$} & \textcolor{lightgray}{$-0.0185$} & \textcolor{lightgray}{$0.1235$} \\ 
+$\startmean$ & \textcolor{lightgray}{$-0.0111$} & $0.9605$ & \textcolor{lightgray}{$-0.0338$} & \textcolor{lightgray}{$0.1506$} & \textcolor{lightgray}{$0.0217$} & \textcolor{lightgray}{$0.0593$} & \textcolor{lightgray}{$0.0225$} & \textcolor{lightgray}{$-0.0232$} & \textcolor{lightgray}{$0.005$} & \textcolor{lightgray}{$0.0153$} \\ 
+$\startmedian$ & \textcolor{lightgray}{$-0.0392$} & $0.9701$ & \textcolor{lightgray}{$-0.0461$} & \textcolor{lightgray}{$0.1277$} & \textcolor{lightgray}{$0.0276$} & \textcolor{lightgray}{$0.0473$} & \textcolor{lightgray}{$0.036$} & \textcolor{lightgray}{$-0.0332$} & \textcolor{lightgray}{$0.0327$} & \textcolor{lightgray}{$-0.0092$} \\ 
+$\startdev$ & \textcolor{lightgray}{$0.2056$} & \textcolor{lightgray}{$-0.0159$} & \textcolor{lightgray}{$0.0561$} & $0.8252$ & \textcolor{lightgray}{$-0.0347$} & \textcolor{lightgray}{$0.0501$} & \textcolor{lightgray}{$0.0161$} & \textcolor{lightgray}{$0.0157$} & \textcolor{lightgray}{$0.0571$} & \textcolor{lightgray}{$0.1001$} \\ 
+$\startvar$ & \textcolor{lightgray}{$0.2472$} & \textcolor{lightgray}{$0.0427$} & \textcolor{lightgray}{$0.0752$} & $0.7774$ & \textcolor{lightgray}{$-0.0486$} & \textcolor{lightgray}{$0.0397$} & \textcolor{lightgray}{$-0.0368$} & \textcolor{lightgray}{$-0.0289$} & \textcolor{lightgray}{$0.1167$} & \textcolor{lightgray}{$-0.034$} \\ 
+$\startqone$ & \textcolor{lightgray}{$-0.0601$} & $0.9861$ & \textcolor{lightgray}{$-0.05$} & \textcolor{lightgray}{$-0.0103$} & \textcolor{lightgray}{$0.0316$} & \textcolor{lightgray}{$0.048$} & \textcolor{lightgray}{$0.0268$} & \textcolor{lightgray}{$-0.028$} & \textcolor{lightgray}{$0.0035$} & \textcolor{lightgray}{$-0.0101$} \\ 
+$\startiqr$ & \textcolor{lightgray}{$0.1821$} & \textcolor{lightgray}{$0.0264$} & \textcolor{lightgray}{$0.0116$} & $0.8127$ & \textcolor{lightgray}{$-0.0207$} & \textcolor{lightgray}{$0.0979$} & \textcolor{lightgray}{$0.0345$} & \textcolor{lightgray}{$-0.0229$} & \textcolor{lightgray}{$0.0618$} & \textcolor{lightgray}{$0.0459$} \\ 
+$\lastactivities$ & \textcolor{lightgray}{$0.0138$} & \textcolor{lightgray}{$-0.2417$} & $0.6574$ & \textcolor{lightgray}{$0.0934$} & \textcolor{lightgray}{$-0.0463$} & \textcolor{lightgray}{$-0.2581$} & \textcolor{lightgray}{$0.1387$} & \textcolor{lightgray}{$-0.0113$} & \textcolor{lightgray}{$-0.3902$} & \textcolor{lightgray}{$-0.0073$} \\ 
+$\lastactivitiesrel$ & \textcolor{lightgray}{$-0.0379$} & \textcolor{lightgray}{$-0.0538$} & \textcolor{lightgray}{$-0.1207$} & \textcolor{lightgray}{$-0.0237$} & \textcolor{lightgray}{$-0.0469$} & \textcolor{lightgray}{$-0.1363$} & \textcolor{lightgray}{$-0.1505$} & $-0.829$ & \textcolor{lightgray}{$-0.1979$} & \textcolor{lightgray}{$-0.0135$} \\ 
+$\lastmin$ & \textcolor{lightgray}{$0.0566$} & $0.8538$ & \textcolor{lightgray}{$0.0415$} & \textcolor{lightgray}{$-0.2806$} & \textcolor{lightgray}{$-0.0733$} & \textcolor{lightgray}{$0.0453$} & \textcolor{lightgray}{$-0.1293$} & \textcolor{lightgray}{$0.0779$} & \textcolor{lightgray}{$0.006$} & \textcolor{lightgray}{$-0.0426$} \\ 
+$\lastmax$ & \textcolor{lightgray}{$0.1593$} & $0.7562$ & \textcolor{lightgray}{$0.01$} & \textcolor{lightgray}{$0.2765$} & \textcolor{lightgray}{$-0.0215$} & \textcolor{lightgray}{$-0.0677$} & \textcolor{lightgray}{$-0.0569$} & \textcolor{lightgray}{$0.1187$} & \textcolor{lightgray}{$-0.0412$} & \textcolor{lightgray}{$0.1276$} \\ 
+$\lastmean$ & \textcolor{lightgray}{$0.1006$} & $0.8882$ & \textcolor{lightgray}{$-0.0015$} & \textcolor{lightgray}{$-0.0748$} & \textcolor{lightgray}{$-0.0568$} & \textcolor{lightgray}{$0.0323$} & \textcolor{lightgray}{$-0.1018$} & \textcolor{lightgray}{$0.0901$} & \textcolor{lightgray}{$-0.004$} & \textcolor{lightgray}{$-0.0156$} \\ 
+$\lastmedian$ & \textcolor{lightgray}{$0.0893$} & $0.8771$ & \textcolor{lightgray}{$0.0212$} & \textcolor{lightgray}{$-0.155$} & \textcolor{lightgray}{$-0.067$} & \textcolor{lightgray}{$0.0467$} & \textcolor{lightgray}{$-0.1149$} & \textcolor{lightgray}{$0.0754$} & \textcolor{lightgray}{$0.0054$} & \textcolor{lightgray}{$-0.0452$} \\ 
+$\lastdev$ & \textcolor{lightgray}{$0.1728$} & \textcolor{lightgray}{$0.0642$} & \textcolor{lightgray}{$-0.1191$} & $0.7093$ & \textcolor{lightgray}{$0.0558$} & \textcolor{lightgray}{$-0.091$} & \textcolor{lightgray}{$0.0802$} & \textcolor{lightgray}{$0.07$} & \textcolor{lightgray}{$-0.0475$} & \textcolor{lightgray}{$0.1531$} \\ 
+$\lastqone$ & \textcolor{lightgray}{$0.0619$} & $0.8805$ & \textcolor{lightgray}{$0.0201$} & \textcolor{lightgray}{$-0.2165$} & \textcolor{lightgray}{$-0.0658$} & \textcolor{lightgray}{$0.0506$} & \textcolor{lightgray}{$-0.1111$} & \textcolor{lightgray}{$0.0727$} & \textcolor{lightgray}{$0.0067$} & \textcolor{lightgray}{$-0.0468$} \\ 
+$\tlmin$ & \textcolor{lightgray}{$-0.0939$} & \textcolor{lightgray}{$0.1295$} & \textcolor{lightgray}{$0.2903$} & \textcolor{lightgray}{$-0.069$} & \textcolor{lightgray}{$-0.0233$} & $0.8439$ & \textcolor{lightgray}{$0.0792$} & \textcolor{lightgray}{$-0.0535$} & \textcolor{lightgray}{$-0.1034$} & \textcolor{lightgray}{$0.0122$} \\ 
+$\tlmax$ & \textcolor{lightgray}{$0.4944$} & \textcolor{lightgray}{$-0.0092$} & \textcolor{lightgray}{$0.0504$} & \textcolor{lightgray}{$-0.2399$} & \textcolor{lightgray}{$0.4931$} & \textcolor{lightgray}{$-0.0913$} & \textcolor{lightgray}{$0.0363$} & \textcolor{lightgray}{$-0.0086$} & \textcolor{lightgray}{$0.1139$} & \textcolor{lightgray}{$0.1598$} \\ 
+$\tlavg$ & \textcolor{lightgray}{$0.3612$} & \textcolor{lightgray}{$0.0101$} & \textcolor{lightgray}{$0.0562$} & \textcolor{lightgray}{$-0.213$} & $0.6288$ & \textcolor{lightgray}{$0.1256$} & \textcolor{lightgray}{$-0.0052$} & \textcolor{lightgray}{$0.0194$} & \textcolor{lightgray}{$0.1401$} & \textcolor{lightgray}{$-0.0723$} \\ 
+$\tlmed$ & \textcolor{lightgray}{$0.3663$} & \textcolor{lightgray}{$0.0241$} & \textcolor{lightgray}{$0.0542$} & \textcolor{lightgray}{$-0.1584$} & $0.5583$ & \textcolor{lightgray}{$0.2436$} & \textcolor{lightgray}{$-0.0334$} & \textcolor{lightgray}{$0.0439$} & \textcolor{lightgray}{$0.1331$} & \textcolor{lightgray}{$-0.1877$} \\ 
+$\tlmode$ & \textcolor{lightgray}{$-0.1049$} & \textcolor{lightgray}{$0.0814$} & \textcolor{lightgray}{$0.3171$} & \textcolor{lightgray}{$0.1237$} & \textcolor{lightgray}{$0.2792$} & $0.5263$ & \textcolor{lightgray}{$-0.1291$} & \textcolor{lightgray}{$0.0045$} & \textcolor{lightgray}{$0.0838$} & \textcolor{lightgray}{$-0.2297$} \\ 
+$\tldev$ & \textcolor{lightgray}{$0.3304$} & \textcolor{lightgray}{$-0.0122$} & \textcolor{lightgray}{$0.048$} & \textcolor{lightgray}{$-0.2538$} & $0.6571$ & \textcolor{lightgray}{$-0.0535$} & \textcolor{lightgray}{$0.0098$} & \textcolor{lightgray}{$0.0025$} & \textcolor{lightgray}{$0.1429$} & \textcolor{lightgray}{$0.058$} \\ 
+$\tlvar$ & \textcolor{lightgray}{$0.1837$} & \textcolor{lightgray}{$-0.0494$} & \textcolor{lightgray}{$-0.0387$} & \textcolor{lightgray}{$-0.2311$} & $0.8052$ & \textcolor{lightgray}{$0.0597$} & \textcolor{lightgray}{$-0.0391$} & \textcolor{lightgray}{$0.0426$} & \textcolor{lightgray}{$-0.1628$} & \textcolor{lightgray}{$-0.0078$} \\ 
+$\tlqone$ & \textcolor{lightgray}{$0.2965$} & \textcolor{lightgray}{$0.0315$} & \textcolor{lightgray}{$0.1253$} & \textcolor{lightgray}{$-0.0646$} & \textcolor{lightgray}{$0.4488$} & \textcolor{lightgray}{$0.4443$} & \textcolor{lightgray}{$-0.0261$} & \textcolor{lightgray}{$0.0346$} & \textcolor{lightgray}{$0.1166$} & \textcolor{lightgray}{$-0.2109$} \\ 
+$\tliqr$ & \textcolor{lightgray}{$0.3841$} & \textcolor{lightgray}{$0.0071$} & \textcolor{lightgray}{$-0.0034$} & \textcolor{lightgray}{$-0.2468$} & $0.6225$ & \textcolor{lightgray}{$0.0249$} & \textcolor{lightgray}{$0.0081$} & \textcolor{lightgray}{$0.0153$} & \textcolor{lightgray}{$0.1409$} & \textcolor{lightgray}{$-0.0681$} \\ 
+$\tlgmean$ & \textcolor{lightgray}{$0.3339$} & \textcolor{lightgray}{$0.0359$} & \textcolor{lightgray}{$0.0757$} & \textcolor{lightgray}{$-0.1153$} & $0.5355$ & \textcolor{lightgray}{$0.281$} & \textcolor{lightgray}{$-0.0258$} & \textcolor{lightgray}{$0.0477$} & \textcolor{lightgray}{$0.1679$} & \textcolor{lightgray}{$-0.1927$} \\ 
+$\tlhmean$ & \textcolor{lightgray}{$0.2481$} & \textcolor{lightgray}{$0.0762$} & \textcolor{lightgray}{$0.1701$} & \textcolor{lightgray}{$-0.0109$} & \textcolor{lightgray}{$0.3908$} & \textcolor{lightgray}{$0.4246$} & \textcolor{lightgray}{$-0.0288$} & \textcolor{lightgray}{$0.0386$} & \textcolor{lightgray}{$0.2233$} & \textcolor{lightgray}{$-0.237$} \\ 
+$\tlcvariation$ & \textcolor{lightgray}{$-0.0216$} & \textcolor{lightgray}{$-0.1174$} & \textcolor{lightgray}{$0.1348$} & \textcolor{lightgray}{$-0.0509$} & \textcolor{lightgray}{$0.1148$} & $-0.5939$ & \textcolor{lightgray}{$0.0346$} & \textcolor{lightgray}{$0.1309$} & \textcolor{lightgray}{$0.3604$} & \textcolor{lightgray}{$0.4721$} \\ 
+$\tlentropy$ & \textcolor{lightgray}{$0.181$} & \textcolor{lightgray}{$0.4812$} & \textcolor{lightgray}{$0.1487$} & \textcolor{lightgray}{$0.3495$} & \textcolor{lightgray}{$0.019$} & \textcolor{lightgray}{$0.0538$} & \textcolor{lightgray}{$-0.0714$} & \textcolor{lightgray}{$0.1952$} & \textcolor{lightgray}{$-0.3528$} & \textcolor{lightgray}{$0.2496$} \\ 
+$\tlhistone$ & \textcolor{lightgray}{$-0.0511$} & \textcolor{lightgray}{$0.07$} & \textcolor{lightgray}{$-0.0627$} & \textcolor{lightgray}{$0.0386$} & \textcolor{lightgray}{$0.0325$} & \textcolor{lightgray}{$-0.0946$} & \textcolor{lightgray}{$0.1544$} & $-0.5833$ & \textcolor{lightgray}{$-0.4049$} & \textcolor{lightgray}{$-0.1611$} \\ 
+$\tlhistsix$ & \textcolor{lightgray}{$0.0183$} & \textcolor{lightgray}{$-0.1353$} & \textcolor{lightgray}{$0.0794$} & \textcolor{lightgray}{$-0.1457$} & \textcolor{lightgray}{$-0.0825$} & $0.6187$ & \textcolor{lightgray}{$-0.0976$} & \textcolor{lightgray}{$-0.2202$} & \textcolor{lightgray}{$-0.2915$} & \textcolor{lightgray}{$0.377$} \\ 
+$\tlhistten$ & \textcolor{lightgray}{$-0.0575$} & \textcolor{lightgray}{$0.0992$} & \textcolor{lightgray}{$-0.0357$} & \textcolor{lightgray}{$0.0573$} & \textcolor{lightgray}{$0.0681$} & \textcolor{lightgray}{$-0.0776$} & \textcolor{lightgray}{$0.1723$} & $-0.6362$ & \textcolor{lightgray}{$-0.3477$} & \textcolor{lightgray}{$-0.1119$} \\ 
+$\tlskewhist$ & \textcolor{lightgray}{$0.0282$} & \textcolor{lightgray}{$-0.0222$} & \textcolor{lightgray}{$0.0231$} & \textcolor{lightgray}{$-0.0454$} & \textcolor{lightgray}{$0.0043$} & \textcolor{lightgray}{$0.0873$} & \textcolor{lightgray}{$-0.0656$} & \textcolor{lightgray}{$0.0123$} & \textcolor{lightgray}{$-0.025$} & $0.9412$ \\ 
+$\tlkurthist$ & \textcolor{lightgray}{$0.0114$} & \textcolor{lightgray}{$-0.0474$} & \textcolor{lightgray}{$0.0038$} & \textcolor{lightgray}{$-0.0676$} & \textcolor{lightgray}{$0.0009$} & \textcolor{lightgray}{$0.0924$} & \textcolor{lightgray}{$-0.0313$} & \textcolor{lightgray}{$0.0473$} & \textcolor{lightgray}{$0.0243$} & $0.9397$ \\ 
+$\freqmaxr$ & \textcolor{lightgray}{$-0.0515$} & \textcolor{lightgray}{$0.0311$} & \textcolor{lightgray}{$-0.1278$} & \textcolor{lightgray}{$-0.1549$} & \textcolor{lightgray}{$-0.0998$} & \textcolor{lightgray}{$-0.2891$} & $-0.5358$ & \textcolor{lightgray}{$-0.1798$} & \textcolor{lightgray}{$-0.1985$} & \textcolor{lightgray}{$0.1507$} \\ 
+$\freqmaxone$ & \textcolor{lightgray}{$-0.182$} & \textcolor{lightgray}{$0.2719$} & \textcolor{lightgray}{$-0.0316$} & \textcolor{lightgray}{$-0.0127$} & \textcolor{lightgray}{$0.0525$} & \textcolor{lightgray}{$-0.3414$} & \textcolor{lightgray}{$0.4144$} & \textcolor{lightgray}{$0.2725$} & \textcolor{lightgray}{$-0.2407$} & \textcolor{lightgray}{$0.3221$} \\ 
+$\freqmaxfive$ & \textcolor{lightgray}{$-0.1676$} & \textcolor{lightgray}{$0.1497$} & \textcolor{lightgray}{$-0.124$} & \textcolor{lightgray}{$-0.0486$} & \textcolor{lightgray}{$0.026$} & \textcolor{lightgray}{$-0.3149$} & \textcolor{lightgray}{$0.4399$} & \textcolor{lightgray}{$0.4039$} & \textcolor{lightgray}{$-0.34$} & \textcolor{lightgray}{$0.2555$} \\ 
+$\freqmaxten$ & \textcolor{lightgray}{$-0.1696$} & \textcolor{lightgray}{$0.1545$} & \textcolor{lightgray}{$-0.1206$} & \textcolor{lightgray}{$-0.0255$} & \textcolor{lightgray}{$-0.0174$} & \textcolor{lightgray}{$-0.3221$} & \textcolor{lightgray}{$0.1943$} & $0.5501$ & \textcolor{lightgray}{$-0.3349$} & \textcolor{lightgray}{$0.1957$} \\ 
+$\freqmaxtwenty$ & \textcolor{lightgray}{$-0.1294$} & \textcolor{lightgray}{$0.0981$} & \textcolor{lightgray}{$-0.1518$} & \textcolor{lightgray}{$-0.0225$} & \textcolor{lightgray}{$-0.0756$} & \textcolor{lightgray}{$-0.3174$} & \textcolor{lightgray}{$-0.01$} & $0.6484$ & \textcolor{lightgray}{$-0.3175$} & \textcolor{lightgray}{$0.1213$} \\ 
+$\freqmaxfifty$ & \textcolor{lightgray}{$-0.1011$} & \textcolor{lightgray}{$0.0779$} & \textcolor{lightgray}{$-0.1824$} & \textcolor{lightgray}{$-0.0009$} & \textcolor{lightgray}{$-0.1086$} & \textcolor{lightgray}{$-0.3124$} & \textcolor{lightgray}{$-0.2352$} & $0.5665$ & \textcolor{lightgray}{$-0.3575$} & \textcolor{lightgray}{$0.0815$} \\ 
+$\freqmaxseventyfive$ & \textcolor{lightgray}{$-0.0759$} & \textcolor{lightgray}{$0.0721$} & \textcolor{lightgray}{$-0.1703$} & \textcolor{lightgray}{$0.0317$} & \textcolor{lightgray}{$-0.0937$} & \textcolor{lightgray}{$-0.3401$} & \textcolor{lightgray}{$-0.1861$} & $0.5815$ & \textcolor{lightgray}{$-0.3245$} & \textcolor{lightgray}{$-0.0161$} \\ 
+$\freqdev$ & \textcolor{lightgray}{$-0.0714$} & \textcolor{lightgray}{$0.2659$} & \textcolor{lightgray}{$0.1418$} & \textcolor{lightgray}{$0.131$} & \textcolor{lightgray}{$-0.0111$} & \textcolor{lightgray}{$-0.0615$} & $-0.7441$ & \textcolor{lightgray}{$0.1097$} & \textcolor{lightgray}{$-0.0803$} & \textcolor{lightgray}{$-0.06$} \\ 
+$\actfreqmin$ & \textcolor{lightgray}{$0.1847$} & \textcolor{lightgray}{$0.4721$} & \textcolor{lightgray}{$-0.2636$} & \textcolor{lightgray}{$0.312$} & \textcolor{lightgray}{$0.0011$} & \textcolor{lightgray}{$0.2331$} & \textcolor{lightgray}{$0.0902$} & \textcolor{lightgray}{$0.018$} & \textcolor{lightgray}{$0.0155$} & \textcolor{lightgray}{$0.1509$} \\ 
+$\actfreqmax$ & $0.8717$ & \textcolor{lightgray}{$0.0343$} & \textcolor{lightgray}{$-0.0737$} & \textcolor{lightgray}{$0.1454$} & \textcolor{lightgray}{$0.1209$} & \textcolor{lightgray}{$-0.0261$} & \textcolor{lightgray}{$0.0085$} & \textcolor{lightgray}{$0.0161$} & \textcolor{lightgray}{$-0.0254$} & \textcolor{lightgray}{$-0.0002$} \\ 
+$\actfreqmean$ & $0.8033$ & \textcolor{lightgray}{$0.2342$} & \textcolor{lightgray}{$-0.1309$} & \textcolor{lightgray}{$0.1324$} & \textcolor{lightgray}{$0.0461$} & \textcolor{lightgray}{$0.0292$} & \textcolor{lightgray}{$0.088$} & \textcolor{lightgray}{$-0.0072$} & \textcolor{lightgray}{$0.0177$} & \textcolor{lightgray}{$0.0729$} \\ 
+$\actfreqmedian$ & $0.6114$ & \textcolor{lightgray}{$0.4073$} & \textcolor{lightgray}{$-0.1265$} & \textcolor{lightgray}{$0.1439$} & \textcolor{lightgray}{$-0.0252$} & \textcolor{lightgray}{$0.0573$} & \textcolor{lightgray}{$0.1347$} & \textcolor{lightgray}{$-0.0447$} & \textcolor{lightgray}{$0.0686$} & \textcolor{lightgray}{$0.1081$} \\ 
+$\actfreqdev$ & $0.9003$ & \textcolor{lightgray}{$0.019$} & \textcolor{lightgray}{$-0.076$} & \textcolor{lightgray}{$0.1161$} & \textcolor{lightgray}{$0.1141$} & \textcolor{lightgray}{$-0.0443$} & \textcolor{lightgray}{$0.0185$} & \textcolor{lightgray}{$0.0141$} & \textcolor{lightgray}{$-0.0218$} & \textcolor{lightgray}{$0.0051$} \\ 
+$\actfreqvar$ & $0.8426$ & \textcolor{lightgray}{$-0.164$} & \textcolor{lightgray}{$-0.1061$} & \textcolor{lightgray}{$-0.0094$} & \textcolor{lightgray}{$0.171$} & \textcolor{lightgray}{$0.0229$} & \textcolor{lightgray}{$-0.046$} & \textcolor{lightgray}{$0.0458$} & \textcolor{lightgray}{$-0.2097$} & \textcolor{lightgray}{$-0.0539$} \\ 
+$\actfreqqone$ & \textcolor{lightgray}{$0.3888$} & $0.5233$ & \textcolor{lightgray}{$-0.2226$} & \textcolor{lightgray}{$0.1833$} & \textcolor{lightgray}{$-0.0117$} & \textcolor{lightgray}{$0.1657$} & \textcolor{lightgray}{$0.1812$} & \textcolor{lightgray}{$-0.0216$} & \textcolor{lightgray}{$0.0418$} & \textcolor{lightgray}{$0.1377$} \\ 
+$\actfreqiqr$ & $0.8916$ & \textcolor{lightgray}{$0.0635$} & \textcolor{lightgray}{$0.0295$} & \textcolor{lightgray}{$-0.0464$} & \textcolor{lightgray}{$-0.0065$} & \textcolor{lightgray}{$-0.083$} & \textcolor{lightgray}{$0.0266$} & \textcolor{lightgray}{$-0.0173$} & \textcolor{lightgray}{$0.0529$} & \textcolor{lightgray}{$0.0054$} \\ 
+$\numberuniquetraces$ & $0.5415$ & \textcolor{lightgray}{$0.2013$} & \textcolor{lightgray}{$0.1887$} & \textcolor{lightgray}{$0.399$} & \textcolor{lightgray}{$-0.1052$} & \textcolor{lightgray}{$0.0537$} & \textcolor{lightgray}{$0.1679$} & \textcolor{lightgray}{$-0.0704$} & \textcolor{lightgray}{$0.1377$} & \textcolor{lightgray}{$0.0935$} \\ 
+$\percentageuniquetraces$ & \textcolor{lightgray}{$0.1337$} & \textcolor{lightgray}{$-0.1148$} & \textcolor{lightgray}{$0.2402$} & \textcolor{lightgray}{$-0.0019$} & \textcolor{lightgray}{$0.0812$} & \textcolor{lightgray}{$0.2797$} & \textcolor{lightgray}{$0.2846$} & \textcolor{lightgray}{$-0.0958$} & $0.5042$ & \textcolor{lightgray}{$-0.1593$} \\ 
+$\dthet$ & \textcolor{lightgray}{$0.0395$} & \textcolor{lightgray}{$-0.0657$} & \textcolor{lightgray}{$0.1256$} & \textcolor{lightgray}{$-0.0376$} & \textcolor{lightgray}{$0.056$} & \textcolor{lightgray}{$0.0916$} & $0.6404$ & \textcolor{lightgray}{$0.2251$} & \textcolor{lightgray}{$0.3799$} & \textcolor{lightgray}{$-0.0409$} \\ 
+$\damin$ & \textcolor{lightgray}{$-0.0657$} & \textcolor{lightgray}{$0.1271$} & \textcolor{lightgray}{$0.2897$} & \textcolor{lightgray}{$-0.069$} & \textcolor{lightgray}{$-0.07$} & $0.8459$ & \textcolor{lightgray}{$0.0881$} & \textcolor{lightgray}{$-0.0568$} & \textcolor{lightgray}{$-0.1113$} & \textcolor{lightgray}{$0.0299$} \\ 
+$\damax$ & \textcolor{lightgray}{$0.1369$} & \textcolor{lightgray}{$0.1235$} & $0.6739$ & \textcolor{lightgray}{$-0.1329$} & \textcolor{lightgray}{$0.1734$} & \textcolor{lightgray}{$0.0834$} & \textcolor{lightgray}{$0.0935$} & \textcolor{lightgray}{$-0.0441$} & \textcolor{lightgray}{$0.2825$} & \textcolor{lightgray}{$0.0592$} \\ 
+$\daavg$ & \textcolor{lightgray}{$0.1478$} & \textcolor{lightgray}{$0.1697$} & \textcolor{lightgray}{$0.428$} & \textcolor{lightgray}{$-0.0814$} & \textcolor{lightgray}{$0.1292$} & $0.5686$ & \textcolor{lightgray}{$0.0591$} & \textcolor{lightgray}{$-0.0399$} & \textcolor{lightgray}{$0.1618$} & \textcolor{lightgray}{$-0.1057$} \\ 
+$\dadev$ & \textcolor{lightgray}{$0.2$} & \textcolor{lightgray}{$0.1419$} & \textcolor{lightgray}{$0.4907$} & \textcolor{lightgray}{$-0.218$} & \textcolor{lightgray}{$0.2216$} & \textcolor{lightgray}{$-0.4682$} & \textcolor{lightgray}{$0.1075$} & \textcolor{lightgray}{$-0.0167$} & \textcolor{lightgray}{$0.3376$} & \textcolor{lightgray}{$-0.0536$} \\ 
+$\dadens$ & \textcolor{lightgray}{$-0.1041$} & \textcolor{lightgray}{$0.0178$} & \textcolor{lightgray}{$0.0697$} & \textcolor{lightgray}{$-0.0484$} & \textcolor{lightgray}{$-0.2791$} & \textcolor{lightgray}{$0.2121$} & \textcolor{lightgray}{$-0.0397$} & \textcolor{lightgray}{$-0.1107$} & $-0.705$ & \textcolor{lightgray}{$-0.2715$} \\ 
+$\daoverlap$ & \textcolor{lightgray}{$0.0617$} & \textcolor{lightgray}{$-0.0689$} & \textcolor{lightgray}{$0.2893$} & \textcolor{lightgray}{$-0.0908$} & \textcolor{lightgray}{$0.0097$} & $-0.9298$ & \textcolor{lightgray}{$-0.0891$} & \textcolor{lightgray}{$-0.0092$} & \textcolor{lightgray}{$-0.0928$} & \textcolor{lightgray}{$-0.0441$} \\ 
+$\simpletracediv$ & \textcolor{lightgray}{$-0.0198$} & \textcolor{lightgray}{$-0.1453$} & \textcolor{lightgray}{$0.2732$} & \textcolor{lightgray}{$-0.0672$} & \textcolor{lightgray}{$-0.0512$} & $-0.8744$ & \textcolor{lightgray}{$-0.0427$} & \textcolor{lightgray}{$0.0232$} & \textcolor{lightgray}{$-0.1476$} & \textcolor{lightgray}{$0.0448$} \\ 
+$\loopnum$ & \textcolor{lightgray}{$0.2396$} & \textcolor{lightgray}{$0.1243$} & \textcolor{lightgray}{$-0.0461$} & $0.614$ & \textcolor{lightgray}{$0.1812$} & \textcolor{lightgray}{$-0.1562$} & \textcolor{lightgray}{$0.1206$} & \textcolor{lightgray}{$-0.0796$} & \textcolor{lightgray}{$0.1648$} & \textcolor{lightgray}{$0.1137$} \\ 
+$\looprelnum$ & \textcolor{lightgray}{$-0.1219$} & \textcolor{lightgray}{$-0.013$} & \textcolor{lightgray}{$-0.0353$} & \textcolor{lightgray}{$0.4075$} & $0.5376$ & \textcolor{lightgray}{$-0.1298$} & \textcolor{lightgray}{$0.1119$} & \textcolor{lightgray}{$-0.0582$} & \textcolor{lightgray}{$0.4104$} & \textcolor{lightgray}{$0.0$} \\ 
+$\loopavg$ & \textcolor{lightgray}{$-0.0885$} & \textcolor{lightgray}{$-0.0255$} & \textcolor{lightgray}{$0.0129$} & \textcolor{lightgray}{$0.1142$} & $1.007$ & \textcolor{lightgray}{$0.003$} & \textcolor{lightgray}{$-0.0483$} & \textcolor{lightgray}{$-0.0191$} & \textcolor{lightgray}{$-0.1142$} & \textcolor{lightgray}{$-0.0328$} \\ 
+$\loopmax$ & \textcolor{lightgray}{$-0.0036$} & \textcolor{lightgray}{$-0.0407$} & \textcolor{lightgray}{$0.0283$} & \textcolor{lightgray}{$0.1646$} & $0.8762$ & \textcolor{lightgray}{$-0.1114$} & \textcolor{lightgray}{$0.0027$} & \textcolor{lightgray}{$-0.0468$} & \textcolor{lightgray}{$-0.0878$} & \textcolor{lightgray}{$0.1427$} \\ 
+$\loopavgsize$ & \textcolor{lightgray}{$-0.123$} & \textcolor{lightgray}{$-0.0294$} & \textcolor{lightgray}{$-0.0197$} & \textcolor{lightgray}{$0.1299$} & $0.9647$ & \textcolor{lightgray}{$-0.0744$} & \textcolor{lightgray}{$0.0123$} & \textcolor{lightgray}{$-0.0331$} & \textcolor{lightgray}{$-0.0696$} & \textcolor{lightgray}{$0.0794$} \\ 
+$\loopmaxsize$ & \textcolor{lightgray}{$-0.1074$} & \textcolor{lightgray}{$0.0488$} & \textcolor{lightgray}{$-0.1321$} & \textcolor{lightgray}{$0.4586$} & \textcolor{lightgray}{$0.4747$} & \textcolor{lightgray}{$-0.1957$} & \textcolor{lightgray}{$0.1832$} & \textcolor{lightgray}{$-0.0119$} & \textcolor{lightgray}{$0.2145$} & \textcolor{lightgray}{$0.238$} \\ 
+$\repnum$ & \textcolor{lightgray}{$0.3698$} & \textcolor{lightgray}{$0.4149$} & \textcolor{lightgray}{$0.0011$} & \textcolor{lightgray}{$0.4572$} & \textcolor{lightgray}{$-0.0534$} & \textcolor{lightgray}{$-0.1018$} & \textcolor{lightgray}{$0.071$} & \textcolor{lightgray}{$0.0849$} & \textcolor{lightgray}{$0.2097$} & \textcolor{lightgray}{$0.155$} \\ 
+$\reprelnum$ & \textcolor{lightgray}{$0.0586$} & \textcolor{lightgray}{$0.0685$} & \textcolor{lightgray}{$-0.0754$} & \textcolor{lightgray}{$0.1477$} & \textcolor{lightgray}{$0.1834$} & \textcolor{lightgray}{$0.0315$} & \textcolor{lightgray}{$0.0886$} & \textcolor{lightgray}{$0.1854$} & $0.7592$ & \textcolor{lightgray}{$0.0024$} \\ 
+$\dfgmaxdeg$ & \textcolor{lightgray}{$-0.0052$} & \textcolor{lightgray}{$-0.199$} & $0.7716$ & \textcolor{lightgray}{$0.2197$} & \textcolor{lightgray}{$0.0626$} & \textcolor{lightgray}{$0.0151$} & \textcolor{lightgray}{$0.0593$} & \textcolor{lightgray}{$0.0741$} & \textcolor{lightgray}{$0.0936$} & \textcolor{lightgray}{$0.0692$} \\ 
+$\dfgdens$ & \textcolor{lightgray}{$-0.1005$} & \textcolor{lightgray}{$-0.3389$} & \textcolor{lightgray}{$0.182$} & \textcolor{lightgray}{$0.4953$} & \textcolor{lightgray}{$-0.0488$} & \textcolor{lightgray}{$0.338$} & \textcolor{lightgray}{$0.2455$} & \textcolor{lightgray}{$0.1639$} & \textcolor{lightgray}{$-0.1114$} & \textcolor{lightgray}{$0.0373$} \\ 
+$\dfgstruct$ & \textcolor{lightgray}{$0.093$} & \textcolor{lightgray}{$0.3312$} & \textcolor{lightgray}{$-0.2619$} & \textcolor{lightgray}{$-0.4803$} & \textcolor{lightgray}{$0.0449$} & \textcolor{lightgray}{$-0.3241$} & \textcolor{lightgray}{$-0.2336$} & \textcolor{lightgray}{$-0.1565$} & \textcolor{lightgray}{$0.1058$} & \textcolor{lightgray}{$-0.0436$} \\ 
+$\dfgcycnumber$ & \textcolor{lightgray}{$0.0402$} & \textcolor{lightgray}{$-0.1644$} & $0.879$ & \textcolor{lightgray}{$0.1891$} & \textcolor{lightgray}{$0.0174$} & \textcolor{lightgray}{$0.0984$} & \textcolor{lightgray}{$-0.065$} & \textcolor{lightgray}{$0.0411$} & \textcolor{lightgray}{$-0.0722$} & \textcolor{lightgray}{$0.0236$} \\ 
+$\dfgsepnum$ & \textcolor{lightgray}{$0.207$} & \textcolor{lightgray}{$0.3291$} & \textcolor{lightgray}{$-0.1114$} & $-0.6049$ & \textcolor{lightgray}{$0.1094$} & \textcolor{lightgray}{$-0.0612$} & \textcolor{lightgray}{$-0.0179$} & \textcolor{lightgray}{$-0.0871$} & \textcolor{lightgray}{$0.199$} & \textcolor{lightgray}{$0.2271$} \\ 
+$\dfgsepratio$ & \textcolor{lightgray}{$0.1397$} & \textcolor{lightgray}{$0.2966$} & \textcolor{lightgray}{$-0.1806$} & $-0.5268$ & \textcolor{lightgray}{$0.0446$} & \textcolor{lightgray}{$0.0387$} & \textcolor{lightgray}{$-0.2339$} & \textcolor{lightgray}{$-0.0632$} & \textcolor{lightgray}{$0.181$} & \textcolor{lightgray}{$0.2758$} \\ 
+$\dfgseqratio$ & \textcolor{lightgray}{$-0.0043$} & \textcolor{lightgray}{$0.2888$} & \textcolor{lightgray}{$0.0474$} & \textcolor{lightgray}{$-0.1443$} & \textcolor{lightgray}{$-0.0905$} & \textcolor{lightgray}{$0.0658$} & $-0.6773$ & \textcolor{lightgray}{$-0.1468$} & \textcolor{lightgray}{$-0.0005$} & \textcolor{lightgray}{$0.0335$} \\ 
+$\dfgcyc$ & \textcolor{lightgray}{$0.0667$} & \textcolor{lightgray}{$-0.136$} & \textcolor{lightgray}{$0.2438$} & \textcolor{lightgray}{$-0.035$} & \textcolor{lightgray}{$0.0816$} & \textcolor{lightgray}{$0.0649$} & $0.5515$ & \textcolor{lightgray}{$0.2123$} & \textcolor{lightgray}{$0.2228$} & \textcolor{lightgray}{$0.1082$} \\ 
+$\numberofneighborhoods$ & \textcolor{lightgray}{$0.0446$} & \textcolor{lightgray}{$-0.1293$} & $0.8863$ & \textcolor{lightgray}{$0.1732$} & \textcolor{lightgray}{$0.03$} & \textcolor{lightgray}{$0.1148$} & \textcolor{lightgray}{$-0.0687$} & \textcolor{lightgray}{$0.0405$} & \textcolor{lightgray}{$-0.03$} & \textcolor{lightgray}{$0.0157$} \\ 
+$\numberofties$ & \textcolor{lightgray}{$-0.1182$} & \textcolor{lightgray}{$0.3271$} & $0.5593$ & \textcolor{lightgray}{$-0.0399$} & \textcolor{lightgray}{$0.047$} & \textcolor{lightgray}{$-0.0133$} & \textcolor{lightgray}{$0.0908$} & \textcolor{lightgray}{$-0.0919$} & \textcolor{lightgray}{$0.0876$} & \textcolor{lightgray}{$-0.2818$} \\ 
+$\affinity$ & \textcolor{lightgray}{$0.1098$} & \textcolor{lightgray}{$0.3305$} & \textcolor{lightgray}{$-0.3367$} & \textcolor{lightgray}{$-0.2173$} & \textcolor{lightgray}{$0.124$} & \textcolor{lightgray}{$0.3165$} & \textcolor{lightgray}{$-0.2928$} & \textcolor{lightgray}{$-0.0911$} & \textcolor{lightgray}{$0.2225$} & \textcolor{lightgray}{$0.0289$} \\ 
+$\lempelziv$ & $0.8584$ & \textcolor{lightgray}{$0.0094$} & \textcolor{lightgray}{$0.1608$} & \textcolor{lightgray}{$0.1863$} & \textcolor{lightgray}{$0.0578$} & \textcolor{lightgray}{$-0.0075$} & \textcolor{lightgray}{$-0.0197$} & \textcolor{lightgray}{$-0.0125$} & \textcolor{lightgray}{$-0.0074$} & \textcolor{lightgray}{$0.0361$} \\ 
+$\deviationfromrandom$ & \textcolor{lightgray}{$-0.0395$} & \textcolor{lightgray}{$0.0142$} & \textcolor{lightgray}{$0.437$} & \textcolor{lightgray}{$-0.077$} & \textcolor{lightgray}{$-0.0192$} & \textcolor{lightgray}{$0.2005$} & $0.53$ & \textcolor{lightgray}{$0.1788$} & \textcolor{lightgray}{$0.0059$} & \textcolor{lightgray}{$0.0126$} \\ 
+$\avgdist$ & \textcolor{lightgray}{$0.3562$} & \textcolor{lightgray}{$-0.0114$} & \textcolor{lightgray}{$0.0632$} & \textcolor{lightgray}{$-0.2342$} & $0.6468$ & \textcolor{lightgray}{$0.0347$} & \textcolor{lightgray}{$0.0026$} & \textcolor{lightgray}{$0.0086$} & \textcolor{lightgray}{$0.1354$} & \textcolor{lightgray}{$-0.0191$} \\ 
+$\epavariant$ & $1.0096$ & \textcolor{lightgray}{$-0.0773$} & \textcolor{lightgray}{$0.0363$} & \textcolor{lightgray}{$-0.0135$} & \textcolor{lightgray}{$0.0254$} & \textcolor{lightgray}{$-0.0175$} & \textcolor{lightgray}{$-0.0143$} & \textcolor{lightgray}{$-0.0071$} & \textcolor{lightgray}{$-0.0221$} & \textcolor{lightgray}{$-0.0042$} \\ 
+$\epanormvariant$ & \textcolor{lightgray}{$0.0481$} & \textcolor{lightgray}{$0.0749$} & \textcolor{lightgray}{$-0.0551$} & \textcolor{lightgray}{$0.0676$} & \textcolor{lightgray}{$-0.0317$} & \textcolor{lightgray}{$0.0027$} & $0.9433$ & \textcolor{lightgray}{$-0.0065$} & \textcolor{lightgray}{$-0.3929$} & \textcolor{lightgray}{$-0.0768$} \\ 
+$\epasequence$ & $0.9826$ & \textcolor{lightgray}{$-0.0056$} & \textcolor{lightgray}{$0.0352$} & \textcolor{lightgray}{$0.0138$} & \textcolor{lightgray}{$0.0055$} & \textcolor{lightgray}{$-0.0151$} & \textcolor{lightgray}{$0.0232$} & \textcolor{lightgray}{$-0.0133$} & \textcolor{lightgray}{$-0.0023$} & \textcolor{lightgray}{$0.0036$} \\ 
+$\epanormsequence$ & \textcolor{lightgray}{$0.1661$} & \textcolor{lightgray}{$-0.1138$} & \textcolor{lightgray}{$0.2647$} & \textcolor{lightgray}{$0.0324$} & \textcolor{lightgray}{$-0.0319$} & \textcolor{lightgray}{$0.0306$} & $0.6464$ & \textcolor{lightgray}{$0.0136$} & \textcolor{lightgray}{$0.2223$} & \textcolor{lightgray}{$0.1014$} \\ 
+$\epasequencel$ & $0.9794$ & \textcolor{lightgray}{$-0.0013$} & \textcolor{lightgray}{$0.0375$} & \textcolor{lightgray}{$0.0178$} & \textcolor{lightgray}{$0.0018$} & \textcolor{lightgray}{$-0.0157$} & \textcolor{lightgray}{$0.0249$} & \textcolor{lightgray}{$-0.0146$} & \textcolor{lightgray}{$0.003$} & \textcolor{lightgray}{$0.0045$} \\ 
+$\epanormsequencel$ & \textcolor{lightgray}{$0.1591$} & \textcolor{lightgray}{$-0.1194$} & \textcolor{lightgray}{$0.2458$} & \textcolor{lightgray}{$0.0359$} & \textcolor{lightgray}{$-0.0504$} & \textcolor{lightgray}{$0.0306$} & $0.662$ & \textcolor{lightgray}{$0.0126$} & \textcolor{lightgray}{$0.2214$} & \textcolor{lightgray}{$0.0918$} \\ 
+$\epasequencee$ & $0.9813$ & \textcolor{lightgray}{$-0.004$} & \textcolor{lightgray}{$0.0363$} & \textcolor{lightgray}{$0.0155$} & \textcolor{lightgray}{$0.004$} & \textcolor{lightgray}{$-0.0154$} & \textcolor{lightgray}{$0.0237$} & \textcolor{lightgray}{$-0.0139$} & \textcolor{lightgray}{$0.0001$} & \textcolor{lightgray}{$0.004$} \\ 
+$\epanormsequencee$ & \textcolor{lightgray}{$0.1619$} & \textcolor{lightgray}{$-0.1172$} & \textcolor{lightgray}{$0.2574$} & \textcolor{lightgray}{$0.0329$} & \textcolor{lightgray}{$-0.0392$} & \textcolor{lightgray}{$0.0299$} & $0.6532$ & \textcolor{lightgray}{$0.0115$} & \textcolor{lightgray}{$0.2248$} & \textcolor{lightgray}{$0.0971$} \\ 
+$\entlempelziv$ & \textcolor{lightgray}{$-0.0149$} & \textcolor{lightgray}{$-0.2531$} & $0.5266$ & \textcolor{lightgray}{$0.0147$} & \textcolor{lightgray}{$0.049$} & \textcolor{lightgray}{$0.0819$} & \textcolor{lightgray}{$0.2621$} & \textcolor{lightgray}{$-0.1005$} & \textcolor{lightgray}{$0.3532$} & \textcolor{lightgray}{$0.0172$} \\ 
+$\entlempelzivflat$ & \textcolor{lightgray}{$-0.0716$} & \textcolor{lightgray}{$-0.3376$} & $0.6239$ & \textcolor{lightgray}{$0.0425$} & \textcolor{lightgray}{$0.0207$} & \textcolor{lightgray}{$0.0219$} & \textcolor{lightgray}{$0.136$} & \textcolor{lightgray}{$-0.4044$} & \textcolor{lightgray}{$-0.0828$} & \textcolor{lightgray}{$-0.0178$} \\ 
+$\entkblockdone$ & \textcolor{lightgray}{$0.0553$} & \textcolor{lightgray}{$0.2223$} & $0.8294$ & \textcolor{lightgray}{$-0.2691$} & \textcolor{lightgray}{$-0.0322$} & \textcolor{lightgray}{$-0.0105$} & \textcolor{lightgray}{$0.1882$} & \textcolor{lightgray}{$-0.0329$} & \textcolor{lightgray}{$0.0022$} & \textcolor{lightgray}{$-0.0276$} \\ 
+$\entkblockdthree$ & \textcolor{lightgray}{$-0.0197$} & \textcolor{lightgray}{$-0.133$} & $0.5005$ & \textcolor{lightgray}{$0.1199$} & \textcolor{lightgray}{$0.0582$} & \textcolor{lightgray}{$0.2055$} & \textcolor{lightgray}{$0.3683$} & \textcolor{lightgray}{$0.3133$} & \textcolor{lightgray}{$-0.0207$} & \textcolor{lightgray}{$0.0788$} \\ 
+$\entkblockrthree$ & \textcolor{lightgray}{$-0.0128$} & \textcolor{lightgray}{$-0.0652$} & $0.6483$ & \textcolor{lightgray}{$0.0267$} & \textcolor{lightgray}{$0.0105$} & \textcolor{lightgray}{$0.1797$} & \textcolor{lightgray}{$0.3729$} & \textcolor{lightgray}{$0.2045$} & \textcolor{lightgray}{$-0.0204$} & \textcolor{lightgray}{$0.038$} \\ 
+$\entkblockrfive$ & \textcolor{lightgray}{$-0.0288$} & \textcolor{lightgray}{$-0.0405$} & $0.5568$ & \textcolor{lightgray}{$0.1254$} & \textcolor{lightgray}{$0.0983$} & \textcolor{lightgray}{$0.1532$} & \textcolor{lightgray}{$0.3895$} & \textcolor{lightgray}{$0.204$} & \textcolor{lightgray}{$0.0408$} & \textcolor{lightgray}{$0.1188$} \\ 
+\bottomrule
+\end{tabular}
+
+\end{document}
