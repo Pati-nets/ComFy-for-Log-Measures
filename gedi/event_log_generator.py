@@ -239,9 +239,9 @@ if __name__ == "__main__":
     trace_length = ['trace_len_min', 'trace_len_max', 'trace_len_mean', 'trace_len_median', 'trace_len_mode',
                     'trace_len_std', 'trace_len_variance', 'trace_len_q1', 'trace_len_q3', 'trace_len_iqr',
                     'trace_len_geometric_mean',
-                    #'trace_len_geometric_std', # throws exception
+                    'trace_len_geometric_std',
                     'trace_len_harmonic_mean',
-                    #'trace_len_skewness', # throws exception
+                    'trace_len_skewness',
                     'trace_len_kurtosis', 'trace_len_coefficient_variation',
                     'trace_len_entropy', 'trace_len_hist1', 'trace_len_hist2', 'trace_len_hist3',
                     'trace_len_hist4', 'trace_len_hist5', 'trace_len_hist6', 'trace_len_hist7',
@@ -251,48 +251,47 @@ if __name__ == "__main__":
     trace_variant = ['ratio_most_common_variant', 'ratio_top_1_variants', 'ratio_top_5_variants',
                      'ratio_top_10_variants', 'ratio_top_20_variants', 'ratio_top_50_variants',
                      'ratio_top_75_variants', 'mean_variant_occurrence', 'std_variant_occurrence',
-                     #'skewness_variant_occurrence', # throws exception
-                     #'kurtosis_variant_occurrence', # throws exception
+                     'skewness_variant_occurrence',
+                     'kurtosis_variant_occurrence',
                      'coverage_variants',
                      'rel_coverage_variants', 'heterogeneity_rate_variants',
-                     #'similarity_rate_variants' # throws exception
+                     'similarity_rate_variants'
                      ]
     #####
     activities = ['n_unique_activities', 'activities_min', 'activities_max',
                   'activities_mean', 'activities_median',
-                  #'activities_std', # blocks
+                  'activities_std', 
                   'activities_variance', 'activities_q1',
                   'activities_q3', 'activities_iqr',
-                  #'activities_skewness', # throws exception
-                  #'activities_kurtosis' # throws exception
+                  'activities_skewness',
+                  'activities_kurtosis'
                   ]
     #####
     start_activities = ['n_unique_start_activities', 'start_activities_min', 'start_activities_max',
                         'start_activities_mean', 'start_activities_median', 'start_activities_std',
                         'start_activities_variance', 'start_activities_q1', 'start_activities_q3',
                         'start_activities_iqr',
-                        #'start_activities_skewness', # throws excetpion
-                        #'start_activities_kurtosis', # throws exception
+                        'start_activities_skewness',
+                        'start_activities_kurtosis',
                         'rel_unique_start_activities']
     #####
     end_activities = ['n_unique_end_activities', 'end_activities_min', 'end_activities_max',
                       'end_activities_mean', 'end_activities_median', 'end_activities_std',
                       'end_activities_variance', 'end_activities_q1', 'end_activities_q3',
                       'end_activities_iqr',
-                      #'end_activities_skewness', # throws exception
-                      #'end_activities_kurtosis', # throws exception
+                      'end_activities_skewness',
+                      'end_activities_kurtosis',
                       'rel_unique_end_activities']
     #####
     eventropies = ['eventropy_trace', 'eventropy_prefix', 'eventropy_prefix_flattened',
-                   #'eventropy_global_block', # waits for infinity
-                   #'eventropy_global_block_flattened', # waits for infinity
+                   'eventropy_global_block',
+                   'eventropy_global_block_flattened',
                    'eventropy_lempel_ziv', 'eventropy_lempel_ziv_flattened',
                    'eventropy_k_block_diff_1', 'eventropy_k_block_diff_3', 'eventropy_k_block_diff_5',
                    'eventropy_k_block_ratio_1', 'eventropy_k_block_ratio_3', 'eventropy_k_block_ratio_5',
-                   #'eventropy_knn_3', # many list indices out of range and throws exception
-                   #'eventropy_knn_5', # many list indices out of range and throws exception
-                   #'eventropy_knn_7' # many list indices out of range and throws exception
-                   ]
+                   'eventropy_knn_3',
+                   'eventropy_knn_5',
+                   'eventropy_knn_7']
     #####
     epa_based = ['epa_variant_entropy', 'epa_normalized_variant_entropy', 'epa_sequence_entropy',
                  'epa_normalized_sequence_entropy', 'epa_sequence_entropy_linear_forgetting',
@@ -302,26 +301,24 @@ if __name__ == "__main__":
     trace_diversity = ['simple_trace_diversity', 'advanced_trace_diversity']
     #####
     distinct_activities = ['distinct_activities_min', 'distinct_activities_max',
-                           #'distinct_activities_mean', # hangs up during export
+                           'distinct_activities_mean',
                            'distinct_activities_std', 'event_density',
-                           #'distinct_activities_non_overlap', # throws many exceptions
-                           #'complexity_factor' # throws exception
-                           ]
+                           'distinct_activities_non_overlap',
+                           'complexity_factor']
     #####
     repetitions = ['n_traces_with_loop', 'avg_traces_with_loop', 'avg_loops_per_trace', 'max_loops_per_trace',
                    'avg_loop_size_per_trace', 'max_loop_size_per_trace', 'n_traces_with_repetition', 'avg_traces_with_repetition']
     #####
     comparison_based = ['number_of_successions', 'number_of_ties', 'structure', 'average_affinity',
                         'lempel_ziv_complexity', 'deviation_from_random',
-                        #'average_edit_distance' # waits for infinity
-                        ]
+                        'average_edit_distance']
     #####
-    dfg_based = [#'n_nodes_dfg', # throws exception
-                 #'n_edges_dfg', # throws exception
-                 #'coeff_of_connectivity_dfg', # throws exception
+    dfg_based = ['n_nodes_dfg',
+                 'n_edges_dfg',
+                 'coeff_of_connectivity_dfg',
                  'avg_node_degree_dfg', 'max_node_degree_dfg',
                  'density_dfg', 'structure_dfg', 'cyclomatic_number_dfg', 'n_cut_vertices_dfg', 'separability_ratio_dfg',
                  'sequentiality_ratio_dfg', 'cyclicity_dfg']
 
-    log_measures = comparison_based
+    log_measures = simple_stats
     generate_event_logs(log_measures)
