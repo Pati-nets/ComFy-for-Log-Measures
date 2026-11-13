@@ -3,6 +3,7 @@ import inspect
 import factor_analyzer.factor_analyzer as factor_analyzer_module
 from factor_analyzer.factor_analyzer import calculate_kmo, FactorAnalyzer
 from factor_analyzer.utils import corr as compute_correlation_matrix
+from scipy.linalg import qr
 from scipy.stats import chi2
 from sklearn.decomposition import FactorAnalysis, PCA
 from sklearn.preprocessing import StandardScaler
@@ -45,7 +46,7 @@ def find_variables_with_no_variance(data: pandas.DataFrame):
             to_remove += [column]
     return to_remove
 
-def find_perfectly_correlated_variables(data: pandas.DataFrame):
+def find_perfectly_correlated_variable_pairs(data: pandas.DataFrame):
     to_remove = []
     pairwise_absolute_correlations = data.corr().abs()
     columns = list(pairwise_absolute_correlations.columns)
@@ -59,6 +60,31 @@ def find_perfectly_correlated_variables(data: pandas.DataFrame):
                     if np.isclose(pairwise_absolute_correlations[row][column], 1.0):
                         print("The measure " + Constants.FAILURE_COLOR + str(column) + Constants.RESET_COLOR + " is perfectly correlated with the measure " + str(row) + ".")
                         to_remove += [column]
+    return to_remove
+
+def find_perfectly_correlated_variables(data: pandas.DataFrame):
+    correlation_matrix = data.corr().to_numpy()
+    # Check whether the correlation matrix contains invalid values
+    if not np.isfinite(correlation_matrix).all():
+        raise ValueError("The correlation matrix contains NaN or infinite values.")
+    # Determine the rank of the correlation matrix and the number of varialbes
+    rank = np.linalg.matrix_rank(correlation_matrix)
+    number_of_variables = correlation_matrix.shape[0]
+    # If the correlation matrix has full rank, no variables are linear dependent
+    if rank == number_of_variables:
+        return []
+
+    # Perform QR decomposition with column pivoting
+    Q, R, pivots = qr(correlation_matrix, pivoting=True, mode="economic")
+    # Identify a subset of linearly independent variables
+    independent_indices = pivots[:rank]
+    # Identify redundant variables
+    dependent_indices = pivots[rank:]
+    # Get the names of redundant variables
+    to_remove = data.columns[dependent_indices].tolist()
+
+    for variable in to_remove:
+        print("The measure " + Constants.FAILURE_COLOR + str(variable) + Constants.RESET_COLOR + " is linearly dependent on other measures.")
     return to_remove
 
 class ComplexityFactorAnalysis:
@@ -93,7 +119,8 @@ class ComplexityFactorAnalysis:
         self.zero_variance_variables = find_variables_with_no_variance(self.complexity_data)
         print("Removing variables with no variance...")
         self.complexity_data = self.complexity_data.drop(columns = self.zero_variance_variables)
-        self.correlated_variables = find_perfectly_correlated_variables(self.complexity_data)
+        self.correlated_variables = find_perfectly_correlated_variable_pairs(self.complexity_data)
+        self.correlated_variables += find_perfectly_correlated_variables(self.complexity_data)
         print("Removing variables that are correlated with others...")
         self.complexity_data = self.complexity_data.drop(columns = self.correlated_variables)
 
@@ -102,7 +129,7 @@ class ComplexityFactorAnalysis:
         # initialize a variable to store whether Bartlett's test of spericity succeeded.
         bartlett_ok = True
         # Bartlett's test needs log(det(correlation matrix)). We execute the test with the python library factor_analyzer, but avoiding log(det)--> NaN
-        
+
         correlation_matrix = compute_correlation_matrix(self.complexity_data)
         eigenvalues, eigenvectors = np.linalg.eigh(correlation_matrix)
         near_singular = eigenvalues < Constants.eigenvalue_floor
@@ -150,6 +177,15 @@ class ComplexityFactorAnalysis:
         return bartlett_ok
 
     def calculate_measure_of_sampling_adequacy(self):
+        print("Number of observations:", self.complexity_data.shape[0])
+        print("Number of variables:", self.complexity_data.shape[1])
+        print("Missing values:", self.complexity_data.isna().sum().sum())
+        print("Rows containing missing values:", self.complexity_data.isna().any(axis=1).sum())
+        corr_matrix = self.complexity_data.corr()
+        print("Matrix rank:", np.linalg.matrix_rank(corr_matrix))
+        print("Number of variables:", corr_matrix.shape[0])
+        from importlib.metadata import version
+        print(version("factor_analyzer"))
         # check if the data set does not contain any entries.
         if len(self.complexity_data) == 0:
             # if so, return a boolean indicating that the MSA is insufficient.
