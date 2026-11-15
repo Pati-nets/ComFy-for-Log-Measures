@@ -120,7 +120,7 @@ All results of the paper can be reproduced from the two measure files in `input/
 
 ### Recomputing the measure files from the event logs
 
-1. **Generated logs.** [`log-generator/event_log_generator.py`](log-generator/event_log_generator.py) writes one GEDI target file per measure to `log-generator/targets/` (`generate_targets`) and calls GEDI on each of them (`generate_event_logs`). This requires an installation of [GEDI](https://github.com/lmu-dbs/gedi).
-2. **Measures.** [`log-generator/measure_evaluator.py`](log-generator/measure_evaluator.py) computes the log measures with [FEEED](https://github.com/lmu-dbs/feeed) for all `.xes` files and writes `log_complexity_scores_<folder>.csv`.
+1. **Generated logs.** [`log-generator/event_log_generator.py`](log-generator/event_log_generator.py) writes one GEDI target file per measure to `log-generator/targets/` (`generate_targets`) and calls GEDI on each of them (`generate_event_logs`). This requires an installation of [GEDI](https://pypi.org/project/gedi/).
+2. **Measures.** [`log-generator/measure_evaluator.py`](log-generator/measure_evaluator.py) computes the log measures for all `.xes` files and writes `log_complexity_scores_<folder>.csv`.
 3. **PDC logs.** The training logs are available from the [Process Discovery Contest](https://www.tf-pm.org/competitions-awards/discovery-contest). The directory `input/` contains four examples. Running `python main.py` with the option to calculate the measures from `.xes` files computes the measure file for all logs in `input/`.
 
