@@ -37,12 +37,11 @@ This project pins an exact environment via conda/[Miniconda](https://docs.conda.
 4. **Run the analysis**:
 
    ```bash
-   python test.py
+   python main.py
    ```
 
-   This expects an input CSV at `./input/log_measures_all_pdc_training_logs.csv`
-   (one row per event log, one column per complexity measure). On success, it prints Bartlett's test and MSA diagnostics to the terminal and writes four
-   `.tex` files to `output/`.
+   See [Usage](#usage) for the interactive steps and
+   [Reproducing the paper](#reproducing-the-paper) for the exact settings used in the paper.
 
 ## Updating dependencies
 
@@ -58,7 +57,7 @@ Ensure that the `xes`-files or a `csv`-file containing the results of the log me
 For example, you can use the trainings logs from the process discovery contest, found at (https://www.tf-pm.org/competitions-awards/discovery-contest).
 Then, run the program by executing the following command:
 ```
-python3.12 main.py
+python main.py
 ```
 If the installation was successful, you will be greeted by the following sight:
 ![A screenshot showing the start of the program, where the user can select the measures they want to analyze](./images/comfy-logs-startup.png)
@@ -87,4 +86,32 @@ Regardless of the user's choice, ComFy will store the results of the factor anal
 Furthermore, if the values of the log measures were extracted from .xes files, it stores the raw complexity data in a `csv`-file for later reference or further investigations.
 ![A screenshot showing files in the output folder that result from the executed factor analysis](./images/comfy-logs-export.png)
 To see the LaTeX files stored during the analysis of the paper *Cleaning Up the Measure Mess: A Factor Analysis on Event Log Measures*, you may navigate to the folder `paper-results` inside the folder `output`.
+
+## Reproducing the paper
+
+All results of the paper can be reproduced from the two measure files in `input/`. The event logs themselves are only needed to recompute these files.
+
+| File | Content |
+|---|---|
+| `input/log_complexity_scores_gedi_generated_logs.csv` | Log measures of the 1450 event logs generated with GEDI |
+| `input/log_measures_all_pdc_training_logs.csv` | Log measures of the 2112 training logs of the Process Discovery Contest (PDC) 2020–2025 |
+
+### Mapping of results to scripts
+
+| Paper element | Command | Output |
+|---|---|---|
+| Factor analysis on the generated logs (dimensions, loadings, communalities, descriptive statistics) | `python main.py`: import the `.csv` file `input/log_complexity_scores_gedi_generated_logs.csv`, select all measures, 10 factors, `varimax` | `.tex`/`.pdf` files in `output/`. The files of the paper are in `output/paper-results/varimax/` |
+| Factor analysis with other rotations | same as above with one of the rotations `promax`, `oblimin`, `oblimax`, `quartimin`, `quartimax`, `equamax`, or `no rotation` | `output/paper-results/<rotation>/` (`no-rotation/` for `no rotation`) |
+| Fig. *First two principal components … with their convex hulls* (`fig:convex-hull`) | `python CompareLogSets.py` | `output/comparison/convex-hull-pca.png` |
+| Coverage numbers in *Comparison of Generated and PDC Event Logs* (125 measures, hull area ratio 5.0, 92.1% inside, 50% explained variance) | `python CompareLogSets.py` | printed to the terminal |
+| Tab. *Tucker's congruence* (`tab:congruence`) and the permutation test (199 permutations) | `python CompareLogSets.py` | Null range and p-value printed to the terminal: `output/comparison/factor-congruence.csv` |
+| Fig. *Distributions of the representative measures* (`fig:dimension-distributions`) and the per-dimension maxima | `python PlotDimensionDistributions.py input/log_complexity_scores_gedi_generated_logs.csv input/log_measures_all_pdc_training_logs.csv -o output/comparison/dimension-distributions.pdf` | Maxima printed to the terminal: `output/comparison/dimension-distributions.pdf`|
+
+`CompareLogSets.py` takes about 5 minutes because of the permutation test. Use `--permutations` to change their number.
+
+### Recomputing the measure files from the event logs
+
+1. **Generated logs.** [`log-generator/event_log_generator.py`](log-generator/event_log_generator.py) writes one GEDI target file per measure to `log-generator/targets/` (`generate_targets`) and calls GEDI on each of them (`generate_event_logs`). This requires an installation of [GEDI](https://github.com/lmu-dbs/gedi).
+2. **Measures.** [`log-generator/measure_evaluator.py`](log-generator/measure_evaluator.py) computes the log measures with [FEEED](https://github.com/lmu-dbs/feeed) for all `.xes` files and writes `log_complexity_scores_<folder>.csv`.
+3. **PDC logs.** The training logs are available from the [Process Discovery Contest](https://www.tf-pm.org/competitions-awards/discovery-contest). The directory `input/` contains four examples. Running `python main.py` with the option to calculate the measures from `.xes` files computes the measure file for all logs in `input/`.
 
