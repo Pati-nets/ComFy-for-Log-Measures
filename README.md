@@ -7,6 +7,15 @@ the measure of sampling adequacy (MSA/KMO) to check whether a factor analysis
 is appropriate, then performs the factor analysis itself and exports the
 results as `.tex` tables into `output/`.
 
+## Contents
+
+- [Installation (from scratch)](#installation-from-scratch)
+- [Updating dependencies](#updating-dependencies)
+- [Usage](#usage)
+- [Reproducing the paper](#reproducing-the-paper)
+  - [Mapping of results to scripts](#mapping-of-results-to-scripts)
+  - [Recomputing the measure files from the event logs](#recomputing-the-measure-files-from-the-event-logs)
+
 ## Installation (from scratch)
 
 This project pins an exact environment via conda/[Miniconda](https://docs.conda.io/en/latest/miniconda.html).
