@@ -10,3 +10,5 @@ dependencies:
       - factor-analyzer
       - feeed
       - scikit-learn
+      - scipy
+      - matplotlib
